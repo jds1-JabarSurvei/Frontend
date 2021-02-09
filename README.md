@@ -39,8 +39,8 @@ To create a production build, use npm run build.
 After that, just open `localhost:3000` in your web browser.
 
 ## Author
-Arif Rahman Amrul Ghani
-Hizbulloh Ash-Shidiqy
-Zaidan Naufal Sudrajat
-Rifaldy Astriya Kelana
-Ananda Yulizar Muhammad
+- Arif Rahman Amrul Ghani
+- Hizbulloh Ash-Shidiqy
+- Zaidan Naufal Sudrajat
+- Rifaldy Astriya Kelana
+- Ananda Yulizar Muhammad
