@@ -1,5 +1,8 @@
 import Navbar from 'components/common/Navbar';
 import Footer from 'components/common/Footer';
+
+// Pages
+import Example from 'pages/Example';
 import './App.css';
 
 function App() {
@@ -8,7 +11,7 @@ function App() {
       <Navbar />
       <div className="page-container">
         {/* Route and PrivateRoute go here */}
-        This is temporary landing page.
+        <Example />
       </div>
       <Footer />
     </div>
