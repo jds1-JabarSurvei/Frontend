@@ -16,6 +16,7 @@ class Login extends Component {
 
     handleChange = event => { 
         this.setState({ [event.target.name]: event.target.value });
+        this.setState({ isWrong : false });
     };
 
     handleSubmit = event => {
