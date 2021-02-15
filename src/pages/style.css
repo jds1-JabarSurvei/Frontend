@@ -95,3 +95,9 @@
     transition: .5s;
     cursor: pointer;
 }
+
+.wrong {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+}
