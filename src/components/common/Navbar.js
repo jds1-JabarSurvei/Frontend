@@ -16,9 +16,9 @@ const Navbar = () => {
             'Home',
             'Data',
             'Kontak'
-    ];
+        ];
     return (
-        <nav class="navbar navbar-expand-lg navbar-light">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light">
             <div class="container-fluid">
                 <div className="logo">
                     <a class="navbar-brand" href="#">
