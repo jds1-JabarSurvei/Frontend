@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import './style.css';
 
-class Login extends Component {
+class Register extends Component {
     state = {
         isVisible: false
     }
@@ -51,4 +51,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default Register;
