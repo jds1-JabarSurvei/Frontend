@@ -1,6 +1,16 @@
-.navbar {
-    background-color: blue;
-    height: 60px;
+nav {
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-collapse {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-align-right {
+    display: flex;
+    justify-content: flex-end;
+    /* border: 1px solid black; */
 }
 
 .footer {
