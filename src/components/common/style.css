@@ -1,8 +1,91 @@
-.navbar {
-    background-color: blue;
-    height: 60px;
+nav {
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.2);
+    background-color: white;
+}
+
+.navbar-collapse {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-align-right {
+    display: flex;
+    justify-content: flex-end;
+    /* border: 1px solid black; */
 }
 
 .footer {
-    background-color: green;
+    background-color: #EDEDED;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: #2F2F2F;
+    padding: 50px 20vw;
+}
+
+.footer a {
+    color: #2F2F2F;
+    text-decoration: none;
+}
+
+.footer-header {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+}
+
+.footer-general .logo {
+    margin-bottom: 30px;
+}
+
+.footer-links  a {
+    display: block;
+    margin: 5px 0;
+}
+
+.footer-links  a:hover {
+    cursor: pointer;
+    filter: brightness(150%);
+}
+
+.social-icon > * {
+    font-size: 35px;
+    margin: 0 5px;
+}
+
+.social-icon > *:hover {
+    cursor: pointer;
+    filter: brightness(110%);
+}
+
+.copyright {
+    background-color: black;
+    text-align: center;
+    color: #999;
+    padding: 10px;
+}
+
+@media only screen and (max-width: 992px) {
+    .footer {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .footer-links > div {
+        display: flex;
+    }
+
+    .footer-links > div > a {
+        margin: 0 5px;
+    }
+
+    .footer-header, .footer-general {
+        text-align: center;
+    }
+
+    .footer-header {
+        margin: 25px 0;
+    }
 }
