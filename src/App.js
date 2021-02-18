@@ -10,9 +10,8 @@ function App() {
       <Navbar />
       <div className="page-container">
         {/* Route and PrivateRoute go here */}
-        This is temporary landing page.
+        <Login />
       </div>
-      <Register/>
       <Footer />
     </div>
   );
