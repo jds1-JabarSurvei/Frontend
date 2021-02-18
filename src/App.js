@@ -1,7 +1,8 @@
 import Navbar from 'components/common/Navbar';
 import Footer from 'components/common/Footer';
-import Login from 'pages/Login';
-import Register from 'pages/Register';
+
+// Pages
+import Example from 'pages/Example';
 import './App.css';
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
       <Navbar />
       <div className="page-container">
         {/* Route and PrivateRoute go here */}
-        <Login />
+        <Example />
       </div>
       <Footer />
     </div>
