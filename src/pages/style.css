@@ -66,6 +66,7 @@
 
 .field .form-group {
     position: relative;
+    margin-bottom: 30px;
 }
 
 .field .form-group label {
@@ -98,4 +99,10 @@
     color: #999;
     transition: .5s;
     cursor: pointer;
+}
+
+.wrong {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
 }
