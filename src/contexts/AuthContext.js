@@ -1,20 +1,21 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-const AuthContext = createContext();
+export const AuthContext = createContext(); // Buat dipake di class component
 
+// BUat dipake di functional component / hooks
 export const useAuth = () => {
     return useContext(AuthContext);
 }
 
 const AuthContextProvider = (props) => {
-    const [currentUser, setCurrentUser] = useState();
+    const [currentUser, setCurrentUser] = useState('halo');
     const [loading, setLoading] = useState(true);
     const history = useHistory();
 
     useEffect(() => {
         authenticateLoggedIn();
-    }, []);
+    }, [currentUser]);
 
     const authenticateLoggedIn = async () => {
         // Di sini bakal diterapin untuk ngecek
@@ -27,8 +28,14 @@ const AuthContextProvider = (props) => {
         setLoading(false);
     }
 
+    const updateCurrentUser = (newUser) => {
+        // Nanti bakal ditambahin ditaro di local storage/cookies/dll
+        setCurrentUser(newUser);
+    }
+
     const value = {
         currentUser,
+        updateCurrentUser,
         loading
     }
 
