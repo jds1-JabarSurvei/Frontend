@@ -2,6 +2,7 @@ import React from 'react';
 import './style.css';
 import useWindowSize from 'hooks/useWindowSize';
 import Logo from 'assets/images/logo_jds.png';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const size = useWindowSize();
@@ -11,19 +12,19 @@ const Navbar = () => {
     const admin = true;
     // Link-link sementara, bakal bertambah seiring waktu
     const links = admin ? [
-        'Surveys',
+        { title: 'Surveys', path: '/' }
     ] : [
-            'Home',
-            'Data',
-            'Kontak'
+            { title: 'Home', path: '/' },
+            { title: 'Data', path: '/' },
+            { title: 'Kontak', path: '/' }
         ];
     return (
         <nav class="navbar fixed-top navbar-expand-lg navbar-light">
             <div class="container-fluid">
                 <div className="logo">
-                    <a class="navbar-brand" href="#">
-                        <img src={Logo} alt="" width={80} />
-                    </a>
+                    <Link class="navbar-brand" to="/">
+                        <img src={Logo} alt="" width={60} />
+                    </Link>
                 </div>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,8 +34,8 @@ const Navbar = () => {
                     <ul class="navbar-nav">
                         {links.map(link => {
                             return (
-                                <li class="nav-item" key={link}>
-                                    <a class="nav-link active" aria-current="page" href="#">{link}</a>
+                                <li class="nav-item" key={link.title}>
+                                    <Link class="nav-link active" aria-current="page" to={link.path}>{link.title}</Link>
                                 </li>
                             );
                         })}
