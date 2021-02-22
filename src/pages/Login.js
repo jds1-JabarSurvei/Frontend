@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import './style.css';
 import { AuthContext } from 'contexts/AuthContext';
+import APICall from '../utils/axios';
 
 const emailValidator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -42,16 +43,23 @@ class Login extends Component {
         const { email, password } = this.state;
         if (password != "") {
             // VALIDASINYA DISINI
-            if (email === "aa@gmail.com" && password === "aa") {
-                //Login
-                this.setState({ wrongPassword: false });
-
-                // Kalo berhasil, nanti masukin data user yang loggedin ke sini
-                this.context.updateCurrentUser('<INSERT_USER_DATA_HERE>');
-                this.props.history.push('/admin');
-            } else {
-                this.setState({ wrongPassword: true });
-            };
+            APICall.post(`login`, {
+                "email": email,
+                "password": password
+            })
+                .then(res => {
+                    /* If successful */
+                    if(res.data.login === "Success"){
+                        this.setState({ wrongPassword: false });
+                        this.context.updateCurrentUser(email);
+                        this.props.history.push('/admin');        
+                    } else {
+                        this.setState({ wrongPassword: true });
+                    }
+                }).catch(() => {
+                    /* If error */
+                    console.log("error");
+                })
         } else {
             this.setState({ wrongPassword: false });
         }
