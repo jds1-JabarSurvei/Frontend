@@ -9,7 +9,8 @@ import {
     faTwitterSquare,
     faLinkedin,
     faMedium
-} from '@fortawesome/free-brands-svg-icons'
+} from '@fortawesome/free-brands-svg-icons';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     // Links bakal tergantung lagi login admin atau tidak, bakal ngikut dari route
@@ -17,11 +18,11 @@ const Footer = () => {
     const admin = false;
     // Link-link sementara, bakal bertambah seiring waktu
     const links = admin ? [
-        'Surveys',
+        { title: 'Surveys', path: '/' }
     ] : [
-            'Home',
-            'Data',
-            'Kontak'
+            { title: 'Home', path: '/' },
+            { title: 'Data', path: '/' },
+            { title: 'Kontak', path: '/' }
         ];
 
     return (
@@ -29,9 +30,9 @@ const Footer = () => {
             <div className="footer">
                 <div className="footer-general">
                     <div className="logo">
-                        <a href="#">
+                        <Link to="/">
                             <img src={Logo} alt="" width={120} />
-                        </a>
+                        </Link>
                     </div>
                     <p className="footer-address">
                         Jabar Command Center <br />
@@ -50,7 +51,7 @@ const Footer = () => {
                     <div>
                         {links.map(link => {
                             return (
-                                <a href="#" key={link}>{link}</a>
+                                <Link to={link.path} key={link.title}>{link.title}</Link>
                             );
                         })}
                     </div>
