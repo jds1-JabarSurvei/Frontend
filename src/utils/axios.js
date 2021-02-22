@@ -1,10 +1,25 @@
-import axios from 'axios';
+import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
 const APICall = axios.create({
-    baseURL: process.env.REACT_APP_BACKEND_URL,
+  baseURL: process.env.REACT_APP_BACKEND_URL,
 });
+
+export const registerAPI = (email, password) => {
+  return new Promise((resolve, reject) => {
+    APICall.post("register", {
+      email: email,
+      password: password,
+    })
+      .then(function (response) {
+        resolve(response);
+      })
+      .catch(function (error) {
+        reject(error);
+      });
+  });
+};
 
 // For more complete documentation. search for 'npm axios'
 // Example Use:
