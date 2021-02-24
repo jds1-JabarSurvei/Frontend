@@ -3,7 +3,7 @@ import { registerAPI } from "utils/axios";
 import "./style.css";
 
 const emailValidator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
+// const handphoneNumberValidator = 
 class Register extends Component {
   state = {
     isVisible: false,
@@ -109,8 +109,29 @@ class Register extends Component {
         <div className="row content">
           <div className="col-md-12 line"></div>
           <div className="col-md-6 field">
-            <h3 className="register-text mb-3">Register</h3>
+            <h3 className="register-text mb-3">Daftar Akun Admin</h3>
             <form onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <input
+                  type="text"
+                  name="username"
+                  autoComplete="off"
+                  // onChange={this.handleEmail}
+                  // style={wrongEmail ? { borderBottom: `2px solid red` } : {}}
+                  required
+                />
+                <label for="username" 
+                  // style={wrongEmail ? { color: `red` } : {}}
+                  >
+                  Nama Pengguna
+                </label>
+                {/* <h6 className="wrong">
+                  {wrongEmail ? "Email must be a valid email" : ""}
+                </h6>
+                <h6 className="wrong">
+                  {emailHasExisted ? "Email has been used" : ""}
+                </h6> */}
+              </div>
               <div className="form-group">
                 <input
                   type="text"
@@ -124,11 +145,99 @@ class Register extends Component {
                   Email
                 </label>
                 <h6 className="wrong">
+                  {wrongEmail ? "Email harus memiliki format yang benar" : ""}
+                </h6>
+                <h6 className="wrong">
+                  {emailHasExisted ? "Email sudah digunakan" : ""}
+                </h6>
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  name="HPNumber"
+                  autoComplete="off"
+                  // onChange={this.handleEmail}
+                  // style={wrongEmail ? { borderBottom: `2px solid red` } : {}}
+                  required
+                />
+                <label for="HPNumber" 
+                  // style={wrongEmail ? { color: `red` } : {}}
+                  >
+                  No. Telepon
+                </label>
+                {/* <h6 className="wrong">
                   {wrongEmail ? "Email must be a valid email" : ""}
                 </h6>
                 <h6 className="wrong">
                   {emailHasExisted ? "Email has been used" : ""}
+                </h6> */}
+              </div>
+              {/* <form>
+  <input type="radio" id="male" name="gender" value="male">
+  <label for="male">Male</label><br>
+  <input type="radio" id="female" name="gender" value="female">
+  <label for="female">Female</label><br>
+  <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Other</label>
+</form> */}
+              <div className="form-group">
+                <input
+                  type="radio"
+                  id="male"
+                  name="gender"
+                  value="male"
+                  autoComplete="off"
+                  // onChange={this.handleEmail}
+                  // style={wrongEmail ? { borderBottom: `2px solid red` } : {}}
+                  required
+                />
+                <label for="male" 
+                  // style={wrongEmail ? { color: `red` } : {}}
+                  >
+                  Laki-laki
+                </label>
+                {/* <h6 className="wrong">
+                  {wrongEmail ? "Email must be a valid email" : ""}
                 </h6>
+                <h6 className="wrong">
+                  {emailHasExisted ? "Email has been used" : ""}
+                </h6> */}
+                <input
+                  type="radio"
+                  id="female"
+                  name="gender"
+                  value="female"
+                  autoComplete="off"
+                  // onChange={this.handleEmail}
+                  // style={wrongEmail ? { borderBottom: `2px solid red` } : {}}
+                  required
+                />
+                <label for="female" 
+                  // style={wrongEmail ? { color: `red` } : {}}
+                  >
+                  Perempuan
+                </label>
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  name="address"
+                  autoComplete="off"
+                  // onChange={this.handleEmail}
+                  // style={wrongEmail ? { borderBottom: `2px solid red` } : {}}
+                  required
+                />
+                <label for="alamt" 
+                // style={wrongEmail ? { color: `red` } : {}}
+                >
+                  Alamat
+                </label>
+                {/* <h6 className="wrong">
+                  {wrongEmail ? "Email must be a valid email" : ""}
+                </h6>
+                <h6 className="wrong">
+                  {emailHasExisted ? "Email has been used" : ""}
+                </h6> */}
               </div>
               <div className="form-group">
                 <input
@@ -143,7 +252,7 @@ class Register extends Component {
                   for="password"
                   style={wrongPassword ? { color: `red` } : {}}
                 >
-                  Password
+                  Kata Sandi
                 </label>
                 <i
                   className={`fa ${
@@ -160,7 +269,7 @@ class Register extends Component {
                 />
                 <h6 className="wrong">
                   {wrongPassword
-                    ? "Password must consist of at least 8 character"
+                    ? "Kata sandi minimal berisi 8 karakter"
                     : ""}
                 </h6>
               </div>
@@ -181,7 +290,7 @@ class Register extends Component {
                   for="confirm-password"
                   style={wrongConfirmPassword ? { color: `red` } : {}}
                 >
-                  Confirm Password
+                  Konfirmasi Kata Sandi
                 </label>
                 <i
                   className={`fa ${
@@ -198,13 +307,13 @@ class Register extends Component {
                 />
                 <h6 className="wrong">
                   {wrongConfirmPassword
-                    ? "confirm password must equal to password"
+                    ? "Kolom konfirmasi kata sandi harus sama dengan kata sandi"
                     : ""}
                 </h6>
               </div>
-              <input type="submit" name="register" value="register" />
+              <input type="submit" name="register" value="Daftarkan Akun" />
               <h6 className="wrong">
-                {submitSuccess ? "Account is successfully registered" : ""}
+                {submitSuccess ? "Akun berhasil didaftarkan" : ""}
               </h6>
             </form>
           </div>
