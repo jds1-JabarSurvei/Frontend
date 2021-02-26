@@ -4,20 +4,21 @@ import { useNewSurvey } from 'contexts/NewSurveyContext';
 import './style.css';
 
 const QuestionsTab = () => {
-    const { questions } = useNewSurvey();
+    const { sections } = useNewSurvey();
     return (
-        <>
-            {questions.map((section, idx) => {
+        <div className="sections">
+            {sections.map((section, idx) => {
                 return (
                     <Section
                         section={section}
                         idx={idx}
-                        length={questions.length}
+                        length={sections.length}
                         key={idx}
                     />
                 )
             })}
-        </>
+
+        </div>
     );
 }
 
