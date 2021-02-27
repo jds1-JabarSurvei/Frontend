@@ -8,10 +8,6 @@ import listView from 'assets/icons/list-view-icon.svg';
 import sort from 'assets/icons/sort-icon.svg';
 
 class SurveyMenu extends Component {
-    state = {
-        isGrid: true
-    }
-
     handleResize() {
         const surveyList = document.querySelector('.survey-list');
         const winHeight = window.innerHeight;
@@ -29,6 +25,12 @@ class SurveyMenu extends Component {
                 surveyMenu.style.boxShadow = `none`;
             }
         })
+
+        if(window.pageYOffset > winHeight - 65){
+            surveyList.style.marginTop = "100px";
+        } else {
+            surveyList.style.marginTop = "50px";
+        }
     }
 
     handleSearch() {
@@ -36,18 +38,17 @@ class SurveyMenu extends Component {
         window.scrollBy(0, countScroll)
     }
 
-
     componentDidMount(){
         window.addEventListener('resize', this.handleResize);
         this.handleResize();
     }
 
     render(){
-        const { isGrid } = this.state;
+        const { isGrid, handleView } = this.props;
         return(
             <>
             <form className="d-flex align-items-center flex-column ">
-                <input className="cari-survei form-control me-2" type="search" placeholder="Cari Survei" aria-label="Search" onKeyUp={this.handleSearch}/>
+                <input className="cari-survei form-control me-2 success" type="search" placeholder="Cari Survei" aria-label="Search" onKeyUp={this.handleSearch}/>
             </form>
             <div className="survey-menu">
                 <div className="container">
@@ -60,7 +61,7 @@ class SurveyMenu extends Component {
 
                         <div className="col-6 right">
                             <OverlayTrigger key="list" placement="bottom" overlay={<Tooltip id={`tooltip-bottom`}>Tampilan {isGrid ? "Daftar" : "Kartu"}</Tooltip>}>
-                                <img src={isGrid ? listView : gridView} alt="change-view"></img>
+                                <img src={isGrid ? listView : gridView} alt="change-view" onClick={handleView}></img>
                             </OverlayTrigger>
                             <OverlayTrigger key="sort" placement="bottom" overlay={<Tooltip id={`tooltip-bottom`}>Urutkan</Tooltip>}>
                                 <img src={sort} alt="urutkan"></img>
