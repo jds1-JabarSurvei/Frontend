@@ -7,6 +7,7 @@ import Login from 'pages/Login';
 import Register from 'pages/Register';
 import UserIndex from 'pages/user/Index';
 import AdminIndex from 'pages/admin/Index';
+import NewSurvey from 'pages/admin/NewSurvey';
 import NotFound from 'pages/NotFound';
 // Others
 import './App.css';
@@ -29,6 +30,7 @@ function App() {
                 <PrivateRoute exact path="/admin/register" component={Register} />
                 <Route exact path="/login" component={Login} />
                 <Route path="/" component={UserIndex} />
+                {/* <Route path="/" component={NewSurvey} /> */}
                 <Route component={NotFound} />
               </Switch>
 
