@@ -19,14 +19,18 @@
     position: relative;
 }
 
-.survey-menu img {
+.survey-menu img, .survey-menu i {
     height: 40px;
     padding: 10px;
     margin: 5px;
     cursor: pointer;
 }
 
-.survey-menu img:hover {
+.survey-menu i {
+    font-size: 20px;
+}
+
+.survey-menu img:hover, .survey-menu i:hover {
     border-radius: 5px;
     background-color: rgba(66,66,66,0.1);
     transition: .3s;
@@ -56,12 +60,43 @@ i {
 }
 
 .card img {
-    height: 100px;
+    height: 200px;
+    object-fit: cover;
+    box-sizing: border-box;
 }
 
+.card-title {
+    font-weight: bold;
+    font-size: 16px;
+    margin: 0;
+}
+
+.card-text {
+    font-size: 14px;
+
+}
 /* Survey List */
 .survey-list {
     margin-bottom: 50px;
 }
 
-/* Survey Table */
+/* Pagination */
+.pagination li {
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+    background-color: #777;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.menu-flex {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.status-menu {
+    margin: 15px;
+    font-weight: bold;
+}

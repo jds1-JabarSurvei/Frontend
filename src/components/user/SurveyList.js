@@ -8,22 +8,25 @@ class SurveyList extends Component {
     state = {
         // Data Dummy, yg ini nanti panggil API
         listSurvey: [
-            {id: 1, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:"https://source.unsplash.com/random"},
-            {id: 2, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:"https://source.unsplash.com/random"},
-            {id: 3, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:"https://source.unsplash.com/random"},
-            {id: 4, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:"https://source.unsplash.com/random"},
-            {id: 5, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:"https://source.unsplash.com/random"},
-            {id: 6, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:"https://source.unsplash.com/random"},
-            {id: 7, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:"https://source.unsplash.com/random"},
-            {id: 8, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:"https://source.unsplash.com/random"},
-            {id: 9, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:"https://source.unsplash.com/random"},
-            {id: 10, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:"https://source.unsplash.com/random"}
+            {id: 1, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:""},
+            {id: 2, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:""},
+            {id: 3, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:""},
+            {id: 4, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:""},
+            {id: 5, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:""},
+            {id: 6, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:""},
+            {id: 7, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:""},
+            {id: 8, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:""},
+            {id: 9, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:""},
+            {id: 10, title:"Judul Survei", owner:"Jabar Digital Service", imagesource:""}
         ],
         // Untuk tampilan List-View atau Grid View
         isGrid: true,
 
         // Untuk tambahan menu Action pada page Admin
-        isAdmin: false
+        isAdmin: false,
+
+        // Sort
+        isAscending: true
     }
 
     handleView = () => {
@@ -31,20 +34,24 @@ class SurveyList extends Component {
         this.setState({ isGrid : !isGrid });
     }
 
+    handleSort = () => {
+        const { isAscending } = this.state;
+        this.setState({ isAscending : !isAscending });
+    }
+
 
     render(){
-        const { isGrid, listSurvey } = this.state;
-        const { handleView } = this;
+        const { isGrid, listSurvey, isAscending } = this.state;
+        const { handleView, handleSort } = this;
 
         return(
             <>
-            <SurveyMenu isGrid={isGrid} handleView={handleView} />
+            <SurveyMenu isGrid={isGrid} isAscending={isAscending} handleView={handleView} handleSort={handleSort} />
             <div className="container">
                 {   listSurvey.length > 0 ?
                     isGrid ? 
                         <div className="survey-list row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
                             {listSurvey.map(survey => {
-                                console.log(listSurvey.length);
                                 return(
                                     <SurveyCard id={survey.id} title={survey.title} owner={survey.owner} imagesource={survey.imagesource}/>
                                 )
