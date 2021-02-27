@@ -5,7 +5,6 @@ import "./style.css";
 const emailValidator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const handphoneNumberValidator = /[^0-9]/;
 const usernameValidator = /[0-9]/;
-// const validator untuk tanggal lahir misal februari g mungkin >28
 
 class Register extends Component {
   state = {
@@ -95,7 +94,7 @@ class Register extends Component {
 
   handleConfirmPassword = (event) => {
     this.setState({ confirmPassword: event.target.value });
-    if (this.state.password != event.target.value) {
+    if (this.state.password != event.target.value && event.target.value != "") {
       this.setState({ wrongConfirmPassword: true });
     } else {
       this.setState({ wrongConfirmPassword: false });
@@ -136,191 +135,174 @@ class Register extends Component {
       submitSuccess,
     } = this.state;
     return (
-      <div className="container">
-        <div className="row content">
+      
+        <div className="row contentR">
           <div className="col-md-12 line"></div>
-          <div className="col-md-6 field">
-            <h3 className="register-text mb-3">Daftar Akun Admin</h3>
+          <div className="col-md-6 fieldR">
+            <h3 className="register-text mb-3">Daftar Akun Admin</h3><br></br>
             <form onSubmit={this.handleSubmit}>
               <div className="form-group">
+                <label for="username">
+                  Nama
+                </label>
                 <input
                   type="text"
                   name="username"
+                  className="form-control"
                   autoComplete="off"
                   onChange={this.handleUsername}
-                  style={wrongUsername ? { borderBottom: `2px solid red` } : {}}
                   required
                 />
-                <label for="username" 
-                  style={wrongUsername ? { color: `red` } : {}}
-                  >
-                  Nama
-                </label>
-                <h6 className="wrong">
+                <h6 className="wrongR">
                   {wrongUsername ? "Nama tidak boleh mengandung angka" : ""}
                 </h6>
               </div>
               <div className="form-group">
+                <label for="email" 
+                >
+                  Email
+                </label>
                 <input
                   type="text"
                   name="email"
+                  className="form-control"
                   autoComplete="off"
                   onChange={this.handleEmail}
-                  style={wrongEmail ? { borderBottom: `2px solid red` } : {}}
                   required
                 />
-                <label for="email" style={wrongEmail ? { color: `red` } : {}}>
-                  Email
-                </label>
-                <h6 className="wrong">
+                <h6 className="wrongR">
                   {wrongEmail ? "Email harus memiliki format yang benar" : ""}
                 </h6>
-                <h6 className="wrong">
+                <h6 className="wrongR">
                   {emailHasExisted ? "Email sudah digunakan" : ""}
                 </h6>
               </div>
-              <div className="form-group">
-                <label for="birthdate">
-                  Tanggal Lahir
-                </label>
-                <input type="date" id="birthdate" name="birthdate"></input>
+              <div className="form-group mb-3">
+                <h7 className="mb-5" style={{fontSize: "20px"}}>Tanggal Lahir</h7><br></br>
+                <input type="date" className="mt-2 mb-3" 
+                style={{border:`1px solid #ced4da`}} 
+                id="birthdate" name="birthdate" required></input>
               </div>
+
               <div className="form-group">
-                <input
+                <h7 style={{fontSize: "20px"}}>Jenis Kelamin</h7><br></br>
+                <div className="form-check form-check-inline">
+                  <input
+                  className="form-check-input mt-1"
                   type="radio"
                   id="male"
                   name="gender"
                   value="male"
-                  autoComplete="off"
+                  autoCorrect="off"
+                  style={{paddingBottom: "30px"}}
                   required
-                />
-                <label for="male" 
+                  />
+                  <label className="form-check-label mt-1 mr-5"
+                  for="male"
+                  style={{fontSize:"16px"}}
                   >
-                  Laki-laki
-                </label>
-                <input
+                    Laki-laki
+                  </label>
+                </div>
+                <div 
+                className="form-check form-check-inline"
+                >
+                  <input
+                  className="form-check-input ml-5"
                   type="radio"
                   id="female"
                   name="gender"
                   value="female"
-                  autoComplete="off"
-                  required
-                />
-                <label for="female" 
+                  autoCorrect="off"
+                  />
+                  <label className="form-check-label"
+                   style={{fontSize:"16px"}}
+                   for="female"
                   >
-                  Perempuan
-                </label>
+                    Perempuan
+                  </label>
+                </div>
               </div>
+
               <div className="form-group">
-                <input
-                  type="text"
-                  name="HPNumber"
-                  autoComplete="off"
-                  onChange={this.handleNumber}
-                  style={wrongNumber ? { borderBottom: `2px solid red` } : {}}
-                  required
-                />
                 <label for="HPNumber" 
-                  style={wrongNumber ? { color: `red` } : {}}
                   >
                   No. Telepon
                 </label>
-                <h6 className="wrong">
+                <input
+                  type="text"
+                  name="HPNumber"
+                  className="form-control"
+                  autoComplete="off"
+                  onChange={this.handleNumber}
+                  required
+                />
+                
+                <h6 className="wrongR">
                   {wrongNumber ? "Nomor telepon tidak boleh mengandung huruf dan harus mengandung antara 10-12 angka" : ""}
                 </h6>
               </div>              
               <div className="form-group">
-                <input
-                  type="text"
-                  name="address"
-                  autoComplete="off"
-                  required
-                />
-                <label for="alamat" 
+              <label for="alamat" 
                 >
                   Alamat
                 </label>
-              </div>
-              <div className="form-group">
-                <input
-                  type={isVisible ? "text" : "password"}
-                  name="password"
+                <textarea
+                  name="address"
+                  className="form-control"
                   autoComplete="off"
-                  style={wrongPassword ? { borderBottom: `2px solid red` } : {}}
-                  onChange={this.handlePassword}
+                  rows="3"
                   required
                 />
+                
+              </div>
+              <div className="form-group">
                 <label
                   for="password"
-                  style={wrongPassword ? { color: `red` } : {}}
                 >
                   Kata Sandi
                 </label>
-                <i
-                  className={`fa ${
-                    isVisible ? "fa-eye" : "fa-eye-slash"
-                  } password-icon`}
-                  style={
-                    isVisible
-                      ? wrongPassword
-                        ? { color: "red" }
-                        : { color: "#198754" }
-                      : { color: "#999" }
-                  }
-                  onClick={this.toggleVisiblity}
+                <input
+                  type={isVisible ? "text" : "password"}
+                  name="password"
+                  className="form-control"
+                  autoComplete="off"
+                  onChange={this.handlePassword}
+                  required
                 />
-                <h6 className="wrong">
+                <h6 className="wrongR">
                   {wrongPassword
                     ? "Kata sandi minimal berisi 8 karakter"
                     : ""}
                 </h6>
               </div>
               <div className="form-group">
+                <label
+                  for="confirm-password"
+                  >
+                  Konfirmasi Kata Sandi
+                </label>
                 <input
                   type={isVisible ? "text" : "password"}
                   name="confirm-password"
+                  className="form-control"
                   autoComplete="off"
-                  style={
-                    wrongConfirmPassword
-                      ? { borderBottom: `2px solid red` }
-                      : {}
-                  }
                   onChange={this.handleConfirmPassword}
                   required
                 />
-                <label
-                  for="confirm-password"
-                  style={wrongConfirmPassword ? { color: `red` } : {}}
-                >
-                  Konfirmasi Kata Sandi
-                </label>
-                <i
-                  className={`fa ${
-                    isVisible ? "fa-eye" : "fa-eye-slash"
-                  } password-icon`}
-                  style={
-                    isVisible
-                      ? wrongConfirmPassword
-                        ? { color: "red" }
-                        : { color: "#198754" }
-                      : { color: "#999" }
-                  }
-                  onClick={this.toggleVisiblity}
-                />
-                <h6 className="wrong">
+                <h6 className="wrongR">
                   {wrongConfirmPassword
                     ? "Kolom konfirmasi kata sandi harus sama dengan kata sandi"
                     : ""}
                 </h6>
               </div>
-              <input type="submit" name="register" value="Daftarkan Akun" />
-              <h6 className="wrong">
+              <input type="submit" className="mt-3" style={{border:"none"}} name="register" value="Daftarkan Akun" />
+              <h6 className="wrongR">
                 {submitSuccess ? "Akun berhasil didaftarkan" : ""}
               </h6>
             </form>
-          </div>
-        </div>
-      </div>
+           </div>
+         </div>
     );
   }
 }
