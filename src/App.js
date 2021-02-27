@@ -29,8 +29,8 @@ function App() {
                 <PrivateRoute exact path="/admin" component={AdminIndex} />
                 <PrivateRoute exact path="/admin/register" component={Register} />
                 <Route exact path="/login" component={Login} />
-                {/* <Route path="/" component={UserIndex} /> */}
-                <Route path="/" component={NewSurvey} />
+                <Route path="/" component={UserIndex} />
+                {/* <Route path="/" component={NewSurvey} /> */}
                 <Route component={NotFound} />
               </Switch>
 
