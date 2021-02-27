@@ -9,8 +9,8 @@ import { useNewSurvey } from 'contexts/NewSurveyContext';
 
 
 const Question = ({ question, sectionIdx, questionIdx }) => {
-    const { activeSection, activeQuestion, updateActiveQuestion, deleteQuestion } = useNewSurvey();
-    const questionTypes = {
+    const { questionTypes, activeSection, activeQuestion, updateActiveQuestion, deleteQuestion, updateQuestion } = useNewSurvey();
+    const questionComponents = {
         short: Short,
         paragraph: Paragraph,
         checkbox: Checkbox,
@@ -21,18 +21,45 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
     }
 
     const onDelete = () => {
-        console.log('Delete Question');
         deleteQuestion(sectionIdx, questionIdx);
     }
 
-    let RenderedQuestion = questionTypes[question.type];
+    const updateTitle = (e) => {
+        let newQuestion = { ...question };
+        newQuestion.title = e.target.value;
+
+        updateQuestion(sectionIdx, questionIdx, newQuestion);
+    }
+
+    const updateType = (e) => {
+        let newQuestion = { ...question };
+        newQuestion.type = e.target.value;
+        newQuestion.options = ['Option A'];
+
+        updateQuestion(sectionIdx, questionIdx, newQuestion);
+    }
+
+    let RenderedQuestion = questionComponents[question.type];
     return (
         <div className="question-container" onClick={toggleActive}>
             {activeSection === sectionIdx && activeQuestion === questionIdx ?
                 <ToolBar /> : null
             }
 
-            <div className="question-title">{question.title}</div>
+            {activeSection === sectionIdx && activeQuestion === questionIdx ?
+                <div className="edit-question">
+                    <input type="text" defaultValue={question.title} onBlur={updateTitle} />
+                    <select defaultValue={question.type} onChange={updateType}>
+                        {questionTypes.map(type => {
+                            return (
+                                <option value={type} key={type}>{type}</option>
+                            )
+                        })}
+                    </select>
+                </div>
+                : <div className="question-title">{question.title}</div>
+            }
+
             <RenderedQuestion question={question} />
             <hr />
             <div className="question-setting">

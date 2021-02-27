@@ -9,6 +9,7 @@ export const useNewSurvey = () => {
 const NewSurveyContextProvider = (props) => {
     const [activeSection, setActiveSection] = useState(0);
     const [activeQuestion, setActiveQuestion] = useState(-1);
+    const questionTypes = ['short', 'paragraph', 'checkbox']
     const [sections, setSections] = useState([
         {
             title: 'Untitled Form',
@@ -105,15 +106,23 @@ const NewSurveyContextProvider = (props) => {
         setActiveQuestion(questionIdx);
     }
 
+    const updateQuestion = (sectionIdx, questionIdx, newQuestion) => {
+        let tempSections = [...sections];
+        tempSections[sectionIdx].questions.splice(questionIdx, 1, newQuestion);
+        setSections(tempSections);
+    }
+
     const value = {
         sections,
         activeSection,
         activeQuestion,
+        questionTypes,
         addSection,
         deleteSection,
         updateActiveQuestion,
         addQuestion,
-        deleteQuestion
+        deleteQuestion,
+        updateQuestion,
     }
 
     return (
