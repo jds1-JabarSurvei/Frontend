@@ -24,6 +24,14 @@
     overflow: hidden;
 }
 
+.contentR {
+    margin: 15% 20%;
+    background-color: #fff;
+    border-radius: .5rem;
+    box-shadow: 0 0 5px 5px rgba(0,0,0,.05);
+    justify-content: center;
+    overflow: hidden;
+}
 .field {
     padding: 4rem 1rem;
 }
@@ -106,3 +114,85 @@
     font-size: 12px;
     margin-top: -10px;
 }
+
+.wrongR {
+    color: red;
+    font-size: 12px;
+    /* margin-top: -10px; */
+}
+
+.fieldR {
+    padding: 4rem 1rem;
+}
+
+.fieldR form input {
+    /* width: 100%; */
+    box-sizing: border-box;
+    box-shadow: none;
+    outline: none;
+    font-size: 14px;
+    padding: 10px;
+    /* margin-bottom: 20px; */
+}
+
+.fieldR form input[type="submit"]{
+    border-bottom: none;
+    cursor: pointer;
+    background: #198754;
+    color: white;
+    text-transform: uppercase;
+    border-radius: .5rem;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.fieldR form h5 {
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+    margin: 0;
+}
+
+.fieldR form h5 a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #198754;
+}
+
+.fieldR .form-group {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.fieldR .form-group label {
+    /* position: absolute; */
+    top: 10px;
+    left: 0;
+    /* color: #999; */
+    font-size: 20px;
+    transition: .5s;
+    pointer-events: none;
+}
+
+/* .fieldR input:focus ~ label,
+.fieldR input:valid ~ label {
+    top: -12px;
+    left: 0;
+    color:#198754;
+    font-size: 12px;
+    font-weight: bold;
+} */
+
+/* .fieldR input:focus, 
+.fieldR input:valid {
+    border-bottom: 2px solid#198754;
+} */
+
+/* .fieldR form i {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    color: #999;
+    transition: .5s;
+    cursor: pointer;
+} */

@@ -33,7 +33,6 @@ function App() {
                 {/* <Route path="/" component={NewSurvey} /> */}
                 <Route component={NotFound} />
               </Switch>
-
             </div>
             <Footer />
           </div>
