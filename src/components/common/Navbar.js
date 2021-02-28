@@ -1,49 +1,63 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './style.css';
-import useWindowSize from 'hooks/useWindowSize';
 import Logo from 'assets/images/logo_jds.png';
 import { Link } from 'react-router-dom';
 
-const Navbar = () => {
-    const size = useWindowSize();
+class Navbar extends Component {
+    state = {
+        admin: true,
+        openToggle: false
+    }
 
-    // Links bakal tergantung lagi login admin atau tidak, bakal ngikut dari route
-    // Sekarang pake dummy begini dulu
-    const admin = true;
-    // Link-link sementara, bakal bertambah seiring waktu
-    const links = admin ? [
-        { title: 'Surveys', path: '/' }
-    ] : [
-            { title: 'Home', path: '/' },
-            { title: 'Data', path: '/' },
-            { title: 'Kontak', path: '/' }
-        ];
-    return (
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light">
-            <div class="container-fluid">
-                <div className="logo">
-                    <Link class="navbar-brand" to="/">
-                        <img src={Logo} alt="" width={60} />
-                    </Link>
-                </div>
+    handleToggle = () => {
+        const { openToggle } = this.state;
+        this.setState({ openToggle : !openToggle });
+    }
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class={`collapse navbar-collapse ${size.width < 992 ? "" : "nav-align-right"}`} id="navbarNav">
-                    <ul class="navbar-nav">
-                        {links.map(link => {
-                            return (
-                                <li class="nav-item" key={link.title}>
-                                    <Link class="nav-link active" aria-current="page" to={link.path}>{link.title}</Link>
-                                </li>
-                            );
-                        })}
-                    </ul>
+    render() {
+        // Links bakal tergantung lagi login admin atau tidak, bakal ngikut dari route
+        // Sekarang pake dummy begini dulu
+        const { admin, openToggle } = this.state;
+
+        // Link-link sementara, bakal bertambah seiring waktu
+        const links = admin ? [
+            { title: 'LOGIN', path: '/' }
+        ] : [
+                { title: 'Home', path: '/' },
+                { title: 'Data', path: '/' },
+                { title: 'Kontak', path: '/' }
+            ];
+        return (
+            <>
+            <nav className="navbar fixed-top navbar-expand-lg navbar-light">
+                <div className="container container-fluid">
+                        <div className="logo">
+                            <Link className="navbar-brand " to="/">
+                                <img src={Logo} alt="" width={100} />
+                            </Link>
+                        </div>
+    
+                        <button className="navbar-toggler" type="button" onClick={this.handleToggle}>
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div className={`collapse navbar-collapse d-flex flex-column flex-lg-row flex-xl-row justify-content-lg-end mobileMenu p-3 p-lg-0 mt-lg-0 ${openToggle ? "open" : ""}`} id="navbarNavAltMarkup" >
+                            <ul className="navbar-nav align-self-stretch">
+                                {links.map(link => {
+                                    return(
+                                        <li className="nav-item" key={link.title}>
+                                            <Link className="nav-link active" aria-current="page" to={link.path}>{link.title}</Link>
+                                        </li>
+                                    );
+                                    
+                                })}
+                            </ul>
+                        </div>
                 </div>
-            </div>
-        </nav>
-    );
-}
+            </nav>
+            <div className="overlay" style={ openToggle ? {display : "block"} : {display : "none"}} onClick={this.handleToggle}></div>
+            </>
+        );
+    }
+}    
 
 export default Navbar;
