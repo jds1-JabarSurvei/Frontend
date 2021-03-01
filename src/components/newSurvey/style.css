@@ -63,6 +63,10 @@
     position: relative;
 }
 
+.active-question {
+    border-left: 7.5px solid var(--green);
+}
+
 .toolbar {
     box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.2);
     background-color: white;
@@ -92,6 +96,17 @@
     padding: 5px 0;
 }
 
+.edit-section {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.edit-section input {
+    font-size: 1.5rem;
+    margin-bottom: 2px;
+}
+
 .edit-question {
     width: 100%;
 }
@@ -105,6 +120,7 @@
     font-size: 1.1rem;
     padding: 5px 25px;
     float: right;
+    overflow-y: auto;
 }
 
 .question-container hr {
@@ -139,4 +155,8 @@
 
 .slider {
     margin: 0 15px;
+}
+
+.add-option label:hover {
+    cursor: pointer;
 }

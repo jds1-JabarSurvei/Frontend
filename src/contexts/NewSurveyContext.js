@@ -9,7 +9,6 @@ export const useNewSurvey = () => {
 const NewSurveyContextProvider = (props) => {
     const [activeSection, setActiveSection] = useState(0);
     const [activeQuestion, setActiveQuestion] = useState(-1);
-    const questionTypes = ['short', 'paragraph', 'checkbox']
     const [sections, setSections] = useState([
         {
             title: 'Untitled Form',
@@ -23,13 +22,6 @@ const NewSurveyContextProvider = (props) => {
                     options: [],
                 },
                 {
-                    type: 'short',
-                    title: 'Short Question',
-                    description: 'Question description 2',
-                    required: true,
-                    options: [],
-                },
-                {
                     type: 'checkbox',
                     title: 'Checkbox Question',
                     description: '',
@@ -38,7 +30,17 @@ const NewSurveyContextProvider = (props) => {
                         'Option A',
                         'Option B',
                     ]
-                }
+                },
+                {
+                    type: 'radio',
+                    title: 'Radio Question',
+                    description: 'Question description 2',
+                    required: true,
+                    options: [
+                        'Option A',
+                        'Option B',
+                    ]
+                },
             ]
         },
         {
@@ -83,6 +85,12 @@ const NewSurveyContextProvider = (props) => {
         setSections(tempSections);
     }
 
+    const updateSection = (sectionIdx, newSection) => {
+        let tempSections = [...sections];
+        tempSections.splice(sectionIdx, 1, newSection);
+        setSections(tempSections);
+    }
+
     const addQuestion = () => {
         let tempSections = [...sections];
         tempSections[activeSection].questions.splice(activeQuestion + 1, 0, {
@@ -116,9 +124,9 @@ const NewSurveyContextProvider = (props) => {
         sections,
         activeSection,
         activeQuestion,
-        questionTypes,
         addSection,
         deleteSection,
+        updateSection,
         updateActiveQuestion,
         addQuestion,
         deleteQuestion,
