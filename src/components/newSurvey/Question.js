@@ -5,6 +5,7 @@ import ToolBar from './ToolBar';
 import Short from './questionTypes/Short';
 import Paragraph from './questionTypes/Paragraph';
 import MultipleAnswer from './questionTypes/MultipleAnswer';
+import LinearScale from './questionTypes/LinearScale';
 import { useNewSurvey } from 'contexts/NewSurveyContext';
 import {
     Switch,
@@ -18,6 +19,7 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
         paragraph: Paragraph,
         checkbox: MultipleAnswer,
         radio: MultipleAnswer,
+        linear: LinearScale,
     }
 
     const toggleActive = () => {

@@ -160,3 +160,14 @@
 .add-option label:hover {
     cursor: pointer;
 }
+
+.linear-question {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    width: 150px;
+}
+
+.linear-question select {
+    border: none;
+}
