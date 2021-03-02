@@ -188,34 +188,32 @@ class Register extends Component {
                 <h7 style={{fontSize: "20px"}}>Jenis Kelamin</h7><br></br>
                 <div className="form-check form-check-inline">
                   <input
-                  className="form-check-input mt-1"
+                  className="form-check-input mt-1 mr-5"
                   type="radio"
                   id="male"
                   name="gender"
                   value="male"
                   autoCorrect="off"
-                  style={{paddingBottom: "30px"}}
                   required
                   />
                   <label className="form-check-label mt-1 mr-5"
                   for="male"
                   style={{fontSize:"16px"}}
-                  >
-                    Laki-laki
+                  >Laki-laki
                   </label>
                 </div>
                 <div 
                 className="form-check form-check-inline"
                 >
                   <input
-                  className="form-check-input ml-5"
+                  className="form-check-input mt-1"
                   type="radio"
                   id="female"
                   name="gender"
                   value="female"
                   autoCorrect="off"
                   />
-                  <label className="form-check-label"
+                  <label className="form-check-label mt-1"
                    style={{fontSize:"16px"}}
                    for="female"
                   >
