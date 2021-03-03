@@ -55,7 +55,7 @@ class SurveyMenu extends Component {
         return(
             <>
             <form className="d-flex align-items-center flex-column ">
-                <input className="cari-survei form-control me-2" type="search" placeholder="Cari Survei" aria-label="Search" onKeyUp={this.handleSearch}/>
+                <input className="cari-survei form-control me-2" type="search" placeholder="Cari Survei" aria-label="Search" onChange={this.handleSearch}/>
             </form>
             <div className="survey-menu">
                 <div className="container">
