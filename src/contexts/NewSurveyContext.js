@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const NewSurveyContext = createContext();
 
@@ -7,7 +9,7 @@ export const useNewSurvey = () => {
 }
 
 const NewSurveyContextProvider = (props) => {
-    const [activeSection, setActiveSection] = useState(0);
+    const [activeSection, setActiveSection] = useState(-1);
     const [activeQuestion, setActiveQuestion] = useState(-1);
     const [sections, setSections] = useState([
         {
@@ -15,8 +17,8 @@ const NewSurveyContextProvider = (props) => {
             description: 'Form Description -> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
             questions: [
                 {
-                    type: 'linear',
-                    title: 'Linear Question',
+                    type: 'address',
+                    title: 'Address Question',
                     description: 'Question description',
                     required: true,
                     options: [],
@@ -74,6 +76,7 @@ const NewSurveyContextProvider = (props) => {
             ],
         });
         setSections(tempSections);
+        toast('New Section Added');
     }
 
     const deleteSection = (sectionIdx) => {
@@ -83,6 +86,7 @@ const NewSurveyContextProvider = (props) => {
         let tempSections = [...sections];
         tempSections.splice(sectionIdx, 1);
         setSections(tempSections);
+        toast.error('Section deleted');
     }
 
     const updateSection = (sectionIdx, newSection) => {
@@ -101,6 +105,7 @@ const NewSurveyContextProvider = (props) => {
             options: [],
         });
         setSections(tempSections);
+        toast('New Question Added');
     }
 
     const deleteQuestion = (sectionIdx, questionIdx) => {
@@ -136,6 +141,17 @@ const NewSurveyContextProvider = (props) => {
     return (
         <NewSurveyContext.Provider value={value}>
             {props.children}
+            <ToastContainer
+                position="bottom-right"
+                autoClose={3000}
+                hideProgressBar
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss={false}
+                draggable
+                pauseOnHover
+            />
         </NewSurveyContext.Provider>
     )
 }

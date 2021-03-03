@@ -1,15 +1,16 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import ToolBar from './ToolBar';
 import Short from './questionTypes/Short';
 import Paragraph from './questionTypes/Paragraph';
 import MultipleAnswer from './questionTypes/MultipleAnswer';
 import LinearScale from './questionTypes/LinearScale';
+import Address from './questionTypes/Address';
 import { useNewSurvey } from 'contexts/NewSurveyContext';
-import {
-    Switch,
-} from 'antd';
+import { capitalizeFirstLetter } from 'utils/typography';
+import Switch from "react-switch";
+
 
 
 const Question = ({ question, sectionIdx, questionIdx }) => {
@@ -20,6 +21,7 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
         checkbox: MultipleAnswer,
         radio: MultipleAnswer,
         linear: LinearScale,
+        address: Address
     }
 
     const toggleActive = () => {
@@ -45,6 +47,13 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
         updateQuestion(sectionIdx, questionIdx, newQuestion);
     }
 
+    const updateRequired = (checked) => {
+        let newQuestion = { ...question };
+        newQuestion.required = checked;
+
+        updateQuestion(sectionIdx, questionIdx, newQuestion);
+    }
+
     const isActive = () => {
         return activeSection === sectionIdx && activeQuestion === questionIdx;
     }
@@ -54,13 +63,13 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
         <div className={isActive() ? "question-container active-question" : "question-container"} onClick={toggleActive}>
             {isActive() ?
                 <>
-                    <ToolBar />
+
                     <div className="edit-question">
                         <input type="text" defaultValue={question.title} onBlur={updateTitle} />
                         <select defaultValue={question.type} onChange={updateType}>
                             {Object.keys(questionComponents).map(type => {
                                 return (
-                                    <option value={type} key={type}>{type}</option>
+                                    <option value={type} key={type}>{capitalizeFirstLetter(type)}</option>
                                 )
                             })}
                         </select>
@@ -70,18 +79,34 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
             }
 
             <RenderedQuestion question={question} sectionIdx={sectionIdx} questionIdx={questionIdx} />
-            <hr />
-            <div className="question-setting">
-                <div className='delete-icon' onClick={onDelete}><FontAwesomeIcon
-                    color="#5F6368"
-                    icon={faTrash}
-                /></div>
-                <div className='required'>Required</div>
-                <div className='slider'>
-                    <Switch defaultChecked={question} />
-                </div>
-                <div className='additional-settings'>I</div>
-            </div>
+            {isActive() ?
+                <>
+                    <hr />
+                    <div className="question-setting">
+                        <div className='question-icon' onClick={onDelete}><FontAwesomeIcon
+                            color="#5F6368"
+                            icon={faTrash}
+                        /></div>
+                        <div className='required'>Required</div>
+                        <div className='slider'>
+                            <Switch
+                                onChange={updateRequired}
+                                checked={question.required}
+                                checkedIcon={false}
+                                uncheckedIcon={false}
+                                onColor='#399F4F'
+                            />
+                        </div>
+                        <div className='additional-settings'>
+                            <div className='question-icon'><FontAwesomeIcon
+                                color="#5F6368"
+                                icon={faEllipsisV}
+                            /></div>
+                        </div>
+                    </div>
+                    <ToolBar />
+                </>
+                : null}
         </div>
     );
 }

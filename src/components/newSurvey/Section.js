@@ -35,6 +35,7 @@ const Section = ({ section, idx, length }) => {
 
     return (
         <div className="section-container">
+            {activeSection === idx ? <button className="remove-section" onClick={onRemove}>Remove Section</button> : null}
             <div className="section-header" onClick={toggleActive}>
                 <div className="section-count">Section {idx + 1} of {length}</div>
                 <div className={isActive() ?
@@ -71,7 +72,7 @@ const Section = ({ section, idx, length }) => {
                     />
                 )
             })}
-            <button className="remove-section" onClick={onRemove}>Remove Section</button>
+
         </div>
     );
 }

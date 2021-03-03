@@ -32,14 +32,14 @@ const MultipleAnswer = ({ question, sectionIdx, questionIdx }) => {
                     <div className="multiple-choice-option" key={option}>
                         {idx === activeOption ?
                             <>
-                                <label><input value={true} type={question.type} name={option} value={option} />
+                                <label><input value={true} disabled type={question.type} name={option} value={option} />
                                     <input type="text" defaultValue={option} onBlur={(e) => updateOption(idx, e.target.value)} />
                                 </label><br />
                             </>
                             :
                             <>
                                 <label onClick={() => updateActiveOption(idx)}>
-                                    <input value={true} type={question.type} name={option} value={option} /> {option}
+                                    <input value={true} disabled type={question.type} name={option} value={option} /> {option}
                                 </label><br />
                             </>}
                     </div>
