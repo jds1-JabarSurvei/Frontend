@@ -1,17 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import SurveyList from 'components/user/SurveyList';
 import Carousel from 'components/user/Carousel';
 
-class Index extends Component {
-    render(){
-        return (
-            <div>
-                <Carousel/>
-
-                <SurveyList/>
-            </div>
-        );
-    }
+const Index = () => {
+    return (
+        <>
+            <Carousel/>
+            <SurveyList/>
+        </>
+    );
 }
 
 export default Index;

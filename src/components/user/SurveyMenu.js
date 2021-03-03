@@ -61,16 +61,6 @@ class SurveyMenu extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-6 left">
-                            {/* <div className="dropdown col-1">
-                            <OverlayTrigger key="category" placement="bottom" overlay={<Tooltip id={`tooltip-bottom`}>Kategori</Tooltip>}>
-                                <img src={category} alt="kategori" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></img>
-                            </OverlayTrigger>
-                                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><h6 class="dropdown-header">KATEGORI</h6></li>
-                                    <li><a className="dropdown-item" href="#">Another action</a></li>
-                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </div> */}
                             <h6 className="status-menu">{statusMenu}</h6>
                         </div>
 

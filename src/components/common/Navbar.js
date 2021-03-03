@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
     state = {
-        admin: true,
+        isAdmin: false,
         openToggle: false
     }
 
@@ -17,15 +17,15 @@ class Navbar extends Component {
     render() {
         // Links bakal tergantung lagi login admin atau tidak, bakal ngikut dari route
         // Sekarang pake dummy begini dulu
-        const { admin, openToggle } = this.state;
+        const { isAdmin, openToggle } = this.state;
 
         // Link-link sementara, bakal bertambah seiring waktu
-        const links = admin ? [
-            { title: 'LOGIN', path: '/' }
+        const links = isAdmin ? [
+            { title: 'Home', path: '/' },
+            { title: 'Data', path: '/' },
+            { title: 'Kontak', path: '/' }            
         ] : [
-                { title: 'Home', path: '/' },
-                { title: 'Data', path: '/' },
-                { title: 'Kontak', path: '/' }
+                { title: 'LOGIN', path: '/' }
             ];
         return (
             <>
