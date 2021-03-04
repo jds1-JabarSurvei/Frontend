@@ -14,8 +14,10 @@ const LinearScale = ({ question, sectionIdx, questionIdx }) => {
                 <select name="kecamatan" disabled defaultValue="Kecamatan">
                     <option value="Kecamatan">Kecamatan</option>
                 </select>
+                <select name="kelurahan" disabled defaultValue="Kelurahan">
+                    <option value="Kelurahan">Kelurahan</option>
+                </select>
             </div>
-            <input placeholder="Alamat Lengkap" disabled className="new-question short" />
         </div>
     );
 }

@@ -3,39 +3,24 @@
     --textmuted: #999;
   }
 
-.tab-titles {
-    display: flex;
-    justify-content: center;
-    padding-top: 60px;
-}
-
-.tab-titles > div {
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    font-size: 18px;
-    padding-bottom: 5px;
-    letter-spacing: 1.5px;
-}
-
-.tab-titles > div:nth-child(1) {
-    margin-right: 50px;
-}
-
-.tab-titles > div:hover {
-    cursor: pointer;
-}
-
-.tab-titles > div.active {
-    font-weight: bold;
-    border-bottom: 3px solid var(--green);
-    color: var(--green);
-}
-
 .tab-container {
     min-height: calc(100vh - 60px);
     background-color: #F6F6F6;
     padding: 40px 20vw;
 }
+
+.tab-header {
+    background-color: var(--green);
+    color: #F6F6F6;
+    border-radius: 10px;
+    padding: 40px 5px 5px;
+    margin-bottom: 20px;
+}
+
+.tab-header h1 {
+    font-size: 2rem;
+}
+
 
 @media only screen and (max-width: 767px) {
     .tab-container {

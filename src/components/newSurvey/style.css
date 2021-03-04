@@ -9,7 +9,7 @@
 .section-count {
     background-color: var(--green);
     color: #fff;
-    padding: 4px 20px;
+    padding: 5px 20px;
     text-align: center;
     display: inline-block;
     border-top-left-radius: 10px;
@@ -43,11 +43,11 @@
     background-color: #FF4742;
     color: white;
     border: 1px solid #FF4742;
-    padding: 5px 10px;
+    padding: 3px 10px;
     border-radius: 10px;
     float: right;
     font-weight: 500;
-    margin-top: -10px;
+    margin-top: -2.5px;
 }
 
 .remove-section:hover {
@@ -62,6 +62,7 @@
     border-radius: 10px;
     margin-bottom: 20px;
     position: relative;
+    transition: 0.2s ease-out;
 }
 
 .active-question {
@@ -196,7 +197,7 @@
 }
 
 @media only screen and (max-width: 767px) {
-    .question-container {
+    .active-question {
         margin-bottom: 80px;
     }
 

@@ -20,7 +20,7 @@ const NewSurveyContextProvider = (props) => {
                     type: 'address',
                     title: 'Address Question',
                     description: 'Question description',
-                    required: true,
+                    required: false,
                     options: [],
                 },
                 {
