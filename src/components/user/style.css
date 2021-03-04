@@ -66,7 +66,6 @@ i {
     /* z-index: 9998!important; */
     z-index: 1030;
     width: 30%;
-    border: 1px solid #c4c4c4;
 }
 
 .modal {
@@ -113,17 +112,6 @@ i {
 /* Survey List */
 .survey-list {
     margin-bottom: 50px;
-}
-
-/* Pagination */
-.pagination li {
-    width: 40px;
-    height: 40px;
-    margin: 0 5px;
-    background-color: #777;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
 }
 
 .menu-flex {

@@ -25,9 +25,6 @@ class SurveyList extends Component {
         // Sort
         isAscending: true,
 
-        // Untuk tambahan menu Action pada page Admin
-        isAdmin: true,
-
         // Modal
         showModal: false,
 
@@ -54,7 +51,7 @@ class SurveyList extends Component {
         const { idToDelete } = this.state;
         // Panggil API
         console.log(idToDelete);
-    } 
+    }
 
     ascending(a, b){
         const titleA = a.title.toUpperCase();
@@ -84,10 +81,13 @@ class SurveyList extends Component {
 
 
     render(){
-        const { isGrid, listSurvey, isAscending, isAdmin, showModal } = this.state;
+        const { isGrid, listSurvey, isAscending, showModal } = this.state;
         const { handleView, handleSort, handleModal, handleDelete, ascending, descending } = this;
-        let data = isAscending ? listSurvey.sort(ascending) : listSurvey.sort(descending);
+        const { isAdmin } = this.props;
 
+        // Sort Data by Name
+        let data = isAscending ? listSurvey.sort(ascending) : listSurvey.sort(descending);    
+        
         return(
             <>
             <SurveyMenu isGrid={isGrid} isAscending={isAscending} handleView={handleView} handleSort={handleSort} />
@@ -137,7 +137,7 @@ class SurveyList extends Component {
                             </table>
                         </div>
                     :
-                    <p className="survey-list text-center">Maaf, saat ini survei belum tersedia</p>
+                    <p className="survey-list text-center">Maaf, saat ini survei belum tersedia.</p>
                 }
             </div>
 

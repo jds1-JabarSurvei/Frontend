@@ -37,10 +37,13 @@ class SurveyMenu extends Component {
 
     handleSearch = e => {
         let { statusMenu } = this.state;
-        statusMenu = (e.target.value === "") ? "" : `Hasil Pencarian "${e.target.value}"`;
-        this.setState({ statusMenu });
+        let value = e.target.value;
         const countScroll = window.innerHeight - 65 - window.pageYOffset;
-        window.scrollBy(0, countScroll);
+
+        statusMenu = (value === "") ? "" : `Hasil Pencarian "${e.target.value}"`;
+        this.setState({ statusMenu });
+        
+        if(value != "") window.scrollBy(0, countScroll);
     }
 
     componentDidMount(){

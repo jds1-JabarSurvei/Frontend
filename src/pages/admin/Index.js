@@ -6,7 +6,7 @@ const Index = () => {
     return (
         <>
             <Carousel/>
-            <SurveyList/>
+            <SurveyList isAdmin={true} />
         </>
     );
 }
