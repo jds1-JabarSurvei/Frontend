@@ -37,10 +37,13 @@ class SurveyMenu extends Component {
 
     handleSearch = e => {
         let { statusMenu } = this.state;
-        statusMenu = (e.target.value === "") ? "" : `Hasil Pencarian "${e.target.value}"`;
-        this.setState({ statusMenu });
+        let value = e.target.value;
         const countScroll = window.innerHeight - 65 - window.pageYOffset;
-        window.scrollBy(0, countScroll);
+
+        statusMenu = (value === "") ? "" : `Hasil Pencarian "${e.target.value}"`;
+        this.setState({ statusMenu });
+        
+        if(value != "") window.scrollBy(0, countScroll);
     }
 
     componentDidMount(){
@@ -55,22 +58,12 @@ class SurveyMenu extends Component {
         return(
             <>
             <form className="d-flex align-items-center flex-column ">
-                <input className="cari-survei form-control me-2" type="search" placeholder="Cari Survei" aria-label="Search" onKeyUp={this.handleSearch}/>
+                <input className="cari-survei form-control me-2" type="search" placeholder="Cari Survei" aria-label="Search" onChange={this.handleSearch}/>
             </form>
             <div className="survey-menu">
                 <div className="container">
                     <div className="row">
                         <div className="col-6 left">
-                            {/* <div className="dropdown col-1">
-                            <OverlayTrigger key="category" placement="bottom" overlay={<Tooltip id={`tooltip-bottom`}>Kategori</Tooltip>}>
-                                <img src={category} alt="kategori" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></img>
-                            </OverlayTrigger>
-                                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><h6 class="dropdown-header">KATEGORI</h6></li>
-                                    <li><a className="dropdown-item" href="#">Another action</a></li>
-                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </div> */}
                             <h6 className="status-menu">{statusMenu}</h6>
                         </div>
 
