@@ -33,7 +33,6 @@ function App() {
                 <Route exact path="/" component={UserIndex} />
                 <Route component={NotFound} />
               </Switch>
-
             </div>
             <Footer />
           </div>
