@@ -26,11 +26,27 @@
     cursor: pointer;
 }
 
+.menuCard {
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+    text-align: center;
+}
+
+.menuTable {
+    cursor: pointer;
+}
+.dropdownMenuCard {
+    padding: 10px;
+}
+.dropdown-item {
+    cursor: pointer;
+}
 .survey-menu i {
     font-size: 20px;
 }
 
-.survey-menu img:hover, .survey-menu i:hover {
+.survey-menu img:hover, .survey-menu i:hover, .menuCard:hover {
     border-radius: 5px;
     background-color: rgba(66,66,66,0.1);
     transition: .3s;
@@ -47,8 +63,13 @@ i {
 .cari-survei {
     position: fixed;
     top: 12.5px;
-    z-index: 9998!important;
+    /* z-index: 9998!important; */
+    z-index: 1030;
     width: 30%;
+}
+
+.modal {
+    z-index: 9999!important;
 }
 
 /* Survey Card */
@@ -56,7 +77,6 @@ i {
     border: 1px solid rgba(57, 159, 79, 1);
     transition: .5s;
     cursor: pointer;
-    /* background-color: rgba(57, 159, 79, 0.25); */
 }
 
 .card img {
@@ -73,22 +93,25 @@ i {
 
 .card-text {
     font-size: 14px;
-
 }
+
+.modal-body {
+    text-align: center;
+    padding: 50px;
+}
+
+.modal-body i {
+    font-size: 100px;
+    padding: 20px;
+}
+
+.modal-body button {
+    margin: 30px 20px;
+}
+
 /* Survey List */
 .survey-list {
     margin-bottom: 50px;
-}
-
-/* Pagination */
-.pagination li {
-    width: 40px;
-    height: 40px;
-    margin: 0 5px;
-    background-color: #777;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
 }
 
 .menu-flex {
