@@ -5,31 +5,16 @@ import NewSurveyContextProvider from 'contexts/NewSurveyContext';
 import './style.css';
 
 const NewSurvey = () => {
-    const tabs = [
-        { title: 'Question' },
-        { title: 'Preview' },
-    ]
-    const [activeTab, setActiveTab] = useState(tabs[0].title);
-
-    const updateActiveTab = (newActive) => {
-        setActiveTab(newActive);
-    }
 
     return (
         <NewSurveyContextProvider>
             <div className="new-survey">
-                <div className="tab-titles">
-                    {tabs.map(tab => {
-                        return (
-                            <div key={tab.title} className={activeTab == tab.title ? 'active' : ''} onClick={() => updateActiveTab(tab.title)}>{tab.title}</div>
-                        )
-                    })}
-                </div>
+
                 <div className="tab-container">
-                    {activeTab === 'Question' ?
-                        <QuestionsTab /> :
-                        <Preview />
-                    }
+                    <div className="tab-header">
+                        <h1>Create Survey</h1>
+                    </div>
+                    <QuestionsTab />
                 </div>
             </div>
         </NewSurveyContextProvider>
