@@ -1,38 +1,10 @@
 import { Component } from 'react';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
-// Import Icons
-// import category from 'assets/icons/category-icon.svg';
-
 class SurveyMenu extends Component {
     state = {
         categoryMenu : [],
         statusMenu : ""
-    }
-
-    handleResize() {
-        const surveyList = document.querySelector('.survey-list');
-        const winHeight = window.innerHeight;
-        const surveyMenu = document.querySelector('.survey-menu');
-
-        window.addEventListener('scroll', () => {
-            if(window.pageYOffset > winHeight - 65){
-                surveyMenu.style.position = "fixed";
-                surveyMenu.style.top = "65px";
-                surveyMenu.style.boxShadow = `0px 6px 20px rgba(0, 0, 0, 0.25)`;
-                surveyList.style.marginTop = "100px";
-            } else {
-                surveyMenu.style.position = "static";
-                surveyList.style.marginTop = "50px";
-                surveyMenu.style.boxShadow = `none`;
-            }
-        })
-
-        if(window.pageYOffset > winHeight - 65){
-            surveyList.style.marginTop = "100px";
-        } else {
-            surveyList.style.marginTop = "50px";
-        }
     }
 
     handleSearch = e => {
@@ -46,13 +18,9 @@ class SurveyMenu extends Component {
         if(value != "") window.scrollBy(0, countScroll);
     }
 
-    componentDidMount(){
-        window.addEventListener('resize', this.handleResize);
-        this.handleResize();
-    }
 
     render(){
-        const { isGrid, handleView, handleSort, isAscending } = this.props;
+        const { isGrid, handleView, handleSort, isAscending, style } = this.props;
         const { statusMenu } = this.state;
 
         return(
@@ -60,7 +28,7 @@ class SurveyMenu extends Component {
             <form className="d-flex align-items-center flex-column ">
                 <input className="cari-survei form-control me-2" type="search" placeholder="Cari Survei" aria-label="Search" onChange={this.handleSearch}/>
             </form>
-            <div className="survey-menu">
+            <div className="survey-menu" style={{position:style.position, boxShadow:style.boxShadow, top:style.top}}>
                 <div className="container">
                     <div className="row">
                         <div className="col-6 left">

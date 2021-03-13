@@ -3,22 +3,13 @@ import { Modal } from 'react-bootstrap';
 import SurveyCard from 'components/user/SurveyCard';
 import SurveyTable from 'components/user/SurveyTable';
 import SurveyMenu from 'components/user/SurveyMenu';
+import APICall from '../../utils/axios';
+import Loading from '../common/Loading';
 
 class SurveyList extends Component {
     state = {
-        // Data Dummy, yg ini nanti panggil API
-        listSurvey: [
-            {id: 1, title:"A", owner:"Jabar Digital Service", imagesource:""},
-            {id: 2, title:"B", owner:"Jabar Digital Service", imagesource:""},
-            {id: 3, title:"C", owner:"Jabar Digital Service", imagesource:""},
-            {id: 4, title:"D", owner:"Jabar Digital Service", imagesource:""},
-            {id: 5, title:"E", owner:"Jabar Digital Service", imagesource:""},
-            {id: 6, title:"F", owner:"Jabar Digital Service", imagesource:""},
-            {id: 7, title:"G", owner:"Jabar Digital Service", imagesource:""},
-            {id: 8, title:"H", owner:"Jabar Digital Service", imagesource:""},
-            {id: 9, title:"I", owner:"Jabar Digital Service", imagesource:""},
-            {id: 10, title:"J", owner:"Jabar Digital Service", imagesource:""}
-        ],
+        listSurvey: [],
+
         // Untuk tampilan List-View atau Grid View
         isGrid: true,
 
@@ -29,7 +20,18 @@ class SurveyList extends Component {
         showModal: false,
 
         // Delete Survey
-        idToDelete: 0
+        idToDelete: 0,
+
+        // Loading
+        loading: true,
+
+        // Style
+        style: {
+            position: "",
+            top: "",
+            boxShadow: "",
+            marginTop: ""
+        }
     }
 
     handleView = () => {
@@ -52,7 +54,43 @@ class SurveyList extends Component {
         // Panggil API
         console.log(idToDelete);
     }
+    
+    handleResize() {
+        const winHeight = window.innerHeight;
+        const { style } = this.state;
 
+        window.addEventListener('scroll', () => {
+            if(window.pageYOffset > winHeight - 65){
+                this.setState({ style : {
+                    position: 'fixed',
+                    top: '65px',
+                    boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.25)',
+                    marginTop: '100px'
+                }});
+            } else {
+                this.setState({ style : {
+                    position: 'static',
+                    top: '0',
+                    boxShadow: 'none',
+                    marginTop: '50px'
+                }});
+            }
+        })
+
+        if(window.pageYOffset > winHeight - 65){
+            this.setState({ style : {
+                ...style,
+                marginTop: '100px'
+            } });
+        } else {
+            this.setState({ style : {
+                ...style,
+                marginTop: '50px'
+            } });
+        }
+    }
+
+    // Sort
     ascending(a, b){
         const titleA = a.title.toUpperCase();
         const titleB = b.title.toUpperCase();
@@ -79,9 +117,27 @@ class SurveyList extends Component {
         return comparison;
     }
 
+    callListSurvey(){
+        APICall.get(`listOfForms`)
+                    .then(res => {
+                        /* If successful */
+                        this.setState({listSurvey : [...res.data]});
+                        this.setState({ loading : false });
+                    }).catch(() => {
+                        /* If error */
+                        this.setState({ listSurvey : [] });
+                    })
+    }
+
+    componentDidMount(){
+        window.addEventListener('resize', this.handleResize);
+        this.handleResize();
+        this.callListSurvey();
+    }
+
 
     render(){
-        const { isGrid, listSurvey, isAscending, showModal } = this.state;
+        const { isGrid, listSurvey, isAscending, showModal, loading, style } = this.state;
         const { handleView, handleSort, handleModal, handleDelete, ascending, descending } = this;
         const { isAdmin } = this.props;
 
@@ -90,29 +146,32 @@ class SurveyList extends Component {
         
         return(
             <>
-            <SurveyMenu isGrid={isGrid} isAscending={isAscending} handleView={handleView} handleSort={handleSort} />
+            <SurveyMenu style={style} isGrid={isGrid} isAscending={isAscending} handleView={handleView} handleSort={handleSort} />
             <div className="container">
-                {   listSurvey.length > 0 ?
+                {   loading ? <div className="survey-list">Cek <Loading /></div> :
+                    listSurvey.length > 0 ?
                     isGrid ? 
-                        <div className="survey-list row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+                    <div className="survey-list row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4" style={{marginTop:style.marginTop}}>
                             {
                                 data.map(survey => {
                                     return(
+                                        <>
                                         <SurveyCard
-                                            id={survey.id}
+                                        id={survey.id}
                                             title={survey.title}
                                             owner={survey.owner}
-                                            imagesource={survey.imagesource}
+                                            imagesource=""
                                             isAdmin={isAdmin}
                                             handleModal={handleModal}
-                                        />
-                                    )
-                                })
-                            }
+                                            />
+                                        </>
+                                            )
+                                        })
+                                    }
                         </div>
                         :
                         <div className="table-responsive-lg">
-                            <table className="survey-list table table-hover">
+                            <table className="survey-list table table-hover" style={{marginTop:style.marginTop}}>
                                 <thead>
                                     <tr>
                                         <th scope="col-7" className="p-3 col-7">Nama Survei</th>
@@ -125,19 +184,19 @@ class SurveyList extends Component {
                                         data.map(survey => {
                                             return(
                                                 <SurveyTable
-                                                    id={survey.id}
-                                                    title={survey.title}
+                                                id={survey.id}
+                                                title={survey.title}
+                                                owner={survey.owner}
                                                     isAdmin={isAdmin}
                                                     handleModal={handleModal}
-                                                />
-                                            )
-                                        })
-                                    }
+                                                    />
+                                                    )
+                                                })
+                                            }
                                 </tbody>
                             </table>
                         </div>
-                    :
-                    <p className="survey-list text-center">Maaf, saat ini survei belum tersedia.</p>
+                    : <p className="survey-list text-center" style={{marginTop:style.marginTop}}>Maaf, saat ini survei belum tersedia.</p>
                 }
             </div>
 
