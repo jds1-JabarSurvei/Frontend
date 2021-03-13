@@ -38,28 +38,15 @@ class Login extends Component {
         }
     }
 
-    handleSubmit = event => {
+    handleSubmit = async (event) => {
         event.preventDefault();
         const { email, password } = this.state;
         if (password != "") {
             // VALIDASINYA DISINI
-            APICall.post(`login`, {
-                "email": email,
-                "password": password
-            })
-                .then(res => {
-                    /* If successful */
-                    if(res.data.login === "Success"){
-                        this.setState({ wrongPassword: false });
-                        this.context.updateCurrentUser(email);
-                        this.props.history.push('/admin');        
-                    } else {
-                        this.setState({ wrongPassword: true });
-                    }
-                }).catch(() => {
-                    /* If error */
-                    console.log("error");
-                })
+            let loginStatus = await this.context.login(email, password);
+            if (!loginStatus) {
+                this.setState({ wrongPassword: true });
+            }
         } else {
             this.setState({ wrongPassword: false });
         }

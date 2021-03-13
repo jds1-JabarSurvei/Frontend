@@ -5,7 +5,7 @@ import Carousel from 'components/user/Carousel';
 const Index = () => {
     return (
         <>
-            <Carousel/>
+            {/* <Carousel/> */}
             <SurveyList isAdmin={true} />
         </>
     );
