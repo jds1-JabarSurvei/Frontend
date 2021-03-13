@@ -55,7 +55,7 @@ class SurveyList extends Component {
         console.log(idToDelete);
     }
     
-    handleResize() {
+    handleScroll() {
         const winHeight = window.innerHeight;
         const { style } = this.state;
 
@@ -130,8 +130,7 @@ class SurveyList extends Component {
     }
 
     componentDidMount(){
-        window.addEventListener('resize', this.handleResize);
-        this.handleResize();
+        this.handleScroll();
         this.callListSurvey();
     }
 
@@ -148,7 +147,7 @@ class SurveyList extends Component {
             <>
             <SurveyMenu style={style} isGrid={isGrid} isAscending={isAscending} handleView={handleView} handleSort={handleSort} />
             <div className="container">
-                {   loading ? <div className="survey-list">Cek <Loading /></div> :
+                {   loading ? <div className="survey-list" style={{marginTop:style.marginTop}}><Loading /></div> :
                     listSurvey.length > 0 ?
                     isGrid ? 
                     <div className="survey-list row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4" style={{marginTop:style.marginTop}}>
@@ -209,10 +208,10 @@ class SurveyList extends Component {
                 keyboard={false}
             >
                 <Modal.Body className="modal-body">
-                    <i class="fas fa-exclamation-circle text-danger"></i>
+                    <i className="fas fa-exclamation-circle text-danger"></i>
                     <h4>Hapus Survei?</h4>
-                    <button type="button" class="btn btn-secondary" onClick={() => handleModal(0)}>Kembali</button>
-                    <button type="button" class="btn btn-danger" onClick={handleDelete}>Hapus</button>
+                    <button type="button" className="btn btn-secondary" onClick={() => handleModal(0)}>Kembali</button>
+                    <button type="button" className="btn btn-danger" onClick={handleDelete}>Hapus</button>
                 </Modal.Body>
             </Modal>
 
