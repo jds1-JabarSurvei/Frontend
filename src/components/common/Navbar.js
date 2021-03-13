@@ -23,11 +23,11 @@ class Navbar extends Component {
 
         // Link-link sementara, bakal bertambah seiring waktu
         const links = this.context.currentUser ? [
-            { title: 'Home', path: '/' },
-            { title: 'Data', path: '/' },
-            { title: 'Kontak', path: '/' }
+            { title: 'Surveys', path: '/admin' },
+            { title: 'Add Admin', path: '/admin/register' }
         ] : [
-            { title: 'LOGIN', path: '/login' }
+            { title: 'Home', path: '/' },
+            { title: 'Kontak', path: '/' },
         ];
         return (
             <>
@@ -39,14 +39,10 @@ class Navbar extends Component {
                             </Link>
                         </div>
 
-                        <button className="navbar-toggler" type="button" onClick={this.handleToggle}>
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
-
                         {this.context.currentUser ?
                             <div className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {this.context.currentUser}
+                                    Admin
                                 </a>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li className="dropdown-item">{this.context.currentUser}</li>
@@ -62,19 +58,24 @@ class Navbar extends Component {
                                 </ul>
                             </div>
                             :
-                            <div className={`collapse navbar-collapse d-flex flex-column flex-lg-row flex-xl-row justify-content-lg-end mobileMenu p-3 p-lg-0 mt-lg-0 ${openToggle ? "open" : ""}`} id="navbarNavAltMarkup" >
+                            <>
+                                <button className="navbar-toggler" type="button" onClick={this.handleToggle}>
+                                    <span className="navbar-toggler-icon"></span>
+                                </button>
+                                <div className={`collapse navbar-collapse d-flex flex-column flex-lg-row flex-xl-row justify-content-lg-end mobileMenu p-3 p-lg-0 mt-lg-0 ${openToggle ? "open" : ""}`} id="navbarNavAltMarkup" >
 
-                                <ul className="navbar-nav align-self-stretch">
-                                    {links.map(link => {
-                                        return (
-                                            <li className="nav-item" key={link.title}>
-                                                <Link className="nav-link active" aria-current="page" to={link.path}>{link.title}</Link>
-                                            </li>
-                                        );
+                                    <ul className="navbar-nav align-self-stretch">
+                                        {links.map(link => {
+                                            return (
+                                                <li className="nav-item" key={link.title}>
+                                                    <Link className="nav-link active" aria-current="page" to={link.path}>{link.title}</Link>
+                                                </li>
+                                            );
 
-                                    })}
-                                </ul>
-                            </div>
+                                        })}
+                                    </ul>
+                                </div>
+                            </>
                         }
 
                     </div>
