@@ -12,8 +12,8 @@ export const useAuth = () => {
 }
 
 const AuthContextProvider = (props) => {
-    const [currentUser, setCurrentUser] = useState('halo');
-    const [loading, setLoading] = useState(true);
+    const [currentUser, setCurrentUser] = useState('');
+    const [loading, setLoading] = useState(false);
     const history = useHistory();
 
     useEffect(() => {
@@ -23,6 +23,7 @@ const AuthContextProvider = (props) => {
     const authenticateLoggedIn = async () => {
         // Kalo udah ada di local storage, brarti sebelomnya udah login
 
+        setLoading(true);
         const jdsAdmin = localStorage.getItem('jds-admin');
         if (jdsAdmin) {
             setCurrentUser(jdsAdmin);
@@ -33,7 +34,8 @@ const AuthContextProvider = (props) => {
     }
 
     const login = async (email, password) => {
-        await APICall.post(`login`, {
+        setLoading(true);
+        let status = await APICall.post(`login`, {
             "email": email,
             "password": password
         })
@@ -49,7 +51,9 @@ const AuthContextProvider = (props) => {
             }).catch(() => {
                 /* If error */
                 return false;
-            })
+            });
+        setLoading(false);
+        return status;
     }
 
     const updateCurrentUser = (newUser) => {

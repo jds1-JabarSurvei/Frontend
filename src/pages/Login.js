@@ -56,6 +56,7 @@ class Login extends Component {
         if (this.context.currentUser) {
             this.props.history.push('/admin');
         }
+        console.log(this.context.loading);
         const { isVisible, wrongPassword, wrongEmail } = this.state;
         return (
             <div className="container">
@@ -79,7 +80,7 @@ class Login extends Component {
                                 />
                                 <h6 className="wrong">{wrongPassword ? "Incorrect password" : ""}</h6>
                             </div>
-                            <input type="submit" name="login" value="Log In" />
+                            <input className={this.context.loading ? "disabled-btn" : ""} disabled={this.context.loading} type="submit" name="login" value="Log In" />
                             <h5>Don't have an account? <a href="google.com">Sign Up</a></h5>
                         </form>
                     </div>
