@@ -13,14 +13,14 @@ function SurveyCard(props) {
                         </div>
                         <div className="col-3">
                             {
-                                isAdmin ?
-                                    <div className="dropdown">
-                                        <i className="fas fa-ellipsis-v menuCard" id={id} data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                        <ul className="dropdown-menu" aria-labelledby={id}>
-                                            <li><span className="dropdown-item"><i className="far fa-edit dropdownMenuCard"></i> EDIT</span></li>
-                                            <li onClick={() => handleModal(`${id}`)}><span className="dropdown-item"><i className="far fa-trash-alt dropdownMenuCard"></i> DELETE</span></li>
-                                        </ul>
-                                    </div> : ""
+                                isAdmin ? 
+                                <div className="dropdown">
+                                    <i className="fas fa-ellipsis-v menuCard" id={id} data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                    <ul className="dropdown-menu" aria-labelledby={id}>
+                                        <li><span className="dropdown-item"><i className="far fa-edit dropdownMenuCard"></i> UBAH</span></li>
+                                        <li onClick={ () => handleModal(`${id}`)}><span className="dropdown-item"><i className="far fa-trash-alt dropdownMenuCard"></i> HAPUS</span></li>
+                                    </ul>
+                                </div> : ""
                             }
                         </div>
                     </div>
