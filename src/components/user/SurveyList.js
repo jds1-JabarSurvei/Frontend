@@ -31,7 +31,10 @@ class SurveyList extends Component {
             top: "",
             boxShadow: "",
             marginTop: ""
-        }
+        },
+
+        // Teks Hasil Percarian
+        searchText: ""
     }
 
     handleView = () => {
@@ -53,6 +56,28 @@ class SurveyList extends Component {
         const { idToDelete } = this.state;
         // Panggil API
         console.log(idToDelete);
+    }
+
+    handleSearch = value => {
+        this.setState({ loading : true });
+        let { searchText } = this.state;
+        const countScroll = window.innerHeight - 65 - window.pageYOffset;
+
+        searchText = (value === "") ? "" : `Hasil Pencarian "${value}"`;
+        this.setState({ searchText });
+        
+        if(searchText != "") window.scrollBy(0, countScroll);
+
+        APICall.get(`listOfForms/${value}`)
+                    .then(res => {
+                        /* If successful */
+                        this.setState({listSurvey : [...res.data]});
+                        this.setState({ loading : false });
+                    }).catch(() => {
+                        /* If error */
+                        this.setState({ listSurvey : [] });
+                    })
+        
     }
     
     handleScroll() {
@@ -118,6 +143,7 @@ class SurveyList extends Component {
     }
 
     callListSurvey(){
+        this.setState({ loading : true });
         APICall.get(`listOfForms`)
                     .then(res => {
                         /* If successful */
@@ -136,8 +162,8 @@ class SurveyList extends Component {
 
 
     render(){
-        const { isGrid, listSurvey, isAscending, showModal, loading, style } = this.state;
-        const { handleView, handleSort, handleModal, handleDelete, ascending, descending } = this;
+        const { isGrid, listSurvey, isAscending, showModal, loading, style, searchText } = this.state;
+        const { handleView, handleSort, handleModal, handleDelete, ascending, descending, handleSearch } = this;
         const { isAdmin } = this.props;
 
         // Sort Data by Name
@@ -145,9 +171,9 @@ class SurveyList extends Component {
         
         return(
             <>
-            <SurveyMenu style={style} isGrid={isGrid} isAscending={isAscending} handleView={handleView} handleSort={handleSort} />
+            <SurveyMenu style={style} isGrid={isGrid} isAscending={isAscending} handleView={handleView} handleSearch={handleSearch} handleSort={handleSort} searchText={searchText} />
             <div className="container">
-                {   loading ? <div className="survey-list" style={{marginTop:style.marginTop}}><Loading /></div> :
+                {   loading ? <div className="survey-list" style={{marginTop:style.marginTop}}><Loading/></div> :
                     listSurvey.length > 0 ?
                     isGrid ? 
                     <div className="survey-list row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4" style={{marginTop:style.marginTop}}>

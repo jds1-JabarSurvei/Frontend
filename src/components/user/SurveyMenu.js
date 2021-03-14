@@ -7,7 +7,7 @@ class SurveyMenu extends Component {
         statusMenu : ""
     }
 
-    handleSearch = e => {
+    handleSearchValue = e => {
         let { statusMenu } = this.state;
         let value = e.target.value;
         const countScroll = window.innerHeight - 65 - window.pageYOffset;
@@ -20,19 +20,18 @@ class SurveyMenu extends Component {
 
 
     render(){
-        const { isGrid, handleView, handleSort, isAscending, style } = this.props;
-        const { statusMenu } = this.state;
+        const { isGrid, handleView, handleSort, handleSearch, isAscending, style, searchText } = this.props;
 
         return(
             <>
             <form className="d-flex align-items-center flex-column ">
-                <input className="cari-survei form-control me-2" type="search" placeholder="Cari Survei" aria-label="Search" onChange={this.handleSearch}/>
+                <input className="cari-survei form-control me-2" type="search" placeholder="Cari Survei" aria-label="Search" onChange={e => handleSearch(e.target.value)}/>
             </form>
             <div className="survey-menu" style={{position:style.position, boxShadow:style.boxShadow, top:style.top}}>
                 <div className="container">
                     <div className="row">
                         <div className="col-6 left">
-                            <h6 className="status-menu">{statusMenu}</h6>
+                            <h6 className="status-menu">{searchText}</h6>
                         </div>
 
                         <div className="col-6 right">
