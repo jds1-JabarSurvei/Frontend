@@ -38,34 +38,25 @@ class Login extends Component {
         }
     }
 
-    handleSubmit = event => {
+    handleSubmit = async (event) => {
         event.preventDefault();
         const { email, password } = this.state;
         if (password != "") {
             // VALIDASINYA DISINI
-            APICall.post(`login`, {
-                "email": email,
-                "password": password
-            })
-                .then(res => {
-                    /* If successful */
-                    if(res.data.login === "Success"){
-                        this.setState({ wrongPassword: false });
-                        this.context.updateCurrentUser(email);
-                        this.props.history.push('/admin');        
-                    } else {
-                        this.setState({ wrongPassword: true });
-                    }
-                }).catch(() => {
-                    /* If error */
-                    console.log("error");
-                })
+            let loginStatus = await this.context.login(email, password);
+            if (!loginStatus) {
+                this.setState({ wrongPassword: true });
+            }
         } else {
             this.setState({ wrongPassword: false });
         }
     };
 
     render() {
+        if (this.context.currentUser) {
+            this.props.history.push('/admin');
+        }
+        console.log(this.context.loading);
         const { isVisible, wrongPassword, wrongEmail } = this.state;
         return (
             <div className="container">
@@ -76,12 +67,12 @@ class Login extends Component {
                         <form onSubmit={this.handleSubmit}>
                             <div className="form-group">
                                 <input type="text" name="email" autoComplete="off" onChange={this.handleEmail} style={wrongEmail ? { borderBottom: `2px solid red` } : {}} required />
-                                <label for="email" style={wrongEmail ? { color: `red` } : {}}>Email</label>
+                                <label htmlFor="email" style={wrongEmail ? { color: `red` } : {}}>Email</label>
                                 <h6 className="wrong">{wrongEmail ? "Email must be a valid email" : ""}</h6>
                             </div>
                             <div className="form-group">
                                 <input type={isVisible ? "text" : "password"} name="password" autoComplete="off" style={wrongPassword ? { borderBottom: `2px solid red` } : {}} onChange={this.handlePassword} required />
-                                <label for="password" style={wrongPassword ? { color: `red` } : {}}>Password</label>
+                                <label htmlFor="password" style={wrongPassword ? { color: `red` } : {}}>Password</label>
                                 <i
                                     className={`fa ${isVisible ? "fa-eye" : "fa-eye-slash"} password-icon`}
                                     style={isVisible ? (wrongPassword ? { color: 'red' } : { color: '#198754' }) : { color: '#999' }}
@@ -89,7 +80,7 @@ class Login extends Component {
                                 />
                                 <h6 className="wrong">{wrongPassword ? "Incorrect password" : ""}</h6>
                             </div>
-                            <input type="submit" name="login" value="Log In" />
+                            <input className={this.context.loading ? "disabled-btn" : ""} disabled={this.context.loading} type="submit" name="login" value="Log In" />
                             <h5>Don't have an account? <a href="google.com">Sign Up</a></h5>
                         </form>
                     </div>
