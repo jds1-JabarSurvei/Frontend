@@ -39,17 +39,17 @@ class SurveyList extends Component {
 
     handleView = () => {
         const { isGrid } = this.state;
-        this.setState({ isGrid : !isGrid });
+        this.setState({ isGrid: !isGrid });
     }
 
     handleSort = () => {
         const { isAscending } = this.state;
-        this.setState({ isAscending : !isAscending });
+        this.setState({ isAscending: !isAscending });
     }
 
     handleModal = (id) => {
         const { showModal } = this.state;
-        this.setState({ showModal : !showModal, idToDelete : id});
+        this.setState({ showModal: !showModal, idToDelete: id });
     }
 
     handleDelete = () => {
@@ -119,25 +119,25 @@ class SurveyList extends Component {
     ascending(a, b){
         const titleA = a.title.toUpperCase();
         const titleB = b.title.toUpperCase();
-        
+
         let comparison = 0;
         if (titleA > titleB) {
-          comparison = 1;
+            comparison = 1;
         } else if (titleA < titleB) {
-          comparison = -1;
+            comparison = -1;
         }
         return comparison;
     }
 
-    descending(a, b){
+    descending(a, b) {
         const titleA = a.title.toUpperCase();
         const titleB = b.title.toUpperCase();
-        
+
         let comparison = 0;
         if (titleA < titleB) {
-          comparison = 1;
+            comparison = 1;
         } else if (titleA > titleB) {
-          comparison = -1;
+            comparison = -1;
         }
         return comparison;
     }
@@ -167,9 +167,9 @@ class SurveyList extends Component {
         const { isAdmin } = this.props;
 
         // Sort Data by Name
-        let data = isAscending ? listSurvey.sort(ascending) : listSurvey.sort(descending);    
-        
-        return(
+        let data = isAscending ? listSurvey.sort(ascending) : listSurvey.sort(descending);
+
+        return (
             <>
             <SurveyMenu style={style} isGrid={isGrid} isAscending={isAscending} handleView={handleView} handleSearch={handleSearch} handleSort={handleSort} searchText={searchText} />
             <div className="container">

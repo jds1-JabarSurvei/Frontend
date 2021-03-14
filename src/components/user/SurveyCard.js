@@ -1,10 +1,10 @@
 
 function SurveyCard(props) {
-    const {id, title, owner, imagesource, isAdmin, handleModal} = props;
+    const { id, title, owner, imagesource, isAdmin, handleModal } = props;
     return (
         <div className="col">
             <div className="card shadow-sm mb-4">
-                <img src={imagesource} className="survey-img card-img-top" height="100%" width="auto" alt={title}/>
+                <img src={imagesource} className="survey-img card-img-top" height="100%" width="auto" alt={title} />
                 <div className="card-body">
                     <div className="row">
                         <div className="col-9">
