@@ -21,7 +21,7 @@ function useOutsideAlerter(ref, callback) {
 }
 
 const QuestionsTab = () => {
-    const { sections, updateActiveQuestion } = useNewSurvey();
+    const { sections, updateActiveQuestion, submitForm, loading } = useNewSurvey();
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef, () => updateActiveQuestion(-1, -1));
 
@@ -37,7 +37,7 @@ const QuestionsTab = () => {
                     />
                 )
             })}
-
+            <button className="submit-btn" onClick={submitForm} disabled={loading}>Submit</button>
         </div>
     );
 }

@@ -16,12 +16,12 @@ import Switch from "react-switch";
 const Question = ({ question, sectionIdx, questionIdx }) => {
     const { activeSection, activeQuestion, updateActiveQuestion, deleteQuestion, updateQuestion } = useNewSurvey();
     const questionComponents = {
-        short: Short,
+        short_answer: Short,
         paragraph: Paragraph,
         checkbox: MultipleAnswer,
         radio: MultipleAnswer,
-        linear: LinearScale,
-        address: Address
+        // linear: LinearScale,
+        alamat: Address
     }
 
     const toggleActive = () => {
@@ -69,7 +69,7 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
                         <select defaultValue={question.type} onChange={updateType}>
                             {Object.keys(questionComponents).map(type => {
                                 return (
-                                    <option value={type} key={type}>{capitalizeFirstLetter(type)}</option>
+                                    <option value={type} key={type}>{capitalizeFirstLetter(type).replace('_answer', '')}</option>
                                 )
                             })}
                         </select>

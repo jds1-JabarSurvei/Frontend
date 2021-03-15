@@ -23,14 +23,16 @@ const AuthContextProvider = (props) => {
     const authenticateLoggedIn = async () => {
         // Kalo udah ada di local storage, brarti sebelomnya udah login
 
-        setLoading(true);
-        const jdsAdmin = localStorage.getItem('jds-admin');
-        if (jdsAdmin) {
-            setCurrentUser(jdsAdmin);
-        } else {
-            setCurrentUser(false);
+        if (!currentUser) {
+            setLoading(true);
+            const jdsAdmin = localStorage.getItem('jds-admin');
+            if (jdsAdmin) {
+                setCurrentUser(jdsAdmin);
+            } else {
+                setCurrentUser(false);
+            }
+            setLoading(false);
         }
-        setLoading(false);
     }
 
     const login = async (email, password) => {
@@ -41,6 +43,7 @@ const AuthContextProvider = (props) => {
         })
             .then(res => {
                 /* If successful */
+                console.log(res);
                 if (res.data.login === "Success") {
                     updateCurrentUser(res.data.email);
                     history.push('/admin');
