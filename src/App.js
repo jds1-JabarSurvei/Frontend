@@ -9,6 +9,7 @@ import UserIndex from 'pages/user/Index';
 import AdminIndex from 'pages/admin/Index';
 import NewSurvey from 'pages/admin/NewSurvey';
 import NotFound from 'pages/NotFound';
+import SurveyPage from 'pages/user/SurveyPage';
 // Others
 import './App.css';
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
