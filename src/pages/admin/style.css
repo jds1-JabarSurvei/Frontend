@@ -1,0 +1,43 @@
+:root {
+    --green: #399F4F;
+    --textmuted: #999;
+  }
+
+.tab-container {
+    min-height: calc(100vh - 60px);
+    background-color: #F6F6F6;
+    padding: 40px 20vw;
+}
+
+.tab-header {
+    background-color: var(--green);
+    color: #F6F6F6;
+    border-radius: 10px;
+    padding: 40px 5px 5px;
+    margin-bottom: 20px;
+}
+
+.tab-header h1 {
+    font-size: 2rem;
+}
+
+.newSurveyButton {
+    position: fixed;
+    bottom: 7.5%;
+    right: 5%;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
+}
+
+.newSurveyButton i {
+    padding: 15px 17px;
+    font-size: 25px;
+    color: #399F4F;
+}
+
+@media only screen and (max-width: 767px) {
+    .tab-container {
+        padding: 40px 10px;
+    }
+}

@@ -1,5 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import APICall from 'utils/axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const AuthContext = createContext(); // Buat dipake di class component
 
@@ -9,8 +12,8 @@ export const useAuth = () => {
 }
 
 const AuthContextProvider = (props) => {
-    const [currentUser, setCurrentUser] = useState('halo');
-    const [loading, setLoading] = useState(true);
+    const [currentUser, setCurrentUser] = useState('');
+    const [loading, setLoading] = useState(false);
     const history = useHistory();
 
     useEffect(() => {
@@ -18,30 +21,79 @@ const AuthContextProvider = (props) => {
     }, [currentUser]);
 
     const authenticateLoggedIn = async () => {
-        // Di sini bakal diterapin untuk ngecek
-        // Apakah sebelumnya admin sudah log in
-        // Bisa menggunakan cookies, local storage, atau dari server
+        // Kalo udah ada di local storage, brarti sebelomnya udah login
 
-        // Implement login check here
+        if (!currentUser) {
+            setLoading(true);
+            const jdsAdmin = localStorage.getItem('jds-admin');
+            if (jdsAdmin) {
+                setCurrentUser(jdsAdmin);
+            } else {
+                setCurrentUser(false);
+            }
+            setLoading(false);
+        }
+    }
 
-        // Implement login check here
+    const login = async (email, password) => {
+        setLoading(true);
+        let status = await APICall.post(`login`, {
+            "email": email,
+            "password": password
+        })
+            .then(res => {
+                /* If successful */
+                console.log(res);
+                if (res.data.login === "Success") {
+                    updateCurrentUser(res.data.email);
+                    history.push('/admin');
+                    toast.success('Login Successful');
+                    return true;
+                }
+                return false;
+            }).catch(() => {
+                /* If error */
+                return false;
+            });
         setLoading(false);
+        return status;
     }
 
     const updateCurrentUser = (newUser) => {
         // Nanti bakal ditambahin ditaro di local storage/cookies/dll
+        localStorage.setItem('jds-admin', newUser);
         setCurrentUser(newUser);
+    }
+
+    const logout = () => {
+        localStorage.removeItem('jds-admin');
+        setCurrentUser();
+        history.push('/login');
+        toast.error('Logged out');
     }
 
     const value = {
         currentUser,
+        loading,
         updateCurrentUser,
-        loading
+        login,
+        logout
     }
 
     return (
         <AuthContext.Provider value={value}>
             {props.children}
+            <ToastContainer
+                position="top-center"
+                autoClose={3000}
+                hideProgressBar
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss={false}
+                draggable
+                pauseOnHover
+            />
         </AuthContext.Provider>
     )
 }
