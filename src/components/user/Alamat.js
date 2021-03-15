@@ -125,12 +125,6 @@ class Alamat extends Component {
         }});
     }
 
-    titleCase(str) {
-        return str.toLowerCase().split(' ').map(function(word) {
-          return (word.charAt(0).toUpperCase() + word.slice(1));
-        }).join(' ');
-    }
-
     componentDidMount(){
         // Call API Provinsi
         this.getProvinsi();
@@ -146,7 +140,7 @@ class Alamat extends Component {
                         {
                             listProvinsi.map(provinsi => {
                                 return(
-                                    <option value={provinsi.id}>{this.titleCase(provinsi.name)}</option>
+                                    <option value={provinsi.id}>{provinsi.name}</option>
                                 )
                             })
                         }
