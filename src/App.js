@@ -7,7 +7,9 @@ import Login from 'pages/Login';
 import Register from 'pages/Register';
 import UserIndex from 'pages/user/Index';
 import AdminIndex from 'pages/admin/Index';
+import NewSurvey from 'pages/admin/NewSurvey';
 import NotFound from 'pages/NotFound';
+import SurveyPage from 'pages/user/SurveyPage';
 // Others
 import './App.css';
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
@@ -27,11 +29,12 @@ function App() {
                 {/* Route and PrivateRoute go here */}
                 <PrivateRoute exact path="/admin" component={AdminIndex} />
                 <PrivateRoute exact path="/admin/register" component={Register} />
+                <PrivateRoute exact path="/admin/survey/new" component={NewSurvey} />
                 <Route exact path="/login" component={Login} />
-                <Route path="/" component={UserIndex} />
+
+                <Route exact path="/" component={UserIndex} />
                 <Route component={NotFound} />
               </Switch>
-
             </div>
             <Footer />
           </div>
@@ -50,7 +53,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         <Route
           {...rest}
           render={props => {
-            return currentUser ? <Component {...props} /> : <Redirect to="/" />
+            return currentUser ? <Component {...props} /> : <NotFound />
           }}
         ></Route>
       }

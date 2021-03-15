@@ -1,10 +1,13 @@
 import React from 'react';
+import SurveyList from 'components/user/SurveyList';
+import Carousel from 'components/user/Carousel';
 
 const Index = () => {
     return (
-        <div>
-            <h1>Temporary user index page</h1>
-        </div>
+        <>
+            <Carousel/>
+            <SurveyList isAdmin={false}/>
+        </>
     );
 }
 

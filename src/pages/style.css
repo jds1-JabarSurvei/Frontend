@@ -1,6 +1,6 @@
-.container {
+/* .container {
     font-family: Product Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif!important;
-}
+} */
 
 .signin-text {
     text-align: center;
@@ -15,8 +15,17 @@
     background-color: #198754;
 }
 
-.content {
+/* .content {
     margin: 10% 15%;
+    background-color: #fff;
+    border-radius: .5rem;
+    box-shadow: 0 0 5px 5px rgba(0,0,0,.05);
+    justify-content: center;
+    overflow: hidden;
+} */
+
+.contentR {
+    margin: 15% 20%;
     background-color: #fff;
     border-radius: .5rem;
     box-shadow: 0 0 5px 5px rgba(0,0,0,.05);
@@ -49,6 +58,14 @@
     border-radius: .5rem;
     font-weight: bold;
     font-size: 16px;
+}
+
+.field form input:disabled {
+    background-color: #999;
+}
+
+.field form input:disabled:hover {
+    cursor: auto;
 }
 
 .field form h5 {
@@ -105,4 +122,58 @@
     color: red;
     font-size: 12px;
     margin-top: -10px;
+}
+
+.wrongR {
+    color: red;
+    font-size: 12px;
+}
+
+.fieldR {
+    padding: 4rem 1rem;
+}
+
+.fieldR form input {
+    box-sizing: border-box;
+    box-shadow: none;
+    outline: none;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.fieldR form input[type="submit"]{
+    border-bottom: none;
+    cursor: pointer;
+    background: #198754;
+    color: white;
+    text-transform: uppercase;
+    border-radius: .5rem;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.fieldR form h5 {
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+    margin: 0;
+}
+
+.fieldR form h5 a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #198754;
+}
+
+.fieldR .form-group {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.fieldR .form-group label {
+    top: 10px;
+    left: 0;
+    font-size: 20px;
+    transition: .5s;
+    pointer-events: none;
 }

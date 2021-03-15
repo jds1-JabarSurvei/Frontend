@@ -1,0 +1,134 @@
+/* Carousel */
+.carousel {
+    position: relative;
+    z-index: 1;
+}
+.carousel-item {
+    height: calc(100vh - 60px);
+    background: #777;
+    color: white;
+    position: relative;
+}
+
+/* Survey Menu */
+.survey-menu {
+    background-color: white;
+    width: 100%;
+    height: 50px;
+    z-index: 1;
+    position: relative;
+}
+
+.survey-menu img, .survey-menu i {
+    height: 40px;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.menuCard {
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+    text-align: center;
+}
+
+.menuTable {
+    cursor: pointer;
+}
+.dropdownMenuCard {
+    padding: 10px;
+}
+.dropdown-item {
+    cursor: pointer;
+}
+.survey-menu i {
+    font-size: 20px;
+}
+
+.survey-menu img:hover, .survey-menu i:hover, .menuCard:hover {
+    border-radius: 5px;
+    background-color: rgba(66,66,66,0.1);
+    transition: .3s;
+}
+
+.survey-menu .right {
+    text-align: right;
+}
+
+i {
+    color: black;
+}
+
+.cari-survei {
+    position: fixed;
+    top: 12.5px;
+    /* z-index: 9998!important; */
+    z-index: 1030;
+    width: 30%;
+}
+
+.modal {
+    z-index: 9999!important;
+}
+
+/* Survey Card */
+.card:hover {
+    border: 1px solid rgba(57, 159, 79, 1);
+    transition: .5s;
+    cursor: pointer;
+}
+
+.card img {
+    height: 200px;
+    object-fit: cover;
+    box-sizing: border-box;
+}
+
+.card-title {
+    font-weight: bold;
+    font-size: 16px;
+    margin: 0;
+}
+
+.card-text {
+    font-size: 14px;
+}
+
+.modal-body {
+    text-align: center;
+    padding: 50px;
+}
+
+.modal-body i {
+    font-size: 100px;
+    padding: 20px;
+}
+
+.modal-body button {
+    margin: 30px 20px;
+}
+
+/* Survey List */
+.survey-list {
+    margin-bottom: 50px;
+}
+
+.menu-flex {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.status-menu {
+    margin: 15px;
+}
+
+.carousel-control-next, .carousel-control-prev{
+    opacity: 0;
+}
+
+.carousel-inner:hover ~ .carousel-control-next,
+.carousel-inner:hover ~ .carousel-control-prev {
+    opacity: 1;
+    transition: .5s;
+}
