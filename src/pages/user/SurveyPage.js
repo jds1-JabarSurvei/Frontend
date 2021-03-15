@@ -1,160 +1,94 @@
-import QuestionsTab from 'components/newSurvey/QuestionsTab';
-import Preview from 'components/newSurvey/Preview';
 import React, { useState, useEffect } from 'react';
 import NewSurveyContextProvider from 'contexts/NewSurveyContext';
 import './style.css';
 import APICall from "utils/axios"
 import RenderedQuestion from './RenderedQuestion'
 
-import Section from "components/newSurvey/Section.js";
-import { faMapSigns } from '@fortawesome/free-solid-svg-icons';
-
-
-
-
-
-
-// function shoot() {
-//   alert("Great Shot!");
-// }
-
-// // const SurveyPage = (
-// //   <button onClick={shoot}>Take the shot!</button>
-// // );
-
-
-
-
-// const myFunction = () => {
-
-//     // document.getElementById("demo").innerHTML = "YOU CLICKED ME!";
-//     console.log('this is:');
-// }
-
 const SurveyPage = () => {
     const [sectionIdx, setSectionIdx] = useState(0)
-    const [survey, setSurvey] = useState([{
-        "form_id": "1",
-        "pembuat": "user",
-        "judulForm": "dummy",
-        "pertanyaan": [
-            {
-                "judul": "BAGIAN 1",
-                "bagian": 0,
-                "deskripsi": "dummy",
-                "pertanyaan": [
-                    {
-                        "pertanyaan": "(dummy)Kenapa Spongebob warnanya kuning?",
-                        "urutan": 1,
-                        "tipe": "short_answer",
-                        "option": []
-                    },
-                    {
-                        "pertanyaan": "Pertanyaan 2 bagian 0 form 1?",
-                        "urutan": 2,
-                        "tipe": "short_answer",
-                        "option": []
-                    }
-                ]
-            },
-            {
-                "judul": "BAGIAN 2",
-                "bagian": 1,
-                "deskripsi": null,
-                "pertanyaan": [
-                    {
-                        "pertanyaan": "Pertanyaan 1  bagian 1 form 1?",
-                        "urutan": 1,
-                        "tipe": "short_answer",
-                        "option": []
-                    }
-                ]
-            },
-            {
-                "judul": "BAGIAN 3",
-                "bagian": 2,
-                "deskripsi": null,
-                "pertanyaan": [
-                    {
-                        "pertanyaan": "Pertanyaan 1 bagian 2 form 1?",
-                        "urutan": 1,
-                        "tipe": "radio",
-                        "option": [
-                            {
-                                "nilai": "a"
-                            },
-                            {
-                                "nilai": "b"
-                            },
-                            {
-                                "nilai": "c"
-                            }
-                        ]
-                    },
-                    {
-                        "pertanyaan": "multiple choice (radi",
-                        "tipe": "radio",
-                        "option": [
-                            {
-                                "nilai": "a"
-                            },
-                            {
-                                "nilai": "b"
-                            },
-                            {
-                                "nilai": "c"
-                            }
-                        ]
-                    },
-                    {
-                        "pertanyaan": "multiple choice (ra",
-                        "tipe": "paragraph",
-                        "option": [
-                            {
-                                "nilai": "a"
-                            },
-                            {
-                                "nilai": "b"
-                            },
-                            {
-                                "nilai": "c"
-                            }
-                        ]
-                    },
-                    {
-                        "pertanyaan": "multiple choice ",
-                        "tipe": "select",
-                        "option": [
-                            {
-                                "nilai": "axfdghjkl;"
-                            },
-                            {
-                                "nilai": "b"
-                            },
-                            {
-                                "nilai": "c"
-                            }
-                        ]
-                    },
-                    {
-                        "pertanyaan": "multiple choic",
-                        "tipe": "checkbox",
-                        "option": [
-                            {
-                                "nilai": "asadf"
-                            },
-                            {
-                                "nilai": "bsdafs"
-                            },
-                            {
-                                "nilai": "ayam"
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }]);
+    const [survey, setSurvey] = useState([
+        {
+            "id_form": 5678,
+            "pembuat": "user",
+            "judulForm": "dummy",
+            "pertanyaan": [
+                {
+                    "judul": "BAGIAN 1",
+                    "bagian": 0,
+                    "deskripsi": "dummy",
+                    "pertanyaan": [
+                        {
+                            "pertanyaan": "(dummy)Kenapa Spongebob warnanya kuning?",
+                            "id_form_field": 1,
+                            "deskripsi": "kemukakan jawaban anda mengenai warna kuning dari spongebob",
+                            "required": 1,
+                            "urutan": 1,
+                            "tipe": "short_answer",
+                            "option": []
+                        },
+                        {
+                            "pertanyaan": "Pertanyaan 2 bagian 0 form 1?",
+                            "id_form_field": 2,
+                            "deskripsi": "deskripsi pertanyaan 2 form 1",
+                            "required": 1,
+                            "urutan": 2,
+                            "tipe": "short_answer",
+                            "option": []
+                        }
+                    ]
+                },
+                {
+                    "judul": "BAGIAN 2",
+                    "bagian": 1,
+                    "deskripsi": null,
+                    "pertanyaan": [
+                        {
+                            "pertanyaan": "Pertanyaan 1  bagian 1 form 1?",
+                            "id_form_field": 3,
+                            "deskripsi": "deskripsi pertanyaan 0 bagian 1 form 1",
+                            "required": 1,
+                            "urutan": 1,
+                            "tipe": "short_answer",
+                            "option": []
+                        }
+                    ]
+                },
+                {
+                    "judul": "BAGIAN 3",
+                    "bagian": 2,
+                    "deskripsi": null,
+                    "pertanyaan": [
+                        {
+                            "pertanyaan": "Pertanyaan 1 bagian 2 form 1?",
+                            "id_form_field": 4,
+                            "deskripsi": "deskripsi pertanyaan 1 bagian 2 form 1",
+                            "required": 1,
+                            "urutan": 1,
+                            "tipe": "checkbox",
+                            "option": [
+                                {
+                                    "nilai": "a",
+                                    "id_form_option": 1
+                                },
+                                {
+                                    "nilai": "b",
+                                    "id_form_option": 2
+                                },
+                                {
+                                    "nilai": "c",
+                                    "id_form_option": 3
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ])
+
+    
+    const [answer, setAnswer] = useState([{ "idform" : survey[0].id_form,
+                                            "jawaban":[]    }])
 
     const getQuestionAPI = (id) => {
       return new Promise((resolve, reject) =>{
@@ -170,12 +104,29 @@ const SurveyPage = () => {
           });
       })
     }
+
+    const postResponse = (e) => {
+        // e.preventDefault();
+        // return (
+            
+            APICall.post("/submitjawaban", {
+                jawaban: answer[0]
+            }).then(()=> {
+                alert("MANTAP")
+                console.log(answer[0])})
+            .catch(()=> alert("GAGAL"))
+        // )
+    }
+    useEffect(() => postResponse(), []);
     // useEffect(() => getQuestionAPI(2), []);
 
+    useEffect(() => console.log(answer[0]), [])
     const back = () => {
+        console.log(answer)
         setSectionIdx(sectionIdx-1);
     }
     const next = () => {
+        console.log(answer[0])
         setSectionIdx(sectionIdx+1);
     }
     const checkButton = (nSection) =>{
@@ -198,7 +149,7 @@ const SurveyPage = () => {
             return(
                 <div>
                     <button className="back" onClick={back}>Back</button>
-                    <input type="submit" value="Submit" className="submit"></input>
+                    <input type="submit" value="Submit" className="submit" onSubmit={postResponse}></input>
                 </div>
                 
             )
@@ -230,14 +181,17 @@ const SurveyPage = () => {
                                         </div>
                                     </div>
                                     <div className={sectionIdx==j ? "":"hide"}>
-                                        {pertanyaan.map(({pertanyaan, urutan, tipe, option}, k)=>{
+                                        {pertanyaan.map(({pertanyaan, id_form_field, tipe, option}, k)=>{
                                             return(
                                                 <div className="question-container">
                                                     <div className="question-title">
                                                         <div className="form-group">
                                                             <label for={pertanyaan} className="question">{pertanyaan}</label><br></br>
+                                                            {/* {getAnswer(id_form_field, "")} */}
                                                             <RenderedQuestion
+                                                                answer = {answer}
                                                                 type = {tipe}
+                                                                id_form_field = {id_form_field}
                                                                 pertanyaan = {pertanyaan}
                                                                 option = {option}
                                                                 key = {k}
