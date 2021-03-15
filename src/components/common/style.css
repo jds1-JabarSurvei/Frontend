@@ -17,7 +17,7 @@ nav {
 
 .navbar ul:hover {
     border-radius: 5px;
-    background-color: rgba(248, 239, 239, 0.1);
+    background-color: white;
     transition: .3s;
 }
 .footer {

@@ -56,32 +56,31 @@ class Login extends Component {
         if (this.context.currentUser) {
             this.props.history.push('/admin');
         }
-        console.log(this.context.loading);
+        // console.log(this.context.loading);
         const { isVisible, wrongPassword, wrongEmail } = this.state;
         return (
             <div className="container">
                 <div className="row content">
                     <div className="col-md-12 line"></div>
                     <div className="col-md-6 field">
-                        <h3 className="signin-text mb-3">Sign In</h3>
+                        {/* <h3 className="signin-text mb-3">Sign In</h3> */}
                         <form onSubmit={this.handleSubmit}>
                             <div className="form-group">
                                 <input type="text" name="email" autoComplete="off" onChange={this.handleEmail} style={wrongEmail ? { borderBottom: `2px solid red` } : {}} required />
                                 <label htmlFor="email" style={wrongEmail ? { color: `red` } : {}}>Email</label>
-                                <h6 className="wrong">{wrongEmail ? "Email must be a valid email" : ""}</h6>
+                                <h6 className="wrong">{wrongEmail ? "Email tidak valid" : ""}</h6>
                             </div>
                             <div className="form-group">
                                 <input type={isVisible ? "text" : "password"} name="password" autoComplete="off" style={wrongPassword ? { borderBottom: `2px solid red` } : {}} onChange={this.handlePassword} required />
-                                <label htmlFor="password" style={wrongPassword ? { color: `red` } : {}}>Password</label>
+                                <label htmlFor="password" style={wrongPassword ? { color: `red` } : {}}>Kata Sandi</label>
                                 <i
                                     className={`fa ${isVisible ? "fa-eye" : "fa-eye-slash"} password-icon`}
                                     style={isVisible ? (wrongPassword ? { color: 'red' } : { color: '#198754' }) : { color: '#999' }}
                                     onClick={this.toggleVisiblity}
                                 />
-                                <h6 className="wrong">{wrongPassword ? "Incorrect password" : ""}</h6>
+                                <h6 className="wrong">{wrongPassword ? "Kata sandi salah" : ""}</h6>
                             </div>
-                            <input className={this.context.loading ? "disabled-btn" : ""} disabled={this.context.loading} type="submit" name="login" value="Log In" />
-                            <h5>Don't have an account? <a href="google.com">Sign Up</a></h5>
+                            <input className={this.context.loading ? "disabled-btn" : ""} disabled={this.context.loading} type="submit" name="login" value={this.context.loading ? "Loading" : "Masuk"}></input>
                         </form>
                     </div>
                 </div>

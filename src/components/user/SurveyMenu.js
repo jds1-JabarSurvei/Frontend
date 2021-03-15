@@ -20,14 +20,14 @@ class SurveyMenu extends Component {
 
 
     render(){
-        const { isGrid, handleView, handleSort, handleSearch, isAscending, style, searchText } = this.props;
+        const { isGrid, handleView, handleSort, handleSearch, isAscending, style, searchText, isAdmin } = this.props;
 
         return(
             <>
             <form className="d-flex align-items-center flex-column ">
-                <input className="cari-survei form-control me-2" type="search" placeholder="Cari Survei" aria-label="Search" onChange={e => handleSearch(e.target.value)}/>
+                <input className="cari-survei form-control me-2" type="search" placeholder="Cari Survei" aria-label="Search" onChange={e => handleSearch(e.target.value, isAdmin)}/>
             </form>
-            <div className="survey-menu" style={{position:style.position, boxShadow:style.boxShadow, top:style.top}}>
+            <div className="survey-menu" style={ isAdmin ? {position:"fixed", top:'65px', boxShadow:'0px 6px 20px rgba(0, 0, 0, 0.25)'} : {position:style.position, boxShadow:style.boxShadow, top:style.top}}>
                 <div className="container">
                     <div className="row">
                         <div className="col-6 left">

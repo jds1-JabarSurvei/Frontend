@@ -122,3 +122,13 @@ i {
 .status-menu {
     margin: 15px;
 }
+
+.carousel-control-next, .carousel-control-prev{
+    opacity: 0;
+}
+
+.carousel-inner:hover ~ .carousel-control-next,
+.carousel-inner:hover ~ .carousel-control-prev {
+    opacity: 1;
+    transition: .5s;
+}
