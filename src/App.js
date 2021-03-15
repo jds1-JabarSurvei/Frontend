@@ -29,9 +29,10 @@ function App() {
                 {/* Route and PrivateRoute go here */}
                 <PrivateRoute exact path="/admin" component={AdminIndex} />
                 <PrivateRoute exact path="/admin/register" component={Register} />
+                <PrivateRoute exact path="/admin/survey/new" component={NewSurvey} />
                 <Route exact path="/login" component={Login} />
-                <Route path="/" component={UserIndex} />
-                {/* <Route path="/" component={NewSurvey} /> */}
+
+                <Route exact path="/" component={UserIndex} />
                 <Route component={NotFound} />
               </Switch>
             </div>
@@ -52,7 +53,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         <Route
           {...rest}
           render={props => {
-            return currentUser ? <Component {...props} /> : <Redirect to="/" />
+            return currentUser ? <Component {...props} /> : <NotFound />
           }}
         ></Route>
       }

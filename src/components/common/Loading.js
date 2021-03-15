@@ -5,7 +5,7 @@ import {
 
 const Loading = () => {
     return (
-        <div className="center-page">
+        <div className="text-center">
             <Spinner
                 animation="grow"
                 variant="warning"
