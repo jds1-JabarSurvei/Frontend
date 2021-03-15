@@ -187,42 +187,40 @@ class Register extends Component {
                 id="birthdate" name="birthdate" required></input>
             </div>
 
-            <div className="form-group">
-              <h7 style={{ fontSize: "20px" }}>Jenis Kelamin</h7><br></br>
-              <div className="form-check form-check-inline">
-                <input
-                  className="form-check-input mt-1"
+              <div className="form-group">
+                <h7 style={{fontSize: "20px"}}>Jenis Kelamin</h7><br></br>
+                <div className="form-check form-check-inline">
+                  <input
+                  className="form-check-input mt-1 mr-5"
                   type="radio"
                   id="male"
                   name="gender"
                   value="male"
                   autoCorrect="off"
-                  style={{ paddingBottom: "30px" }}
                   required
-                />
-                <label className="form-check-label mt-1 mr-5"
-                  htmlFor="male"
-                  style={{ fontSize: "16px" }}
-                >
-                  Laki-laki
+                  />
+                  <label className="form-check-label mt-1 mr-5"
+                  for="male"
+                  style={{fontSize:"16px"}}
+                  >Laki-laki
                   </label>
               </div>
               <div
                 className="form-check form-check-inline"
-              >
-                <input
-                  className="form-check-input ml-5"
+                >
+                  <input
+                  className="form-check-input mt-1"
                   type="radio"
                   id="female"
                   name="gender"
                   value="female"
                   autoCorrect="off"
-                />
-                <label className="form-check-label"
-                  style={{ fontSize: "16px" }}
-                  htmlFor="female"
-                >
-                  Perempuan
+                  />
+                  <label className="form-check-label mt-1"
+                   style={{fontSize:"16px"}}
+                   for="female"
+                  >
+                    Perempuan
                   </label>
               </div>
             </div>

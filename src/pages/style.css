@@ -1,6 +1,6 @@
-.container {
+/* .container {
     font-family: Product Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif!important;
-}
+} */
 
 .signin-text {
     text-align: center;
@@ -15,14 +15,14 @@
     background-color: #198754;
 }
 
-.content {
+/* .content {
     margin: 10% 15%;
     background-color: #fff;
     border-radius: .5rem;
     box-shadow: 0 0 5px 5px rgba(0,0,0,.05);
     justify-content: center;
     overflow: hidden;
-}
+} */
 
 .contentR {
     margin: 15% 20%;
@@ -32,6 +32,7 @@
     justify-content: center;
     overflow: hidden;
 }
+
 .field {
     padding: 4rem 1rem;
 }
@@ -126,7 +127,6 @@
 .wrongR {
     color: red;
     font-size: 12px;
-    /* margin-top: -10px; */
 }
 
 .fieldR {
@@ -134,13 +134,11 @@
 }
 
 .fieldR form input {
-    /* width: 100%; */
     box-sizing: border-box;
     box-shadow: none;
     outline: none;
     font-size: 14px;
     padding: 10px;
-    /* margin-bottom: 20px; */
 }
 
 .fieldR form input[type="submit"]{
@@ -173,34 +171,9 @@
 }
 
 .fieldR .form-group label {
-    /* position: absolute; */
     top: 10px;
     left: 0;
-    /* color: #999; */
     font-size: 20px;
     transition: .5s;
     pointer-events: none;
 }
-
-/* .fieldR input:focus ~ label,
-.fieldR input:valid ~ label {
-    top: -12px;
-    left: 0;
-    color:#198754;
-    font-size: 12px;
-    font-weight: bold;
-} */
-
-/* .fieldR input:focus, 
-.fieldR input:valid {
-    border-bottom: 2px solid#198754;
-} */
-
-/* .fieldR form i {
-    position: absolute;
-    top: 10px;
-    right: 0;
-    color: #999;
-    transition: .5s;
-    cursor: pointer;
-} */
