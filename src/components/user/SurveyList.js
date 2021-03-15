@@ -58,10 +58,10 @@ class SurveyList extends Component {
         console.log(idToDelete);
     }
 
-    handleSearch = value => {
+    handleSearch = (value, isAdmin) => {
         this.setState({ loading : true });
         let { searchText } = this.state;
-        const countScroll = window.innerHeight - 65 - window.pageYOffset;
+        const countScroll = isAdmin ? 0 : window.innerHeight - 65 - window.pageYOffset;
 
         searchText = (value === "") ? "" : `Hasil Pencarian "${value}"`;
         this.setState({ searchText });
@@ -171,16 +171,15 @@ class SurveyList extends Component {
 
         return (
             <>
-            <SurveyMenu style={style} isGrid={isGrid} isAscending={isAscending} handleView={handleView} handleSearch={handleSearch} handleSort={handleSort} searchText={searchText} />
+            <SurveyMenu style={style} isGrid={isGrid} isAscending={isAscending} handleView={handleView} handleSearch={handleSearch} handleSort={handleSort} searchText={searchText} isAdmin={isAdmin} />
             <div className="container">
-                {   loading ? <div className="survey-list" style={{marginTop:style.marginTop}}><Loading/></div> :
+                {   loading ? <div className="survey-list" style={isAdmin ? {marginTop:'125px'} : {marginTop:style.marginTop}}><Loading/></div> :
                     listSurvey.length > 0 ?
                     isGrid ? 
-                    <div className="survey-list row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4" style={{marginTop:style.marginTop}}>
+                    <div className="survey-list row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4" style={isAdmin ? {marginTop:'120px'} : {marginTop:style.marginTop}}>
                             {
                                 data.map(survey => {
                                     return(
-                                        <>
                                         <SurveyCard
                                         id={survey.id}
                                             title={survey.title}
@@ -188,15 +187,14 @@ class SurveyList extends Component {
                                             imagesource=""
                                             isAdmin={isAdmin}
                                             handleModal={handleModal}
-                                            />
-                                        </>
-                                            )
-                                        })
-                                    }
+                                        />
+                                    )
+                                }) 
+                            }
                         </div>
                         :
                         <div className="table-responsive-lg">
-                            <table className="survey-list table table-hover" style={{marginTop:style.marginTop}}>
+                            <table className="survey-list table table-hover" style={isAdmin? {marginTop:'120px'} : {marginTop:style.marginTop}}>
                                 <thead>
                                     <tr>
                                         <th scope="col-7" className="p-3 col-7">Nama Survei</th>
@@ -221,7 +219,7 @@ class SurveyList extends Component {
                                 </tbody>
                             </table>
                         </div>
-                    : <p className="survey-list text-center" style={{marginTop:style.marginTop}}>Maaf, saat ini survei belum tersedia.</p>
+                    : <p className="survey-list text-center" style={isAdmin? {marginTop:'120px'} : {marginTop:style.marginTop}}>Maaf, saat ini survei belum tersedia.</p>
                 }
             </div>
 

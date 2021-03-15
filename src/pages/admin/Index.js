@@ -1,12 +1,16 @@
 import React from 'react';
 import SurveyList from 'components/user/SurveyList';
-import Carousel from 'components/user/Carousel';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
     return (
         <>
-            {/* <Carousel/> */}
             <SurveyList isAdmin={true} />
+            <div className="newSurveyButton">
+                <Link to="/admin/survey/new">
+                    <i className="fas fa-plus"></i>
+                </Link>
+            </div>            
         </>
     );
 }
