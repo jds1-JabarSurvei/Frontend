@@ -23,10 +23,11 @@ class Navbar extends Component {
 
         // Link-link sementara, bakal bertambah seiring waktu
         const links = this.context.currentUser ? [
-            { title: 'Surveys', path: '/admin' },
-            { title: 'Add Admin', path: '/admin/register' }
+            { title: 'Survei', path: '/admin' },
+            { title: 'Carousel', path: '/admin' },
+            { title: 'Tambah Admin', path: '/admin/register' }
         ] : [
-            { title: 'Home', path: '/' },
+            { title: 'Beranda', path: '/' },
             { title: 'Kontak', path: '/' },
         ];
         return (
@@ -54,7 +55,7 @@ class Navbar extends Component {
 
                                     })}
                                     <li><hr className="dropdown-divider" /></li>
-                                    <li className="dropdown-item" onClick={this.context.logout}>Log Out</li>
+                                    <li className="dropdown-item" onClick={this.context.logout}>KELUAR</li>
                                 </ul>
                             </div>
                             :
