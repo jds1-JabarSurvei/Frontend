@@ -20,7 +20,7 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
         long_answer: Paragraph,
         checkbox: MultipleAnswer,
         radio: MultipleAnswer,
-        linear: LinearScale,
+        // linear: LinearScale,
         alamat: Address
     }
 
