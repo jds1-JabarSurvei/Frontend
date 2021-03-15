@@ -48,11 +48,37 @@
     float: right;
     font-weight: 500;
     margin-top: -2.5px;
+    transition: 0.2s ease-out;
 }
 
 .remove-section:hover {
     background-color: transparent;
     color: #FF4742;
+}
+
+
+
+.submit-btn {
+    float: right;
+    background-color: var(--green);
+    color: white;
+    border: 1px solid var(--green);
+    padding: 5px 25px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: 0.2s ease-out;
+}
+
+.submit-btn:hover {
+    cursor: pointer;
+    color: var(--green);
+    background-color: white;
+}
+
+.submit-btn:disabled {
+    background-color: var(--textmuted);
+    border: none;
 }
 
 .question-container {
