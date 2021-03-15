@@ -17,7 +17,7 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
     const { activeSection, activeQuestion, updateActiveQuestion, deleteQuestion, updateQuestion } = useNewSurvey();
     const questionComponents = {
         short_answer: Short,
-        long_answer: Paragraph,
+        paragraph: Paragraph,
         checkbox: MultipleAnswer,
         radio: MultipleAnswer,
         // linear: LinearScale,
