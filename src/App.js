@@ -32,6 +32,7 @@ function App() {
                 <PrivateRoute exact path="/admin/survey/new" component={NewSurvey} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/" component={UserIndex} />
+                <Route exact path="/survey/:id" component={SurveyPage} />
                 <Route component={NotFound} />
               </Switch>
             </div>
