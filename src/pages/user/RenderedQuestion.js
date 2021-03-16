@@ -75,13 +75,8 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
                 isEqual.push(false);
             }
 
-            console.log(checkedValue)
-            console.log(uncheckedValue)
-            console.log(isEqual);
-
                 for (var j = 0; j<answer[0].jawaban.length; j++){
                     for (var k = 0; k<option.length; k++){
-                        console.log(answer[0].jawaban[j].id_form_option, " ", option[k].id_form_option)
                         if (answer[0].jawaban[j].id_form_option == option[k].id_form_option){
                             for (var i=0; i<checkedValue.length; i++){
                                 if (option[k].nilai == checkedValue[i]){
@@ -93,7 +88,6 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
                     
                 }
 
-            console.log(isEqual)
             for (var i = 0; i<answer[0].jawaban.length; i++){
                 for (var j = 0; j<uncheckedValue.length; j++){
                     if(typeof answer[0].jawaban[i].value === "undefined"){

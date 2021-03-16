@@ -95,30 +95,30 @@ const SurveyPage = () => {
         APICall.get("/formQuestions/"+id, {
             id: id,
           }).then(res=>{
-            console.log("BERHASIL");
             console.log(res.data)
             setSurvey([res.data]);
           }).catch(()=> {
-            console.log("GAGAL");
             setSurvey([]);
           });
       })
     }
 
     const postResponse = (e) => {
-        // e.preventDefault();
-        // return (
+        e.preventDefault();
+        return (
             
             APICall.post("/submitjawaban", {
                 jawaban: answer[0]
             }).then(()=> {
-                alert("MANTAP")
+                // alert("MANTAP")
                 console.log(answer[0])})
-            .catch(()=> alert("GAGAL"))
-        // )
+            .catch(()=> 
+                // alert("GAGAL")
+                console.log([]))
+        )
     }
-    useEffect(() => postResponse(), []);
-    // useEffect(() => getQuestionAPI(2), []);
+    // useEffect(() => postResponse(), []);
+    useEffect(() => getQuestionAPI(5), []);
 
     useEffect(() => console.log(answer[0]), [])
     const back = () => {

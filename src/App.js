@@ -31,7 +31,6 @@ function App() {
                 <PrivateRoute exact path="/admin/register" component={Register} />
                 <PrivateRoute exact path="/admin/survey/new" component={NewSurvey} />
                 <Route exact path="/login" component={Login} />
-
                 <Route exact path="/" component={UserIndex} />
                 <Route component={NotFound} />
               </Switch>
