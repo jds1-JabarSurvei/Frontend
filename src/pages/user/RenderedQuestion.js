@@ -115,8 +115,11 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
   if (type == "short_answer"){
       return(
           <div>
-             <input type="text" onChange={handleShortAnswer, getAnswer}  required/>
-             <h1 className="is-short-answer"><br></br>{isShortAnswer? "":"Jawaban tidak boleh lebih dari 20 huruf"}</h1>
+             <input type="text" 
+             onChange={(event)=>{handleShortAnswer(event);getAnswer(event)} }  
+            //  onChange={handleShortAnswer}
+             required/>
+             <h1 className="is-short-answer">{isShortAnswer? "":"Jawaban tidak boleh lebih dari 20 huruf"}<br></br></h1>
           </div>
           
       )
