@@ -60,35 +60,38 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
 
     let RenderedQuestion = questionComponents[question.type];
     return (
-        <div className={isActive() ? "question-container active-question" : "question-container"} onClick={toggleActive}>
+        <div className={isActive() ? "question-container-new active-question-new shadow" : "question-container-new"} onClick={toggleActive}>
             {isActive() ?
                 <>
 
-                    <div className="edit-question">
-                        <input type="text" defaultValue={question.title} onBlur={updateTitle} />
-                        <select defaultValue={question.type} onChange={updateType}>
+                    <div className="edit-question-new">
+                        <div className="input-text-box input-question">
+                            <input className="input-text-new" type="text" defaultValue={question.title} onBlur={updateTitle} />
+                            <span className="focus-border"></span>
+                        </div>
+                        <select className="form-select mx-auto" defaultValue={question.type} onChange={updateType}>
                             {Object.keys(questionComponents).map(type => {
                                 return (
-                                    <option value={type} key={type}>{capitalizeFirstLetter(type).replace('_answer', '')}</option>
+                                    <option className="m-3" value={type} key={type}>{capitalizeFirstLetter(type).replace('_answer', '')}</option>
                                 )
                             })}
                         </select>
                     </div>
                 </>
-                : <div className="question-title">{question.title}</div>
+                : <div className="question-title-new">{question.title}</div>
             }
 
             <RenderedQuestion question={question} sectionIdx={sectionIdx} questionIdx={questionIdx} />
             {isActive() ?
                 <>
                     <hr />
-                    <div className="question-setting">
-                        <div className='question-icon' onClick={onDelete}><FontAwesomeIcon
+                    <div className="question-setting-new">
+                        <div className='question-icon-new' onClick={onDelete}><FontAwesomeIcon
                             color="#5F6368"
                             icon={faTrash}
                         /></div>
-                        <div className='required'>Required</div>
-                        <div className='slider'>
+                        <div className='required-new'>Required</div>
+                        <div className='slider-new'>
                             <Switch
                                 onChange={updateRequired}
                                 checked={question.required}
@@ -97,8 +100,8 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
                                 onColor='#399F4F'
                             />
                         </div>
-                        <div className='additional-settings'>
-                            <div className='question-icon'><FontAwesomeIcon
+                        <div className='additional-settings-new'>
+                            <div className='question-icon-new'><FontAwesomeIcon
                                 color="#5F6368"
                                 icon={faEllipsisV}
                             /></div>
