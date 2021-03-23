@@ -51,7 +51,6 @@ const Section = ({ section, idx, length }) => {
                                 </div>
                                 <div className="input-textarea-box input-section">
                                     <textarea
-                                        data-autoresize
                                         row="1"
                                         ref={textareaRef}
                                         defaultValue={section.description}

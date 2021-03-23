@@ -40,6 +40,7 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
     }
 
     const updateType = (e) => {
+        console.log(e.target.value)
         let newQuestion = { ...question };
         newQuestion.type = e.target.value;
         newQuestion.options = ['Option A'];
@@ -72,7 +73,9 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
                         <select className="form-select mx-auto" defaultValue={question.type} onChange={updateType}>
                             {Object.keys(questionComponents).map(type => {
                                 return (
-                                    <option className="m-3" value={type} key={type}>{capitalizeFirstLetter(type).replace('_answer', '')}</option>
+                                    <option className="m-3" value={type} key={type}>
+                                        {capitalizeFirstLetter(type).replace('_answer', '')}
+                                    </option>
                                 )
                             })}
                         </select>

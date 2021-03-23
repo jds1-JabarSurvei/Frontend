@@ -6,7 +6,7 @@
 .tab-container {
     min-height: calc(100vh - 60px);
     background-color: #F6F6F6;
-    padding: 40px 20vw;
+    padding: 65px 20vw;
 }
 
 .tab-header {
@@ -38,6 +38,6 @@
 
 @media only screen and (max-width: 767px) {
     .tab-container {
-        padding: 40px 10px;
+        padding: 50px 20px;
     }
 }

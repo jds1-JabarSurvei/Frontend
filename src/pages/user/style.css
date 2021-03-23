@@ -169,12 +169,6 @@
   color: var(--green);
 }
 
-.tab-container, .survey-page {
-  min-height: calc(100vh - 60px);
-  background-color: #F6F6F6;
-  padding: 40px 20vw;
-}
-
 .line {
   height: 30px;
   background-color: #198754;
@@ -190,10 +184,6 @@
   width: 100px;
   border-radius: 10px;
 }
-
-/* .question {
-  font-size:
-} */
 
 .answer {
   font-size:18px;

@@ -277,6 +277,35 @@ select.form-control {
     transition: .4s;
 }
 
+.multiple-choice-option label {
+    width: 100%;
+}
+
+.input-multiple {
+    margin-left: 5px;
+    border-bottom: 1px solid #bdbdbd;
+    width: 99%;
+}
+
+.check-input {
+    padding: 10px 10px 10px 10px;
+    height: 40px;
+}
+
+.check-input:hover {
+    cursor: text;
+}
+
+.flex-row {
+    height: 40px;
+    display: flex;
+    padding-left: 10px;
+}
+
+.flex-row .input-text-box {
+    flex-basis: 99%;
+}
+
 .edit-section-new textarea {
     outline: none;
     resize: none;
@@ -294,6 +323,15 @@ select.form-control {
     width: 100%;
     left: 0;
     transition: .4s;
+}
+
+.add {
+    color: #858585;
+}
+
+.add:hover {
+    color: black;
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 767px) {
