@@ -11,15 +11,16 @@ const usernameValidator = /[0-9]/;
 class Register extends Component {
   state = {
     isVisible: false,
-    username: "",
     email: "",
     HPNumber: "",
     password: "",
     confirmPassword: "",
+    birthday: "",
+    gender: "",
+    address: "",
     wrongPassword: false,
     wrongEmail: false,
     wrongConfirmPassword: false,
-    wrongUsername: false,
     wrongNumber: false,
     emailHasExisted: false,
     isSubmitted: false,
@@ -28,17 +29,19 @@ class Register extends Component {
 
   componentDidUpdate(_prevProps, prevState) {
     if (
+      //user mensubmit
       this.state.isSubmitted !== prevState.isSubmitted &&
       this.state.isSubmitted
     ) {
       if (
+        //user mengisi data lengkap dan benar pada FE
         !this.state.wrongEmail &&
         !this.state.wrongPassword &&
         !this.state.wrongConfirmPassword &&
         !this.state.wrongUsername &&
         !this.state.wrongNumber
       ) {
-        registerAPI(this.state.email, this.state.password).then((result) => {
+        registerAPI(this.state.email, this.state.password, this.state.HPNumber, this.state.gender, this.state.address, this.state.birthday).then((result) => {
           console.log(result.data);
           if (result.data.success) {
             this.setState({ submitSuccess: true });
@@ -47,6 +50,12 @@ class Register extends Component {
             this.setState({ emailHasExisted: true });
           }
         });
+        // console.log(this.state.email);
+        // console.log(this.state.HPNumber);
+        // console.log(this.state.password);
+        // console.log(this.state.confirmPassword);
+        // console.log(this.state.gender);
+        // console.log(this.state.address);
       }
       this.setState({ isSubmitted: false });
     }
@@ -103,6 +112,18 @@ class Register extends Component {
       this.setState({ wrongConfirmPassword: false });
     }
   };
+
+  handleGender = (event) => {
+    this.setState({ gender: event.target.value });
+  }
+
+  handleBirthday = (event) =>{
+    this.setState({ birthday: event.target.value});
+  }
+
+  handleAddress = (event) => {
+    this.setState({ address: event.target.value});
+  }
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -184,7 +205,7 @@ class Register extends Component {
               <h7 className="mb-5" style={{ fontSize: "20px" }}>Tanggal Lahir</h7><br></br>
               <input type="date" className="mt-2 mb-3"
                 style={{ border: `1px solid #ced4da` }}
-                id="birthdate" name="birthdate" required></input>
+                id="birthdate" name="birthdate" onChange={this.handleBirthday} required></input>
             </div>
 
               <div className="form-group">
@@ -195,8 +216,9 @@ class Register extends Component {
                   type="radio"
                   id="male"
                   name="gender"
-                  value="male"
+                  value="M"
                   autoCorrect="off"
+                  onChange={this.handleGender}
                   required
                   />
                   <label className="form-check-label mt-1 mr-5"
@@ -213,8 +235,9 @@ class Register extends Component {
                   type="radio"
                   id="female"
                   name="gender"
-                  value="female"
+                  value="F"
                   autoCorrect="off"
+                  onChange={this.handleGender}
                   />
                   <label className="form-check-label mt-1"
                    style={{fontSize:"16px"}}
@@ -253,6 +276,7 @@ class Register extends Component {
                 className="form-control"
                 autoComplete="off"
                 rows="3"
+                onChange={this.handleAddress}
                 required
               />
 
