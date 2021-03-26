@@ -14,11 +14,15 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
     const getAnswer = (event) => {
         var isSame = false;
         const value = event.target.value;
+        console.log("answer")
+        console.log(answer)
         for (var i = 0; i<answer[0].jawaban.length; i++){
-            if (answer[0].jawaban[i].id_form_field == id_form_field){
-                isSame = true;
-                break
-            }
+            if (typeof answer[0].jawaban[i] !== "undefined"){
+                if (answer[0].jawaban[i].id_form_field == id_form_field){
+                    isSame = true;
+                    break
+                }
+            } 
         }
         for (var j = 0; j<option.length; j++){
             if (option[j].nilai==value){
@@ -57,7 +61,6 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
                                         "value" : nilai})
             }
         }
-
         else if(type == "checkbox"){
             var checkedValue = new Array();
             var uncheckedValue = new Array();
@@ -75,13 +78,8 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
                 isEqual.push(false);
             }
 
-            console.log(checkedValue)
-            console.log(uncheckedValue)
-            console.log(isEqual);
-
                 for (var j = 0; j<answer[0].jawaban.length; j++){
                     for (var k = 0; k<option.length; k++){
-                        console.log(answer[0].jawaban[j].id_form_option, " ", option[k].id_form_option)
                         if (answer[0].jawaban[j].id_form_option == option[k].id_form_option){
                             for (var i=0; i<checkedValue.length; i++){
                                 if (option[k].nilai == checkedValue[i]){
@@ -93,12 +91,9 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
                     
                 }
 
-            console.log(isEqual)
             for (var i = 0; i<answer[0].jawaban.length; i++){
                 for (var j = 0; j<uncheckedValue.length; j++){
-                    if(typeof answer[0].jawaban[i].value === "undefined"){
-                        
-                    }else{
+                    if(typeof answer[0].jawaban[i] !== "undefined"){
                         if (answer[0].jawaban[i].value == uncheckedValue[j]){
                             answer[0].jawaban.splice(i,1)
                         }
@@ -115,14 +110,16 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
                 }
             }
         }
-        console.log(answer[0])
     }
 
   if (type == "short_answer"){
       return(
           <div>
-             <input type="text" onChange={handleShortAnswer, getAnswer}  required/>
-             <h1 className="is-short-answer"><br></br>{isShortAnswer? "":"Jawaban tidak boleh lebih dari 20 huruf"}</h1>
+             <input type="text" 
+             onChange={(event)=>{handleShortAnswer(event);getAnswer(event)} }  
+            //  onChange={handleShortAnswer}
+             required/>
+             <h1 className="is-short-answer">{isShortAnswer? "":"Jawaban tidak boleh lebih dari 20 huruf"}<br></br></h1>
           </div>
           
       )
