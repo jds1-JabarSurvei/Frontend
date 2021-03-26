@@ -27,6 +27,24 @@ class Register extends Component {
     submitSuccess: false,
   };
 
+  registerFun = async() => {
+    let result = await registerAPI(this.state.email, this.state.password, this.state.HPNumber, this.state.gender, this.state.address, this.state.birthday);
+    if(result.data.error === "Email has been taken"){
+      this.setState({ emailHasExisted: true });
+    }
+    else{
+      if(result.data){
+        this.setState({ submitSuccess: true });
+        document.getElementsByName("registerForm")[0].reset();
+        toast.success('Account registered successfully!');
+      }
+    }
+    // console.log("Halooo");
+    // let result = await registerAPI(this.state.email, this.state.password, this.state.HPNumber, this.state.gender, this.state.address, this.state.birthday);
+    // console.log("Haii");
+    // console.log(result);
+  }
+
   componentDidUpdate(_prevProps, prevState) {
     if (
       //user mensubmit
@@ -41,22 +59,28 @@ class Register extends Component {
         !this.state.wrongUsername &&
         !this.state.wrongNumber
       ) {
-        registerAPI(this.state.email, this.state.password, this.state.HPNumber, this.state.gender, this.state.address, this.state.birthday).then((result) => {
-          console.log(result.data);
-          if (result.data.success) {
-            this.setState({ submitSuccess: true });
-            toast.success('Account registered successfully!');
-          } else if (result.data.error === "Email has been taken") {
-            this.setState({ emailHasExisted: true });
-          }
-        });
+          this.registerFun();
+          // if(result.data.success){
+          //   this.setState({ submitSuccess: true });
+          //   document.getElementsByName("registerForm")[0].reset();
+          //   toast.success('Account registered successfully!');
+          //   alert("Success");
+          // }
+          // else if(result.data.error === "Email has been taken"){
+          //   this.setState({ emailHasExisted: true });
+          // }
+          
+        // console.log("Register done");
+        // document.getElementsByName("registerForm")[0].reset();
+        // alert("Success");
+        // document.getElementsByName("registerForm").reset();
         // console.log(this.state.email);
         // console.log(this.state.HPNumber);
         // console.log(this.state.password);
         // console.log(this.state.confirmPassword);
         // console.log(this.state.gender);
         // console.log(this.state.address);
-      }
+        }
       this.setState({ isSubmitted: false });
     }
   }
@@ -164,7 +188,7 @@ class Register extends Component {
         <div className="col-md-12 line"></div>
         <div className="col-md-6 fieldR">
           <h3 className="register-text mb-3">Daftar Akun Admin</h3><br></br>
-          <form onSubmit={this.handleSubmit}>
+          <form name="registerForm" onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label htmlFor="username">
                 Nama
@@ -322,9 +346,6 @@ class Register extends Component {
               </h6>
             </div>
             <input type="submit" className="mt-3" style={{ border: "none" }} name="register" value="Daftarkan Akun" />
-            <h6 className="wrongR">
-              {submitSuccess ? "Akun berhasil didaftarkan" : ""}
-            </h6>
           </form>
         </div>
         <ToastContainer
