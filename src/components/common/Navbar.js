@@ -3,6 +3,7 @@ import './style.css';
 import Logo from 'assets/images/logo_jds.png';
 import { Link } from 'react-router-dom';
 import { AuthContext } from 'contexts/AuthContext';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 class Navbar extends Component {
     state = {
@@ -24,7 +25,7 @@ class Navbar extends Component {
         // Link-link sementara, bakal bertambah seiring waktu
         const links = this.context.currentUser ? [
             { title: 'Survei', path: '/admin' },
-            { title: 'Carousel', path: '/admin' },
+            // { title: 'Carousel', path: '/admin' },
             { title: 'Tambah Admin', path: '/admin/register' }
         ] : [
             { title: 'Beranda', path: '/' },
@@ -35,29 +36,57 @@ class Navbar extends Component {
                 <nav className="navbar fixed-top navbar-expand-lg navbar-light">
                     <div className="container container-fluid">
                         <div className="logo">
-                            <Link className="navbar-brand " to="/">
+                            <Link className="navbar-brand " to={this.context.currentUser? "/admin" : "/" }>
                                 <img src={Logo} alt="" width={100} />
                             </Link>
                         </div>
 
                         {this.context.currentUser ?
-                            <div className="nav-item dropdown">
+                            <>
+                            <div class="dropdown">
+                            <button class="btn dropdown-toggle px-3" style={{backgroundColor:"white", color:"black"}} type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                              Admin
+                            </button>
+                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li className="dropdown-item py-2">Hello,<br></br><strong>{this.context.currentUser}</strong></li>
+                                    <li><hr className="dropdown-divider" /></li>
+                                    <li className="text-center my-2">
+                                        <a href="/admin/survey/new" className="btn "style={{backgroundColor:"var(--green)", color:"white"}}>Buat Survei Baru</a>
+                                    </li>
+                                    <li><hr className="dropdown-divider" /></li>
+                                    {links.map(link => {
+                                        return (
+                                            <a href={link.path} className="dropdown-item py-2">{link.title}</a>
+                                            // <li className="dropdown-item"><Link to={link.path}>{link.title}</Link></li>
+                                        );
+
+                                    })}
+                                    <li><hr className="dropdown-divider" /></li>
+                                    <li className="dropdown-item py-2" onClick={this.context.logout}>Keluar</li>
+                                </ul>
+                          </div>
+                            {/* <div className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Admin
                                 </a>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li className="dropdown-item">{this.context.currentUser}</li>
+                                    <li className="dropdown-item"><AccountCircleIcon/>{this.context.currentUser}</li>
                                     <li><hr className="dropdown-divider" /></li>
+                                    <li className="text-center my-2">
+                                        <button type="button" className="btn "style={{backgroundColor:"var(--green)", color:"white"}}>Buat Survei Baru</button>
+                                    </li>
                                     {links.map(link => {
                                         return (
-                                            <li className="dropdown-item"><Link to={link.path}>{link.title}</Link></li>
+                                            <a href={link.path} className="dropdown-item py-2">{link.title}</a>
+                                            // <li className="dropdown-item"><Link to={link.path}>{link.title}</Link></li>
                                         );
 
                                     })}
                                     <li><hr className="dropdown-divider" /></li>
                                     <li className="dropdown-item" onClick={this.context.logout}>KELUAR</li>
                                 </ul>
-                            </div>
+                            </div> */}
+                            </>
                             :
                             <>
                                 <button className="navbar-toggler" type="button" onClick={this.handleToggle}>

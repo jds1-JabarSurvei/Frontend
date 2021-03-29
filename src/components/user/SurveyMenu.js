@@ -1,6 +1,10 @@
 import { Component } from 'react';
-import { Tooltip, OverlayTrigger } from 'react-bootstrap';
-
+// import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+import ViewListIcon from '@material-ui/icons/ViewList';
+import ViewComfyIcon from '@material-ui/icons/ViewComfy';
+import SortIcon from '@material-ui/icons/Sort';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 class SurveyMenu extends Component {
     state = {
         categoryMenu : [],
@@ -35,12 +39,23 @@ class SurveyMenu extends Component {
                         </div>
 
                         <div className="col-6 right">
-                            <OverlayTrigger key="list" placement="bottom" overlay={<Tooltip id={`tooltip-bottom`}>Ubah Ke Tampilan {isGrid ? "Daftar" : "Kartu"}</Tooltip>}>
+                            {/* <OverlayTrigger key="list" placement="bottom" overlay={<Tooltip id={`tooltip-bottom`}>Ubah Ke Tampilan {isGrid ? "Daftar" : "Kartu"}</Tooltip>}>
                                 <i className={`fas fa-th-${isGrid ? "list" : "large"}`} onClick={handleView} />
                             </OverlayTrigger>
                             <OverlayTrigger key="sort" placement="bottom" overlay={<Tooltip id={`tooltip-bottom`}>Urutkan {isAscending ? "Menaik" : "Menurun"}</Tooltip>}>
                                 <i className={`fas fa-sort-alpha-${isAscending ? "down" : "up"}`} onClick={handleSort} />
-                            </OverlayTrigger>
+                            </OverlayTrigger> */}
+
+                            <Tooltip title={`Ubah Ke Tampilan ${isGrid ? "Daftar" : "Kartu"}`} placement="bottom" arrow>
+                                <IconButton onClick={handleView} aria-label="delete question">
+                                    { isGrid ? <ViewComfyIcon /> : <ViewListIcon/> }
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip title={`Urutkan ${isAscending ? "Menaik" : "Menurun"}`} placement="bottom" arrow>
+                                <IconButton onClick={handleSort} aria-label="delete question">
+                                    { isAscending ? <SortIcon /> : <SortIcon style={{transform: "rotateX(180deg)"}}/> }
+                                </IconButton>
+                            </Tooltip>
                         </div>
                     </div>
                 </div>

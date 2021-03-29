@@ -1,8 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import axios from "axios";
+import uuid from 'react-uuid';
 import './style.css';
+import Address from "./Address";
 
 const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
   const [isShortAnswer, setIsShortAnswer] = useState(true);
+  const [stateAddress, setStateAddress] = useState({
+    token: "",
+    listProvinsi: [],
+    listKabupaten: [],
+    listKecamatan: [],
+    listKelurahan: [],
+
+    jawaban: {
+        provinsi: "",
+        kabupaten: "",
+        kecamatan: "",
+        kelurahan: ""
+    }
+    })
+
     const handleShortAnswer = (event) =>{
         const value = event.target.value;
         if (value.length < 20){
@@ -14,11 +32,15 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
     const getAnswer = (event) => {
         var isSame = false;
         const value = event.target.value;
+        console.log("answer")
+        console.log(answer)
         for (var i = 0; i<answer[0].jawaban.length; i++){
-            if (answer[0].jawaban[i].id_form_field == id_form_field){
-                isSame = true;
-                break
-            }
+            if (typeof answer[0].jawaban[i] !== "undefined"){
+                if (answer[0].jawaban[i].id_form_field == id_form_field){
+                    isSame = true;
+                    break
+                }
+            } 
         }
         for (var j = 0; j<option.length; j++){
             if (option[j].nilai==value){
@@ -57,7 +79,6 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
                                         "value" : nilai})
             }
         }
-
         else if(type == "checkbox"){
             var checkedValue = new Array();
             var uncheckedValue = new Array();
@@ -90,9 +111,7 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
 
             for (var i = 0; i<answer[0].jawaban.length; i++){
                 for (var j = 0; j<uncheckedValue.length; j++){
-                    if(typeof answer[0].jawaban[i].value === "undefined"){
-                        
-                    }else{
+                    if(typeof answer[0].jawaban[i] !== "undefined"){
                         if (answer[0].jawaban[i].value == uncheckedValue[j]){
                             answer[0].jawaban.splice(i,1)
                         }
@@ -109,31 +128,36 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
                 }
             }
         }
-        console.log(answer[0])
     }
 
   if (type == "short_answer"){
       return(
-          <div>
-             <input type="text" onChange={handleShortAnswer, getAnswer}  required/>
-             <h1 className="is-short-answer"><br></br>{isShortAnswer? "":"Jawaban tidak boleh lebih dari 20 huruf"}</h1>
-          </div>
-          
+          <>
+        <div className="input-text-box input-question">
+            <input className="input-text-new input-text-question" type="text" onChange={(event)=>{handleShortAnswer(event);getAnswer(event)}} required/>
+            <span className="focus-border"></span>
+        </div>
+            <h1 className="is-short-answer">{isShortAnswer? "":"Jawaban tidak boleh lebih dari 20 huruf"}</h1>
+          </>
       )
   }
   else if(type == "paragraph"){
       return(
-          <input type="text" onChange={getAnswer}  required/>
+        <div className="input-text-box input-question">
+            <input className="input-text-new input-text-question" type="text" onChange={getAnswer} required/>
+            <span className="focus-border"></span>
+        </div>
       )
   }
   else if(type == "checkbox"){
       return(
           option.map(({nilai}) => {
-              return(
-                  <div>
-                      <input type="checkbox" className="checkbox" id={nilai} name={nilai} value={nilai} onChange={getAnswer}/>
-                      <label for={nilai}>{nilai}</label>
-                  </div>
+                const key = uuid();
+                return(
+                    <div>
+                        <input type="checkbox" className="checkbox" id={key} name={nilai} value={nilai} onChange={getAnswer}/>
+                        <label for={key}>{nilai}</label>
+                    </div>
               )
           })
       )
@@ -141,10 +165,11 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
   else if(type == "radio"){
       return(
           option.map(({nilai}) => {
+              const key = uuid();
               return(
                   <div>
-                      <input type="radio" name={pertanyaan} id={nilai} value={nilai} onChange={getAnswer} required/>
-                      <label for={nilai}>{nilai}</label>
+                      <input type="radio" name={pertanyaan} id={key} value={nilai} onChange={getAnswer} required/>
+                      <label for={key}>{nilai}</label>
                   </div>
               )
           })
@@ -160,6 +185,20 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
               })}
           </select>
       )
+  }
+  else if (type == "alamat"){
+    return(
+        <Address
+            // getProvinsi={getProvinsi}
+            // handleProvinsi = {handleProvinsi}
+            // handleKabupaten = {handleKabupaten}
+            // handleKecamatan = {handleKecamatan}
+            // handleKelurahan = {handleKelurahan}
+            
+
+        />
+    )
+
   }
   else{
       return(
