@@ -10,12 +10,14 @@ import AdminIndex from 'pages/admin/Index';
 import NewSurvey from 'pages/admin/NewSurvey';
 import NotFound from 'pages/NotFound';
 import SurveyPage from 'pages/user/SurveyPage';
+import Address from 'pages/user/Address';
 // Others
 import './App.css';
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 import AuthContextProvider, { useAuth } from 'contexts/AuthContext';
 import { Component } from 'react';
 import Loading from 'components/common/Loading';
+import RenderedAdress from 'pages/user/RenderedAddress';
 
 function App() {
   return (
