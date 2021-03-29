@@ -29,14 +29,14 @@ const SurveyPage = () => {
         }).catch(() => {
             setSurvey([]);
         });
-
     }
 
     const postResponse = async () => {
         // e.preventDefault();
         await APICall.post("/submitjawaban", {
-            jawaban: answer[0]
+            jawaban: answer
         }).then((res) => {
+            console.log(answer)
             history.push('/');
             toast.success('Your response has been recorded!');
         }).catch(() =>

@@ -5,7 +5,6 @@ import NewSurveyContextProvider from 'contexts/NewSurveyContext';
 import './style.css';
 
 const NewSurvey = () => {
-
     return (
         <NewSurveyContextProvider>
             <div className="new-survey">

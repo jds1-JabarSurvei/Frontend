@@ -1,8 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import axios from "axios";
 import './style.css';
+import Address from "./Address";
 
 const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
   const [isShortAnswer, setIsShortAnswer] = useState(true);
+  const [stateAddress, setStateAddress] = useState({
+    token: "",
+    listProvinsi: [],
+    listKabupaten: [],
+    listKecamatan: [],
+    listKelurahan: [],
+
+    jawaban: {
+        provinsi: "",
+        kabupaten: "",
+        kecamatan: "",
+        kelurahan: ""
+    }
+    })
+
     const handleShortAnswer = (event) =>{
         const value = event.target.value;
         if (value.length < 20){
@@ -163,6 +180,20 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
               })}
           </select>
       )
+  }
+  else if (type == "alamat"){
+    return(
+        <Address
+            // getProvinsi={getProvinsi}
+            // handleProvinsi = {handleProvinsi}
+            // handleKabupaten = {handleKabupaten}
+            // handleKecamatan = {handleKecamatan}
+            // handleKelurahan = {handleKelurahan}
+            
+
+        />
+    )
+
   }
   else{
       return(
