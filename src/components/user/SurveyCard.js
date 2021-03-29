@@ -25,7 +25,7 @@ function SurveyCard(props) {
                             <h5 className="card-title">{title}</h5>
                             <p className="card-text">oleh: {owner}</p>
                         </div>
-                        <div className="col-3">
+                        {/* <div className="col-3">
                             {
                                 isAdmin ?
                                     <div className="dropdown">
@@ -36,7 +36,7 @@ function SurveyCard(props) {
                                         </ul>
                                     </div> : ""
                             }
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
