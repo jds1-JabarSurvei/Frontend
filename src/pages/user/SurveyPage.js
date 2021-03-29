@@ -75,6 +75,13 @@ const SurveyPage = () => {
 
             )
         }
+        if (nSection == 1) {
+            return (
+                <>
+                    <button type="button" className="submit" onClick={postResponse}>KIRIM</button>
+                </>
+            )
+        }
     }
 
     return (

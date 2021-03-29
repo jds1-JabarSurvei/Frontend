@@ -5,10 +5,6 @@ import NewSurveyContextProvider, { useNewSurvey } from 'contexts/NewSurveyContex
 
 import './style.css';
 
-<<<<<<< HEAD
-
-const NewSurvey = () => {
-=======
 const NewSurveyContent = () => {
     const { formTitle, updateFormTitle } = useNewSurvey();
     const [isActive, setIsActive] = useState(false);
@@ -20,7 +16,6 @@ const NewSurveyContent = () => {
     const handleInactive = () => {
         setIsActive(false);
     }
->>>>>>> feature/UI-new-survey
     return (
             <div className="new-survey">
                 <div className="tab-container">

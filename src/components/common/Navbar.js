@@ -36,11 +36,7 @@ class Navbar extends Component {
                 <nav className="navbar fixed-top navbar-expand-lg navbar-light">
                     <div className="container container-fluid">
                         <div className="logo">
-<<<<<<< HEAD
-                            <Link className="navbar-brand " to={this.context.currentUser ? '/admin' : '/'}>
-=======
                             <Link className="navbar-brand " to={this.context.currentUser? "/admin" : "/" }>
->>>>>>> feature/UI-new-survey
                                 <img src={Logo} alt="" width={100} />
                             </Link>
                         </div>

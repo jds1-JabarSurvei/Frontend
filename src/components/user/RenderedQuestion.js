@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
-<<<<<<< HEAD:src/components/user/RenderedQuestion.js
 import axios from "axios";
-=======
 import uuid from 'react-uuid';
->>>>>>> feature/UI-new-survey:src/pages/user/RenderedQuestion.js
 import './style.css';
 import Address from "./Address";
 
@@ -135,24 +132,13 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
 
   if (type == "short_answer"){
       return(
-<<<<<<< HEAD:src/components/user/RenderedQuestion.js
-          <div>
-             <input type="text" 
-             onChange={(event)=>{handleShortAnswer(event);getAnswer(event)} }  
-            //  onChange={handleShortAnswer}
-             required/>
-             <h1 className="is-short-answer">{isShortAnswer? "":"Jawaban tidak boleh lebih dari 20 huruf"}<br></br></h1>
-          </div>
-          
-=======
           <>
         <div className="input-text-box input-question">
-            <input className="input-text-new input-text-question" type="text" onChange={handleShortAnswer, getAnswer} required/>
+            <input className="input-text-new input-text-question" type="text" onChange={(event)=>{handleShortAnswer(event);getAnswer(event)}} required/>
             <span className="focus-border"></span>
         </div>
             <h1 className="is-short-answer">{isShortAnswer? "":"Jawaban tidak boleh lebih dari 20 huruf"}</h1>
           </>
->>>>>>> feature/UI-new-survey:src/pages/user/RenderedQuestion.js
       )
   }
   else if(type == "paragraph"){
