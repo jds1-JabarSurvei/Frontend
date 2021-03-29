@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import { Modal } from 'react-bootstrap';
 import SurveyCard from 'components/user/SurveyCard';
+import SurveyCardAdd from 'components/user/SurveyCardAdd';
+import SurveyTableAdd from 'components/user/SurveyTableAdd';
 import SurveyTable from 'components/user/SurveyTable';
 import SurveyMenu from 'components/user/SurveyMenu';
 import APICall from '../../utils/axios';
@@ -168,9 +170,6 @@ class SurveyList extends Component {
         this.callListSurvey();
     }
 
-
-
-
     render() {
         const { isGrid, listSurvey, isAscending, showModal, loading, style, searchText } = this.state;
         const { handleView, handleSort, handleModal, handleDelete, ascending, descending, handleSearch } = this;
@@ -188,6 +187,9 @@ class SurveyList extends Component {
                             isGrid ?
                                 <div className="survey-list row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4" style={isAdmin ? { marginTop: '120px' } : { marginTop: style.marginTop }}>
                                     {
+                                        isAdmin ? <SurveyCardAdd/> : ""
+                                    }
+                                    { 
                                         data.map(survey => {
                                             return (
                                                 <SurveyCard
@@ -204,7 +206,7 @@ class SurveyList extends Component {
                                 </div>
                                 :
                                 <div className="table-responsive-lg">
-                                    <table className="survey-list table table-hover" style={isAdmin ? { marginTop: '120px' } : { marginTop: style.marginTop }}>
+                                    <table className="survey-list table" style={isAdmin ? { marginTop: '120px' } : { marginTop: style.marginTop }}>
                                         <thead>
                                             <tr>
                                                 <th scope="col-7" className="p-3 col-7">Nama Survei</th>
@@ -214,6 +216,9 @@ class SurveyList extends Component {
                                         </thead>
                                         <tbody>
                                             {
+                                                isAdmin ? <SurveyTableAdd/> : ""
+                                            }
+                                            {   
                                                 data.map(survey => {
                                                     return (
                                                         <SurveyTable

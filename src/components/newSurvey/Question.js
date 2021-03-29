@@ -1,6 +1,8 @@
 import React from 'react';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import ToolBar from './ToolBar';
 import Short from './questionTypes/Short';
 import Paragraph from './questionTypes/Paragraph';
@@ -88,11 +90,16 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
                 <>
                     <hr />
                     <div className="question-setting-new">
-                        <div className='question-icon-new' onClick={onDelete}><FontAwesomeIcon
+                        {/* <div className='question-icon-new' onClick={onDelete}><FontAwesomeIcon
                             color="#5F6368"
                             icon={faTrash}
-                        /></div>
-                        <div className='required-new'>Wajib</div>
+                        /></div> */}
+                        <Tooltip title="Hapus Pertanyaan" placement="right" arrow>
+                            <IconButton  onClick={onDelete} aria-label="delete">
+                                <DeleteIcon />
+                            </IconButton>
+                        </Tooltip>
+                        {/* <div className='required-new'>Wajib</div>
                         <div className='slider-new'>
                             <Switch
                                 onChange={updateRequired}
@@ -101,13 +108,13 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
                                 uncheckedIcon={false}
                                 onColor='#399F4F'
                             />
-                        </div>
-                        <div className='additional-settings-new'>
+                        </div> */}
+                        {/* <div className='additional-settings-new'>
                             <div className='question-icon-new'><FontAwesomeIcon
                                 color="#5F6368"
                                 icon={faEllipsisV}
                             /></div>
-                        </div>
+                        </div> */}
                     </div>
                     <ToolBar />
                 </>

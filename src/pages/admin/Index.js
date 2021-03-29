@@ -6,11 +6,11 @@ const Index = () => {
     return (
         <>
             <SurveyList isAdmin={true} />
-            <div className="newSurveyButton">
+            {/* <div className="newSurveyButton">
                 <Link to="/admin/survey/new">
                     <i className="fas fa-plus"></i>
                 </Link>
-            </div>            
+            </div>             */}
         </>
     );
 }
