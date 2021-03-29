@@ -6,7 +6,6 @@ import './style.css';
 
 
 const NewSurvey = () => {
-
     return (
         <NewSurveyContextProvider>
             <div className="new-survey">

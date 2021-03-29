@@ -1,8 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import axios from "axios";
 import './style.css';
+import Address from "./Address";
 
 const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
   const [isShortAnswer, setIsShortAnswer] = useState(true);
+  const [stateAddress, setStateAddress] = useState({
+    token: "",
+    listProvinsi: [],
+    listKabupaten: [],
+    listKecamatan: [],
+    listKelurahan: [],
+
+    jawaban: {
+        provinsi: "",
+        kabupaten: "",
+        kecamatan: "",
+        kelurahan: ""
+    }
+    })
+
     const handleShortAnswer = (event) =>{
         const value = event.target.value;
         if (value.length < 20){
@@ -14,11 +31,15 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
     const getAnswer = (event) => {
         var isSame = false;
         const value = event.target.value;
+        console.log("answer")
+        console.log(answer)
         for (var i = 0; i<answer[0].jawaban.length; i++){
-            if (answer[0].jawaban[i].id_form_field == id_form_field){
-                isSame = true;
-                break
-            }
+            if (typeof answer[0].jawaban[i] !== "undefined"){
+                if (answer[0].jawaban[i].id_form_field == id_form_field){
+                    isSame = true;
+                    break
+                }
+            } 
         }
         for (var j = 0; j<option.length; j++){
             if (option[j].nilai==value){
@@ -57,7 +78,6 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
                                         "value" : nilai})
             }
         }
-
         else if(type == "checkbox"){
             var checkedValue = new Array();
             var uncheckedValue = new Array();
@@ -90,9 +110,7 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
 
             for (var i = 0; i<answer[0].jawaban.length; i++){
                 for (var j = 0; j<uncheckedValue.length; j++){
-                    if(typeof answer[0].jawaban[i].value === "undefined"){
-                        
-                    }else{
+                    if(typeof answer[0].jawaban[i] !== "undefined"){
                         if (answer[0].jawaban[i].value == uncheckedValue[j]){
                             answer[0].jawaban.splice(i,1)
                         }
@@ -109,14 +127,16 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
                 }
             }
         }
-        console.log(answer[0])
     }
 
   if (type == "short_answer"){
       return(
           <div>
-             <input type="text" onChange={handleShortAnswer, getAnswer}  required/>
-             <h1 className="is-short-answer"><br></br>{isShortAnswer? "":"Jawaban tidak boleh lebih dari 20 huruf"}</h1>
+             <input type="text" 
+             onChange={(event)=>{handleShortAnswer(event);getAnswer(event)} }  
+            //  onChange={handleShortAnswer}
+             required/>
+             <h1 className="is-short-answer">{isShortAnswer? "":"Jawaban tidak boleh lebih dari 20 huruf"}<br></br></h1>
           </div>
           
       )
@@ -160,6 +180,20 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
               })}
           </select>
       )
+  }
+  else if (type == "alamat"){
+    return(
+        <Address
+            // getProvinsi={getProvinsi}
+            // handleProvinsi = {handleProvinsi}
+            // handleKabupaten = {handleKabupaten}
+            // handleKecamatan = {handleKecamatan}
+            // handleKelurahan = {handleKelurahan}
+            
+
+        />
+    )
+
   }
   else{
       return(

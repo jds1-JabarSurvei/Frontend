@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import NewSurveyContextProvider from 'contexts/NewSurveyContext';
 import './style.css';
 import APICall from "utils/axios"
-import RenderedQuestion from './RenderedQuestion';
+import RenderedQuestion from '../../components/user/RenderedQuestion';
 import { useParams } from 'react-router-dom';
 import Loading from 'components/common/Loading';
 import { toast } from 'react-toastify';
@@ -10,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 
 const SurveyPage = () => {
     const [sectionIdx, setSectionIdx] = useState(0)
-    const [survey, setSurvey] = useState([]);
+    const [survey, setSurvey] = useState([])
     const history = useHistory();
     let { id } = useParams();
 
@@ -29,27 +28,22 @@ const SurveyPage = () => {
             }]);
         }).catch(() => {
             setSurvey([]);
-            console.log('ha')
         });
-
     }
 
     const postResponse = async () => {
         // e.preventDefault();
         await APICall.post("/submitjawaban", {
-            jawaban: answer[0]
+            jawaban: answer
         }).then((res) => {
+            console.log(answer)
             history.push('/');
             toast.success('Your response has been recorded!');
         }).catch(() =>
-            // alert("GAGAL")
             console.log('halooooo')
         )
     }
-    // useEffect(() => postResponse(), []);
-
-
-    // useEffect(() => console.log(answer[0]), [])
+    
     const back = () => {
         console.log(answer)
         setSectionIdx(sectionIdx - 1);
@@ -119,7 +113,6 @@ const SurveyPage = () => {
                                                                 <div className="question-title">
                                                                     <div className="form-group">
                                                                         <label for={pertanyaan} className="question">{pertanyaan}</label><br></br>
-                                                                        {/* {getAnswer(id_form_field, "")} */}
                                                                         <RenderedQuestion
                                                                             answer={answer}
                                                                             type={tipe}
@@ -145,7 +138,6 @@ const SurveyPage = () => {
                 </>
                 : <Loading />}
         </div>
-
     );
 }
 
