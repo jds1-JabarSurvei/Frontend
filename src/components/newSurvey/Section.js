@@ -35,9 +35,9 @@ const Section = ({ section, idx, length }) => {
 
     return (
         <div className="section-container-new">
-            {activeSection === idx ? <button className="remove-section-new" onClick={onRemove}>Remove Section</button> : null}
+            {activeSection === idx ? <button className="remove-section-new" onClick={onRemove}>HAPUS BAGIAN</button> : null}
             <div className="section-header-new" onClick={toggleActive}>
-                <div className="section-count-new">SECTION {idx + 1} OF {length}</div>
+                <div className="section-count-new">BAGIAN {idx + 1} DARI {length}</div>
                 <div className={isActive() ?
                     "section-info-new active-question-new shadow" : "section-info-new"
                 }>
@@ -51,7 +51,7 @@ const Section = ({ section, idx, length }) => {
                                 </div>
                                 <div className="input-textarea-box input-section">
                                     <textarea
-                                        row="1"
+                                        rows="1"
                                         ref={textareaRef}
                                         defaultValue={section.description}
                                         onKeyUp={autoResizeTextarea}
@@ -64,7 +64,7 @@ const Section = ({ section, idx, length }) => {
                         :
                         <>
                             <div className="section-title-new">{section.title}</div>
-                            <div className="section-description-new">{section.description}</div>
+                            <div className="section-description-new" style={{whiteSpace: "pre-line"}}>{section.description}</div>
                         </>
                     }
 

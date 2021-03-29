@@ -61,25 +61,23 @@ const SurveyPage = () => {
     const checkButton = (nSection) => {
         if (sectionIdx == 0 && nSection > 1) {
             return (
-                <div>
-                    <button className="next" onClick={next}>Next</button>
-                </div>
+                <button className="next" onClick={next}>SELANJUTNYA</button>
             )
         }
         if (sectionIdx > 0 && sectionIdx < nSection - 1) {
             return (
-                <div>
-                    <button className="back" onClick={back}>Back</button>
-                    <button className="next" onClick={next}>Next</button>
-                </div>
+                <>
+                    <button className="back" onClick={back}>KEMBALI</button>
+                    <button className="next" onClick={next}>SELANJUTNYA</button>
+                </>
             )
         }
         if (sectionIdx > 0 && sectionIdx == nSection - 1) {
             return (
-                <div>
-                    <button className="back" onClick={back}>Back</button>
-                    <button type="button" className="submit" onClick={postResponse}>Submit</button>
-                </div>
+                <>
+                    <button className="back" onClick={back}>KEMBALI</button>
+                    <button type="button" className="submit" onClick={postResponse}>KIRIM</button>
+                </>
 
             )
         }
@@ -90,24 +88,26 @@ const SurveyPage = () => {
         <div className="survey-page">
             {survey.length > 0 ?
                 <>
-                    <div className="survey-title">
-                        {survey.judulForm}
-                    </div>
                     {survey.map(({ form_id, pembuat, judulForm, pertanyaan }, i) => {
                         return (
+                            
                             <div key={i}>
                                 <form>
-                                    <div className="survey-title">
-                                        {judulForm}
+                                    {/* Judul Form */}
+                                    <div className={sectionIdx == 0 ? "survey-title-container" : "hide"}>
+                                        <div className="survey-title">
+                                            <h1>{judulForm}</h1>
+                                        </div>
                                     </div>
                                     {pertanyaan.map(({ judul, bagian, deskripsi, pertanyaan }, j) => {
                                         return (
 
                                             <div key={j}>
+                                                {/* Section Container */}
                                                 <div className={sectionIdx == j ? "section-container" : "hide"}>
                                                     <div className="section-header" >
-                                                        <div className="section-title">{judul}</div>
                                                         <div className="section-info">
+                                                            <div className="section-title">{judul}</div>
                                                             <div className="section-description">{deskripsi}</div>
                                                         </div>
                                                     </div>
@@ -116,6 +116,7 @@ const SurveyPage = () => {
                                                     {pertanyaan.map(({ pertanyaan, id_form_field, tipe, option }, k) => {
                                                         return (
                                                             <div className="question-container">
+                                                                {/* Section Container */}
                                                                 <div className="question-title">
                                                                     <div className="form-group">
                                                                         <label for={pertanyaan} className="question">{pertanyaan}</label><br></br>
@@ -137,7 +138,9 @@ const SurveyPage = () => {
                                             </div>
                                         )
                                     })}
-                                    {checkButton(pertanyaan.length)}
+                                    <div className="button-flex">
+                                        {checkButton(pertanyaan.length)}
+                                    </div>
                                 </form>
                             </div>
                         )

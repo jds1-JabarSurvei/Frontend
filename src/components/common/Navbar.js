@@ -24,7 +24,7 @@ class Navbar extends Component {
         // Link-link sementara, bakal bertambah seiring waktu
         const links = this.context.currentUser ? [
             { title: 'Survei', path: '/admin' },
-            { title: 'Carousel', path: '/admin' },
+            // { title: 'Carousel', path: '/admin' },
             { title: 'Tambah Admin', path: '/admin/register' }
         ] : [
             { title: 'Beranda', path: '/' },
@@ -35,7 +35,7 @@ class Navbar extends Component {
                 <nav className="navbar fixed-top navbar-expand-lg navbar-light">
                     <div className="container container-fluid">
                         <div className="logo">
-                            <Link className="navbar-brand " to="/">
+                            <Link className="navbar-brand " to={this.context.currentUser? "/admin" : "/" }>
                                 <img src={Logo} alt="" width={100} />
                             </Link>
                         </div>

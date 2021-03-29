@@ -25,7 +25,7 @@ const ToolBar = () => {
             <Overlay target={questionRef.current} show={showQuestion} placement="right">
                 {(props) => (
                     <Tooltip {...props}>
-                        Add Question
+                        Tambah Pertanyaan
                     </Tooltip>
                 )}
             </Overlay>
@@ -36,7 +36,7 @@ const ToolBar = () => {
             <Overlay target={sectionRef.current} show={showSection} placement="right">
                 {(props) => (
                     <Tooltip {...props}>
-                        Add Section
+                        Tambah Bagian
                     </Tooltip>
                 )}
             </Overlay>

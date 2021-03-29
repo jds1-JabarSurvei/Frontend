@@ -40,7 +40,6 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
     }
 
     const updateType = (e) => {
-        console.log(e.target.value)
         let newQuestion = { ...question };
         newQuestion.type = e.target.value;
         newQuestion.options = ['Option A'];
@@ -93,7 +92,7 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
                             color="#5F6368"
                             icon={faTrash}
                         /></div>
-                        <div className='required-new'>Required</div>
+                        <div className='required-new'>Wajib</div>
                         <div className='slider-new'>
                             <Switch
                                 onChange={updateRequired}
