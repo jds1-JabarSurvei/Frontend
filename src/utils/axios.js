@@ -6,11 +6,15 @@ const APICall = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
 });
 
-export const registerAPI = (email, password) => {
+export const registerAPI = (email, password, contactNumber, gender, address, birthday) => {
   return new Promise((resolve, reject) => {
     APICall.post("register", {
       email: email,
       password: password,
+      contactNumber: contactNumber,
+      gender: gender,
+      address: address,
+      birthday: birthday
     })
       .then(function (response) {
         resolve(response);
