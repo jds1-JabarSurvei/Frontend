@@ -36,6 +36,11 @@
     color: #399F4F;
 }
 
+.loading-container {
+    min-height: calc(100vh - 60px);
+    padding: 40px 0;
+}
+
 @media only screen and (max-width: 767px) {
     .tab-container {
         padding: 40px 10px;

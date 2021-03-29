@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import NewSurveyContextProvider from 'contexts/NewSurveyContext';
 import './style.css';
 
+
 const NewSurvey = () => {
     return (
         <NewSurveyContextProvider>
