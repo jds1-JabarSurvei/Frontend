@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
+<<<<<<< HEAD:src/components/user/RenderedQuestion.js
 import axios from "axios";
+=======
+import uuid from 'react-uuid';
+>>>>>>> feature/UI-new-survey:src/pages/user/RenderedQuestion.js
 import './style.css';
 import Address from "./Address";
 
@@ -131,6 +135,7 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
 
   if (type == "short_answer"){
       return(
+<<<<<<< HEAD:src/components/user/RenderedQuestion.js
           <div>
              <input type="text" 
              onChange={(event)=>{handleShortAnswer(event);getAnswer(event)} }  
@@ -139,21 +144,34 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
              <h1 className="is-short-answer">{isShortAnswer? "":"Jawaban tidak boleh lebih dari 20 huruf"}<br></br></h1>
           </div>
           
+=======
+          <>
+        <div className="input-text-box input-question">
+            <input className="input-text-new input-text-question" type="text" onChange={handleShortAnswer, getAnswer} required/>
+            <span className="focus-border"></span>
+        </div>
+            <h1 className="is-short-answer">{isShortAnswer? "":"Jawaban tidak boleh lebih dari 20 huruf"}</h1>
+          </>
+>>>>>>> feature/UI-new-survey:src/pages/user/RenderedQuestion.js
       )
   }
   else if(type == "paragraph"){
       return(
-          <input type="text" onChange={getAnswer}  required/>
+        <div className="input-text-box input-question">
+            <input className="input-text-new input-text-question" type="text" onChange={getAnswer} required/>
+            <span className="focus-border"></span>
+        </div>
       )
   }
   else if(type == "checkbox"){
       return(
           option.map(({nilai}) => {
-              return(
-                  <div>
-                      <input type="checkbox" className="checkbox" id={nilai} name={nilai} value={nilai} onChange={getAnswer}/>
-                      <label for={nilai}>{nilai}</label>
-                  </div>
+                const key = uuid();
+                return(
+                    <div>
+                        <input type="checkbox" className="checkbox" id={key} name={nilai} value={nilai} onChange={getAnswer}/>
+                        <label for={key}>{nilai}</label>
+                    </div>
               )
           })
       )
@@ -161,10 +179,11 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
   else if(type == "radio"){
       return(
           option.map(({nilai}) => {
+              const key = uuid();
               return(
                   <div>
-                      <input type="radio" name={pertanyaan} id={nilai} value={nilai} onChange={getAnswer} required/>
-                      <label for={nilai}>{nilai}</label>
+                      <input type="radio" name={pertanyaan} id={key} value={nilai} onChange={getAnswer} required/>
+                      <label for={key}>{nilai}</label>
                   </div>
               )
           })

@@ -32,22 +32,30 @@ const MultipleAnswer = ({ question, sectionIdx, questionIdx }) => {
                     <div className="multiple-choice-option" key={option}>
                         {idx === activeOption ?
                             <>
-                                <label><input value={true} disabled type={question.type} name={option} value={option} />
-                                    <input type="text" defaultValue={option} onBlur={(e) => updateOption(idx, e.target.value)} />
+                                <label>
+                                    <div className="flex-row">
+                                        <input className="m-auto" value={true} disabled type={question.type} name={option} value={option} />
+                                        <div className="input-text-box m-auto">
+                                            <input autoFocus type="text" className="input-text-new input-multiple" defaultValue={option} onBlur={(e) => updateOption(idx, e.target.value)} />
+                                            <span className="focus-border input-multiple"></span>
+                                        </div>
+                                    </div>
                                 </label><br />
                             </>
                             :
                             <>
                                 <label onClick={() => updateActiveOption(idx)}>
-                                    <input value={true} disabled type={question.type} name={option} value={option} /> {option}
+                                    <div className="check-input">
+                                        <input value={true} disabled type={question.type} name={option} value={option} /> {option}
+                                    </div>
                                 </label><br />
                             </>}
                     </div>
                 );
             })}
             {activeSection === sectionIdx && activeQuestion === questionIdx ?
-                <div className="multiple-choice-option add-option" onClick={addOption}>
-                    <label htmlFor="add"><input type={question.type} disabled name="add" value="add" /> Add Option</label><br />
+                <div className="multiple-choice-option add-option check-input" onClick={addOption}>
+                    <label htmlFor="add" className="add"><input type={question.type} disabled name="add" value="add" /> Add Option</label><br />
                 </div>
                 :
                 null}

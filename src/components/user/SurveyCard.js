@@ -16,11 +16,11 @@ function SurveyCard(props) {
         // console.log('halo')
     }
     return (
-        <div className="col" onClick={() => onSurveyClick(id)}>
-            <div className="card shadow-sm mb-4">
+        <div className="col pb-4" onClick={() => onSurveyClick(id)}>
+            <div className="card shadow-sm h-100">
                 <img src={imagesource} className="survey-img card-img-top" height="100%" width="auto" alt={title} />
                 <div className="card-body">
-                    <div className="row">
+                    <div className="row ">
                         <div className="col-9">
                             <h5 className="card-title">{title}</h5>
                             <p className="card-text">oleh: {owner}</p>

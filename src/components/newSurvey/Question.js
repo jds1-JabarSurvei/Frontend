@@ -1,6 +1,8 @@
 import React from 'react';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import ToolBar from './ToolBar';
 import Short from './questionTypes/Short';
 import Paragraph from './questionTypes/Paragraph';
@@ -60,35 +62,45 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
 
     let RenderedQuestion = questionComponents[question.type];
     return (
-        <div className={isActive() ? "question-container active-question" : "question-container"} onClick={toggleActive}>
+        <div className={isActive() ? "question-container-new active-question-new shadow" : "question-container-new"} onClick={toggleActive}>
             {isActive() ?
                 <>
 
-                    <div className="edit-question">
-                        <input type="text" defaultValue={question.title} onBlur={updateTitle} />
-                        <select defaultValue={question.type} onChange={updateType}>
+                    <div className="edit-question-new">
+                        <div className="input-text-box input-question">
+                            <input className="input-text-new" type="text" defaultValue={question.title} onBlur={updateTitle} />
+                            <span className="focus-border"></span>
+                        </div>
+                        <select className="form-select mx-auto" defaultValue={question.type} onChange={updateType}>
                             {Object.keys(questionComponents).map(type => {
                                 return (
-                                    <option value={type} key={type}>{capitalizeFirstLetter(type).replace('_answer', '')}</option>
+                                    <option className="m-3" value={type} key={type}>
+                                        {capitalizeFirstLetter(type).replace('_answer', '')}
+                                    </option>
                                 )
                             })}
                         </select>
                     </div>
                 </>
-                : <div className="question-title">{question.title}</div>
+                : <div className="question-title-new">{question.title}</div>
             }
 
             <RenderedQuestion question={question} sectionIdx={sectionIdx} questionIdx={questionIdx} />
             {isActive() ?
                 <>
                     <hr />
-                    <div className="question-setting">
-                        <div className='question-icon' onClick={onDelete}><FontAwesomeIcon
+                    <div className="question-setting-new">
+                        {/* <div className='question-icon-new' onClick={onDelete}><FontAwesomeIcon
                             color="#5F6368"
                             icon={faTrash}
-                        /></div>
-                        <div className='required'>Required</div>
-                        <div className='slider'>
+                        /></div> */}
+                        <Tooltip title="Hapus Pertanyaan" placement="right" arrow>
+                            <IconButton  onClick={onDelete} aria-label="delete">
+                                <DeleteIcon />
+                            </IconButton>
+                        </Tooltip>
+                        {/* <div className='required-new'>Wajib</div>
+                        <div className='slider-new'>
                             <Switch
                                 onChange={updateRequired}
                                 checked={question.required}
@@ -96,13 +108,13 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
                                 uncheckedIcon={false}
                                 onColor='#399F4F'
                             />
-                        </div>
-                        <div className='additional-settings'>
-                            <div className='question-icon'><FontAwesomeIcon
+                        </div> */}
+                        {/* <div className='additional-settings-new'>
+                            <div className='question-icon-new'><FontAwesomeIcon
                                 color="#5F6368"
                                 icon={faEllipsisV}
                             /></div>
-                        </div>
+                        </div> */}
                     </div>
                     <ToolBar />
                 </>

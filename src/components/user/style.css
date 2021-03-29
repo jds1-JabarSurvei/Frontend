@@ -36,6 +36,10 @@
 .menuTable {
     cursor: pointer;
 }
+
+tr {
+    cursor: pointer;
+}
 .dropdownMenuCard {
     padding: 10px;
 }
@@ -79,6 +83,25 @@ i {
     cursor: pointer;
 }
 
+.card-add{
+    border: 1px dashed var(--green);
+    background-color: rgba(57, 159, 79, .1);
+}
+.survey-table-add {
+    background-color: rgba(57, 159, 79, .1);
+    color: var(--green);
+}
+
+.survey-table-add:hover, .survey-table-item:hover {
+    background-color: rgba(57, 159, 79, .2);
+    color: var(--green);
+    transition: .25s;
+}
+
+.card-add:hover {
+    background-color: rgba(57, 159, 79, .25);
+    transition: .4s;
+}
 .card img {
     height: 200px;
     object-fit: cover;
@@ -111,6 +134,7 @@ i {
 
 /* Survey List */
 .survey-list {
+    min-height: calc(100vh - 60px);
     margin-bottom: 50px;
 }
 
