@@ -13,14 +13,15 @@ export const useNewSurvey = () => {
 const NewSurveyContextProvider = (props) => {
     const [activeSection, setActiveSection] = useState(-1);
     const [activeQuestion, setActiveQuestion] = useState(-1);
+    const [formTitle, setFormTitle] = useState("Judul Survei");
     const [sections, setSections] = useState([
         {
-            title: 'Untitled Form',
-            description: 'Form Description -> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
+            title: 'Judul',
+            description: 'Deskripsi',
             questions: [
                 {
                     type: 'short_answer',
-                    title: 'Short Question',
+                    title: 'Pertanyaan',
                     description: 'Question description',
                     required: false,
                     options: [],
@@ -28,12 +29,12 @@ const NewSurveyContextProvider = (props) => {
             ]
         },
         {
-            title: 'Untitled Section',
-            description: 'Section Description -> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
+            title: 'Judul',
+            description: 'Deskripsi',
             questions: [
                 {
                     type: 'paragraph',
-                    title: 'Long Question',
+                    title: 'Pertanyaan',
                     description: 'Question description',
                     required: true,
                     options: [],
@@ -44,15 +45,19 @@ const NewSurveyContextProvider = (props) => {
     const history = useHistory();
     const [loading, setLoading] = useState(false);
 
+    const updateFormTitle = (e) => {
+        setFormTitle(e.target.value);
+    }
+
     const addSection = () => {
         let tempSections = [...sections];
         tempSections.splice(activeSection + 1, 0, {
-            title: 'New Section',
-            description: 'Section Description',
+            title: 'Judul',
+            description: 'Deskripsi',
             questions: [
                 {
                     type: 'short_answer',
-                    title: 'Short Question',
+                    title: 'Pertanyaan',
                     description: 'Question description 2',
                     required: true,
                     options: [],
@@ -60,7 +65,7 @@ const NewSurveyContextProvider = (props) => {
             ],
         });
         setSections(tempSections);
-        toast('New Section Added');
+        toast('Bagian Baru telah Ditambahkan');
     }
 
     const deleteSection = (sectionIdx) => {
@@ -70,7 +75,7 @@ const NewSurveyContextProvider = (props) => {
         let tempSections = [...sections];
         tempSections.splice(sectionIdx, 1);
         setSections(tempSections);
-        toast.error('Section deleted');
+        toast.error('Bagian telah Dihapus');
     }
 
     const updateSection = (sectionIdx, newSection) => {
@@ -83,13 +88,13 @@ const NewSurveyContextProvider = (props) => {
         let tempSections = [...sections];
         tempSections[activeSection].questions.splice(activeQuestion + 1, 0, {
             type: 'short_answer',
-            title: 'Inserted Question',
+            title: 'Pertanyaan',
             description: 'Question description 2',
             required: true,
             options: [],
         });
         setSections(tempSections);
-        toast('New Question Added');
+        toast('Pertanyaan Baru telah Ditambahkan');
     }
 
     const deleteQuestion = (sectionIdx, questionIdx) => {
@@ -114,9 +119,10 @@ const NewSurveyContextProvider = (props) => {
         setLoading(true);
         let payload = {};
         let tempSections = [...sections];
-        const firstSection = tempSections[0];
+        // const firstSection = tempSections[0];
         payload.user_id = "1";
-        payload.judulForm = firstSection.title;
+        // payload.judulForm = firstSection.title;
+        payload.judulForm = formTitle;
         payload.bagian = [];
         tempSections.forEach(section => {
             let tempBagian = {};
@@ -154,10 +160,12 @@ const NewSurveyContextProvider = (props) => {
     }
 
     const value = {
+        formTitle,
         sections,
         activeSection,
         activeQuestion,
         loading,
+        updateFormTitle,
         addSection,
         deleteSection,
         updateSection,

@@ -4,6 +4,10 @@ nav {
     height: 65px;
 }
 
+.dropdown-item Link {
+    color: green;
+}
+
 /* .navbar-collapse {
     display: flex;
     justify-content: center;

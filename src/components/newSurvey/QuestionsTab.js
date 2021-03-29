@@ -37,7 +37,7 @@ const QuestionsTab = () => {
                     />
                 )
             })}
-            <button className="submit-btn" onClick={submitForm} disabled={loading}>Submit</button>
+            <button className="submit-btn-new" onClick={submitForm} disabled={loading}>Submit</button>
         </div>
     );
 }
