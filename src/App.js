@@ -8,6 +8,7 @@ import Register from 'pages/Register';
 import UserIndex from 'pages/user/Index';
 import AdminIndex from 'pages/admin/Index';
 import NewSurvey from 'pages/admin/NewSurvey';
+import SurveyResponse from 'pages/admin/SurveyResponse';
 import NotFound from 'pages/NotFound';
 import SurveyPage from 'pages/user/SurveyPage';
 import Address from 'pages/user/Address';
@@ -15,7 +16,6 @@ import Address from 'pages/user/Address';
 import './App.css';
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 import AuthContextProvider, { useAuth } from 'contexts/AuthContext';
-import { Component } from 'react';
 import Loading from 'components/common/Loading';
 import RenderedAdress from 'pages/user/RenderedAddress';
 
@@ -32,6 +32,7 @@ function App() {
                 <PrivateRoute exact path="/admin" component={AdminIndex} />
                 <PrivateRoute exact path="/admin/register" component={Register} />
                 <PrivateRoute exact path="/admin/survey/new" component={NewSurvey} />
+                <PrivateRoute exact path="/admin/survey/response/:id" component={SurveyResponse} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/" component={UserIndex} />
                 <Route exact path="/survey/:id" component={SurveyPage} />

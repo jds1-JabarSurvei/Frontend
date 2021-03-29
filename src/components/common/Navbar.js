@@ -35,7 +35,7 @@ class Navbar extends Component {
                 <nav className="navbar fixed-top navbar-expand-lg navbar-light">
                     <div className="container container-fluid">
                         <div className="logo">
-                            <Link className="navbar-brand " to="/">
+                            <Link className="navbar-brand " to={this.context.currentUser ? '/admin' : '/'}>
                                 <img src={Logo} alt="" width={100} />
                             </Link>
                         </div>

@@ -1,12 +1,18 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { useAuth } from 'contexts/AuthContext';
 
 function SurveyCard(props) {
     const { id, title, owner, imagesource, isAdmin, handleModal } = props;
     const history = useHistory();
+    const { currentUser } = useAuth();
 
     const onSurveyClick = (id) => {
-        history.push(`/survey/${id}`);
+        if (!currentUser) {
+            history.push(`/survey/${id}`);
+        } else {
+            history.push(`admin/survey/response/${id}`);
+        }
         // console.log('halo')
     }
     return (
