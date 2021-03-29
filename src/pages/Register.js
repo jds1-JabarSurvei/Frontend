@@ -11,43 +11,76 @@ const usernameValidator = /[0-9]/;
 class Register extends Component {
   state = {
     isVisible: false,
-    username: "",
     email: "",
     HPNumber: "",
     password: "",
     confirmPassword: "",
+    birthday: "",
+    gender: "",
+    address: "",
     wrongPassword: false,
     wrongEmail: false,
     wrongConfirmPassword: false,
-    wrongUsername: false,
     wrongNumber: false,
     emailHasExisted: false,
     isSubmitted: false,
     submitSuccess: false,
   };
 
+  registerFun = async() => {
+    let result = await registerAPI(this.state.email, this.state.password, this.state.HPNumber, this.state.gender, this.state.address, this.state.birthday);
+    if(result.data.error === "Email has been taken"){
+      this.setState({ emailHasExisted: true });
+    }
+    else{
+      if(result.data){
+        this.setState({ submitSuccess: true });
+        document.getElementsByName("registerForm")[0].reset();
+        toast.success('Account registered successfully!');
+      }
+    }
+    // console.log("Halooo");
+    // let result = await registerAPI(this.state.email, this.state.password, this.state.HPNumber, this.state.gender, this.state.address, this.state.birthday);
+    // console.log("Haii");
+    // console.log(result);
+  }
+
   componentDidUpdate(_prevProps, prevState) {
     if (
+      //user mensubmit
       this.state.isSubmitted !== prevState.isSubmitted &&
       this.state.isSubmitted
     ) {
       if (
+        //user mengisi data lengkap dan benar pada FE
         !this.state.wrongEmail &&
         !this.state.wrongPassword &&
         !this.state.wrongConfirmPassword &&
         !this.state.wrongUsername &&
         !this.state.wrongNumber
       ) {
-        registerAPI(this.state.email, this.state.password).then((result) => {
-          console.log(result.data);
-          if (result.data.success) {
-            this.setState({ submitSuccess: true });
-            toast.success('Account registered successfully!');
-          } else if (result.data.error === "Email has been taken") {
-            this.setState({ emailHasExisted: true });
-          }
-        });
-      }
+          this.registerFun();
+          // if(result.data.success){
+          //   this.setState({ submitSuccess: true });
+          //   document.getElementsByName("registerForm")[0].reset();
+          //   toast.success('Account registered successfully!');
+          //   alert("Success");
+          // }
+          // else if(result.data.error === "Email has been taken"){
+          //   this.setState({ emailHasExisted: true });
+          // }
+          
+        // console.log("Register done");
+        // document.getElementsByName("registerForm")[0].reset();
+        // alert("Success");
+        // document.getElementsByName("registerForm").reset();
+        // console.log(this.state.email);
+        // console.log(this.state.HPNumber);
+        // console.log(this.state.password);
+        // console.log(this.state.confirmPassword);
+        // console.log(this.state.gender);
+        // console.log(this.state.address);
+        }
       this.setState({ isSubmitted: false });
     }
   }
@@ -104,6 +137,18 @@ class Register extends Component {
     }
   };
 
+  handleGender = (event) => {
+    this.setState({ gender: event.target.value });
+  }
+
+  handleBirthday = (event) =>{
+    this.setState({ birthday: event.target.value});
+  }
+
+  handleAddress = (event) => {
+    this.setState({ address: event.target.value});
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
     const { email, password, confirmPassword } = this.state;
@@ -143,7 +188,7 @@ class Register extends Component {
         <div className="col-md-12 line"></div>
         <div className="col-md-6 fieldR">
           <h3 className="register-text mb-3">Daftar Akun Admin</h3><br></br>
-          <form onSubmit={this.handleSubmit}>
+          <form name="registerForm" onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label htmlFor="username">
                 Nama
@@ -184,7 +229,7 @@ class Register extends Component {
               <h7 className="mb-5" style={{ fontSize: "20px" }}>Tanggal Lahir</h7><br></br>
               <input type="date" className="mt-2 mb-3"
                 style={{ border: `1px solid #ced4da` }}
-                id="birthdate" name="birthdate" required></input>
+                id="birthdate" name="birthdate" onChange={this.handleBirthday} required></input>
             </div>
 
               <div className="form-group">
@@ -195,8 +240,9 @@ class Register extends Component {
                   type="radio"
                   id="male"
                   name="gender"
-                  value="male"
+                  value="M"
                   autoCorrect="off"
+                  onChange={this.handleGender}
                   required
                   />
                   <label className="form-check-label mt-1 mr-5"
@@ -213,8 +259,9 @@ class Register extends Component {
                   type="radio"
                   id="female"
                   name="gender"
-                  value="female"
+                  value="F"
                   autoCorrect="off"
+                  onChange={this.handleGender}
                   />
                   <label className="form-check-label mt-1"
                    style={{fontSize:"16px"}}
@@ -253,6 +300,7 @@ class Register extends Component {
                 className="form-control"
                 autoComplete="off"
                 rows="3"
+                onChange={this.handleAddress}
                 required
               />
 
@@ -298,9 +346,6 @@ class Register extends Component {
               </h6>
             </div>
             <input type="submit" className="mt-3" style={{ border: "none" }} name="register" value="Daftarkan Akun" />
-            <h6 className="wrongR">
-              {submitSuccess ? "Akun berhasil didaftarkan" : ""}
-            </h6>
           </form>
         </div>
         <ToastContainer
