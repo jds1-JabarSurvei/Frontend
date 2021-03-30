@@ -33,8 +33,12 @@ const SurveyPage = () => {
 
     const postResponse = async () => {
         // e.preventDefault();
+        console.log("Alohaa!!");
+        console.log(answer);
+        console.log("Alohhaaa!!!");
         await APICall.post("/submitjawaban", {
-            jawaban: answer
+            id_form: answer[0].idform,
+            jawaban: answer[0].jawaban 
         }).then((res) => {
             console.log(answer)
             history.push('/');
@@ -44,11 +48,14 @@ const SurveyPage = () => {
         )
     }
     
-    const back = () => {
+    const back = (event) => {
+        event.preventDefault();
         console.log(answer)
         setSectionIdx(sectionIdx - 1);
     }
-    const next = () => {
+    const next = (event) => {
+        event.preventDefault();
+        console.log("masukk next");
         console.log(answer[0])
         setSectionIdx(sectionIdx + 1);
     }

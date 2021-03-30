@@ -196,7 +196,7 @@ class SurveyList extends Component {
                                                     id={survey.id}
                                                     title={survey.title}
                                                     owner={survey.owner}
-                                                    imagesource=""
+                                                    imagesource="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFjqmqjKhzjQm4roF6T1CsMkoBGczrg6bLFQ&usqp=CAU"
                                                     isAdmin={isAdmin}
                                                     handleModal={handleModal}
                                                 />

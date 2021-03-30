@@ -134,7 +134,6 @@ i {
 
 /* Survey List */
 .survey-list {
-    min-height: calc(100vh - 60px);
     margin-bottom: 50px;
 }
 

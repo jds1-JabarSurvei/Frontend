@@ -29,6 +29,25 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
             setIsShortAnswer(false);
         }
     }
+
+    const getAnswerAlamat = (jawaban) => {
+        let isSame;
+        for (var i = 0; i<answer[0].jawaban.length; i++){
+            if (typeof answer[0].jawaban[i] !== "undefined"){
+                if (answer[0].jawaban[i].id_form_field == id_form_field){
+                    isSame = true;
+                    break
+                }
+            } 
+        }
+        if (isSame){
+            answer[0].jawaban.splice(i,1, {"id_form_field" : id_form_field, "id_form_option": null, "value" : jawaban.provinsi + " " + jawaban.kabupaten + " " + jawaban.kecamatan + " " + jawaban.kelurahan})
+        } else{
+            answer[0].jawaban.push({"id_form_field" : id_form_field, "id_form_option": null, "value" : jawaban.provinsi + " " + jawaban.kabupaten + " " + jawaban.kecamatan + " " + jawaban.kelurahan})
+        }
+        
+    }
+
     const getAnswer = (event) => {
         var isSame = false;
         const value = event.target.value;
@@ -189,6 +208,7 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
   else if (type == "alamat"){
     return(
         <Address
+            getAnswerAlamat={getAnswerAlamat}
             // getProvinsi={getProvinsi}
             // handleProvinsi = {handleProvinsi}
             // handleKabupaten = {handleKabupaten}

@@ -123,6 +123,15 @@ class Address extends Component {
         }});
     }
 
+    componentDidUpdate(prevState){
+        if(this.state.jawaban && this.state.jawaban.provinsi && this.state.jawaban.kabupaten && this.state.jawaban.kecamatan && this.state.jawaban.kelurahan){
+            console.log("yoooo");
+            console.log(this.state.jawaban);
+            this.props.getAnswerAlamat(this.state.jawaban);
+        }
+        
+    }
+
     componentDidMount(){
         // Call API Provinsi
         this.getProvinsi();
