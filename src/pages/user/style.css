@@ -1,7 +1,13 @@
 .hide{
   display : none;
 }
+.requireds{
+  color: red;
 
+}
+.unrequired{
+  display : none;
+}
 .survey-page {
   min-height: calc(100vh - 60px);
   background-color: #F6F6F6;
