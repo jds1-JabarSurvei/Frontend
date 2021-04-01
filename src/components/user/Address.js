@@ -139,7 +139,6 @@ class Address extends Component {
 
     render(){
         const { listProvinsi, listKabupaten, listKecamatan, listKelurahan, jawaban } = this.state;
-        const {getProvinsi, handleProvinsi, handleKabupaten, handleKecamatan, handleKelurahan} = this.props;
         return(
             <div className="container">
               {/* {console.log(jawaban)} */}
