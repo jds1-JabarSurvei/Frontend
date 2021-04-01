@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from 'contexts/AuthContext';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
+
+
 class Navbar extends Component {
     state = {
         openToggle: false
@@ -16,12 +18,13 @@ class Navbar extends Component {
         const { openToggle } = this.state;
         this.setState({ openToggle: !openToggle });
     }
-
+    
     render() {
+        console.log(window.location.href);
+        const loginPathRegex = /\/login/;
         // Links bakal tergantung lagi login admin atau tidak, bakal ngikut dari route
         // Sekarang pake dummy begini dulu
         const { openToggle } = this.state;
-
         // Link-link sementara, bakal bertambah seiring waktu
         const links = this.context.currentUser ? [
             { title: 'Survei', path: '/admin' },
@@ -32,8 +35,10 @@ class Navbar extends Component {
             { title: 'Kontak', path: '/' },
         ];
         return (
-            <>
-                <nav className="navbar fixed-top navbar-expand-lg navbar-light">
+            <>  
+                {
+                /* {(window.location.href == `http://localhost:3000/login`) ? <div className="m-3">Navbar</div> : <div className="m-3">Hide</div>} */}
+                <nav className={loginPathRegex.test(window.location.href) ? "hide" : "navbar fixed-top navbar-expand-lg navbar-light"}>
                     <div className="container container-fluid">
                         <div className="logo">
                             <Link className="navbar-brand " to={this.context.currentUser? "/admin" : "/" }>
@@ -57,7 +62,6 @@ class Navbar extends Component {
                                     {links.map(link => {
                                         return (
                                             <a href={link.path} className="dropdown-item py-2">{link.title}</a>
-                                            // <li className="dropdown-item"><Link to={link.path}>{link.title}</Link></li>
                                         );
 
                                     })}

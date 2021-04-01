@@ -181,8 +181,12 @@ class SurveyList extends Component {
         return (
             <>
                 <SurveyMenu style={style} isGrid={isGrid} isAscending={isAscending} handleView={handleView} handleSearch={handleSearch} handleSort={handleSort} searchText={searchText} isAdmin={isAdmin} />
-                <div className="container">
-                    {loading ? <div className="survey-list" style={isAdmin ? { marginTop: '125px' } : { marginTop: style.marginTop }}><Loading /></div> :
+                <div className={`container survey-list-container ${loading ? "d-flex align-items-center justify-content-center" : ""}`}>
+                    {loading ?
+                        <div className="spinner-grow text-warning text-align-center" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div> 
+                            :
                         listSurvey.length > 0 ?
                             isGrid ?
                                 <div className="survey-list row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4" style={isAdmin ? { marginTop: '120px' } : { marginTop: style.marginTop }}>

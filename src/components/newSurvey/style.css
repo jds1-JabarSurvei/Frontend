@@ -333,6 +333,36 @@ select.form-control {
     cursor: pointer;
 }
 
+.image-survey-container {
+    width: 100%;
+    min-height: 150px;
+    border: 1px dashed #858585;
+    border-radius: 5px;
+    text-align: right;
+    overflow: hidden;
+}
+
+.button-image-survey {
+    margin: 50px 0;
+}
+
+.ubah-foto{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.image-survey {
+    width: 100%;
+    object-fit: cover;
+    box-sizing: border-box;
+}
+
+.tooltip-hapus {
+    margin: 0 20px;
+}
+
 @media only screen and (max-width: 767px) {
     .active-question-new {
         border: none;

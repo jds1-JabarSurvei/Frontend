@@ -69,6 +69,10 @@ const AuthContextProvider = (props) => {
         localStorage.removeItem('jds-admin');
         setCurrentUser();
         history.push('/login');
+
+        // Agar terbaca footer regex
+        window.location.reload();
+        
         toast.error('Logged out');
     }
 

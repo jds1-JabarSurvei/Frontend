@@ -1,9 +1,33 @@
-/* .container {
-    font-family: Product Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif!important;
-} */
+.login {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
 
-.signin-text {
-    text-align: center;
+.illustration {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.illustration img {
+    width: 85%;
+}
+
+.login-container {
+    display: flex;
+    align-items: center;
+}
+
+.login-card {
+    border-radius: 5px;
+    margin: 0 auto;
+    /* margin-top: 25%; */
+    width: 70%;
 }
 
 .register-text {
@@ -15,15 +39,6 @@
     background-color: #198754;
 }
 
-.content {
-    margin: 10% 15%;
-    background-color: #fff;
-    border-radius: .5rem;
-    box-shadow: 0 0 5px 5px rgba(0,0,0,.05);
-    justify-content: center;
-    overflow: hidden;
-}
-
 .contentR {
     margin: 15% 20%;
     background-color: #fff;
@@ -32,101 +47,13 @@
     justify-content: center;
     overflow: hidden;
 }
-
-.field {
-    padding: 4rem 1rem;
-}
-
-.field form input {
-    width: 100%;
-    box-sizing: border-box;
-    box-shadow: none;
-    outline: none;
-    border: none;
-    border-bottom: 2px solid #999;
-    font-size: 14px;
-    padding: 10px;
-    margin-bottom: 20px;
-}
-
-.field form input[type="submit"]{
-    border-bottom: none;
-    cursor: pointer;
-    background: #198754;
-    color: white;
-    text-transform: uppercase;
+.contentR {
+    margin: 15% 20%;
+    background-color: #fff;
     border-radius: .5rem;
-    font-weight: bold;
-    font-size: 16px;
-}
-
-.field form input:disabled {
-    background-color: #999;
-}
-
-.field form input:disabled:hover {
-    cursor: auto;
-}
-
-.field form h5 {
-    text-align: center;
-    color: #999;
-    font-size: 14px;
-    margin: 0;
-}
-
-.field form h5 a {
-    text-decoration: none;
-    font-weight: bold;
-    color: #198754;
-}
-
-.field .form-group {
-    position: relative;
-    margin-bottom: 30px;
-}
-
-.field .form-group label {
-    position: absolute;
-    top: 10px;
-    left: 0;
-    color: #999;
-    transition: .5s;
-    pointer-events: none;
-}
-
-.field input:focus ~ label,
-.field input:valid ~ label {
-    top: -12px;
-    left: 0;
-    color:#198754;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.field input:focus, 
-.field input:valid {
-    border-bottom: 2px solid#198754;
-}
-
-.field form i {
-    position: absolute;
-    top: 10px;
-    right: 0;
-    color: #999;
-    transition: .5s;
-    cursor: pointer;
-}
-
-.wrong {
-    color: red;
-    font-size: 12px;
-    margin-top: -10px;
-}
-
-.wrongR {
-    color: red;
-    font-size: 12px;
+    box-shadow: 0 0 5px 5px rgba(0,0,0,.05);
+    justify-content: center;
+    overflow: hidden;
 }
 
 .fieldR {
@@ -176,4 +103,121 @@
     font-size: 20px;
     transition: .5s;
     pointer-events: none;
+}
+
+.login-logo {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
+
+.field {
+    padding: 4rem 2rem 2rem 2rem;
+}
+
+.field form input {
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #999;
+    font-size: 14px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.field form input[type="submit"]{
+    border-bottom: none;
+    cursor: pointer;
+    background: var(--green);
+    color: white;
+    text-transform: uppercase;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.field form input:disabled {
+    background-color: #999;
+}
+
+.field form input:disabled:hover {
+    cursor: auto;
+}
+
+.field form h5 {
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+    margin: 0;
+}
+
+.field form h5 a {
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--green);
+}
+
+.field .form-group {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.field .form-group label {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    color: #999;
+    transition: .5s;
+    pointer-events: none;
+}
+
+.field input:focus ~ label,
+.field input:valid ~ label {
+    top: -12px;
+    left: 0;
+    color:var(--green);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.field input:focus, 
+.field input:valid {
+    border-bottom: 2px solid var(--green);
+}
+
+.field form i {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    color: #999;
+    transition: .5s;
+    cursor: pointer;
+}
+
+.wrong {
+    color: #A20E0E;
+    font-size: 12px;
+    margin-top: -10px;
+}
+
+@media screen and (max-width: 1000px){
+    .illustration img {
+        width: 450px;
+    }
+}
+
+@media screen and (max-width: 900px){
+    .illustration {
+        display: none;
+    }
+
+    .login {
+        grid-template-columns: 1fr;
+    }
+
+    .login-container {
+        justify-content: center;
+    }
 }
