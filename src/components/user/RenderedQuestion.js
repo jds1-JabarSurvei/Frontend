@@ -51,8 +51,8 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
     const getAnswer = (event) => {
         var isSame = false;
         const value = event.target.value;
-        console.log("answer")
-        console.log(answer)
+        // console.log("answer")
+        // console.log(answer)
         for (var i = 0; i<answer[0].jawaban.length; i++){
             if (typeof answer[0].jawaban[i] !== "undefined"){
                 if (answer[0].jawaban[i].id_form_field == id_form_field){
