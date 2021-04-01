@@ -133,6 +133,9 @@ i {
 }
 
 /* Survey List */
+.survey-list-container {
+    min-height: calc(100vh - 60px);
+}
 .survey-list {
     margin-bottom: 50px;
 }
