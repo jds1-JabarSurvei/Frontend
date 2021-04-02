@@ -1,8 +1,12 @@
 import React from 'react';
-
+import Button from '@material-ui/core/Button';
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 const NotFound = () => {
     return (
-        <h1>Page not found</h1>
+        <div className="center-page" style={{ textAlign:"center"}}>
+            <h1>Halaman Tidak Ditemukan.</h1>
+            <a href="/" className="btn "style={{backgroundColor:"var(--green)", color:"white"}}><HomeRoundedIcon/> Kembali Ke Beranda</a>
+        </div>
     );
 }
 
