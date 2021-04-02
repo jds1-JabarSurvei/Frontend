@@ -11,13 +11,11 @@ import NewSurvey from 'pages/admin/NewSurvey';
 import SurveyResponse from 'pages/admin/SurveyResponse';
 import NotFound from 'pages/NotFound';
 import SurveyPage from 'pages/user/SurveyPage';
-import Address from 'pages/user/Address';
 // Others
 import './App.css';
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 import AuthContextProvider, { useAuth } from 'contexts/AuthContext';
 import Loading from 'components/common/Loading';
-import RenderedAdress from 'pages/user/RenderedAddress';
 
 function App() {
   return (
