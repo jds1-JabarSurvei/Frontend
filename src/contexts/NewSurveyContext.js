@@ -13,6 +13,7 @@ export const useNewSurvey = () => {
 const NewSurveyContextProvider = (props) => {
     const [activeSection, setActiveSection] = useState(-1);
     const [activeQuestion, setActiveQuestion] = useState(-1);
+    const [fileImage, setFileImage] = useState(null);
     const [formTitle, setFormTitle] = useState("Judul Survei");
     const [sections, setSections] = useState([
         {
@@ -45,6 +46,22 @@ const NewSurveyContextProvider = (props) => {
     const history = useHistory();
     const [loading, setLoading] = useState(false);
 
+    const updateFileImage = event => {
+        const file = event.target.files[0];
+        if(file){
+            const reader = new FileReader();
+            reader.onload = () => {
+                const result = reader.result;
+                setFileImage(result);
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+
+    const deleteFileImage = () => {
+        setFileImage(null);
+    }
+    
     const updateFormTitle = (e) => {
         setFormTitle(e.target.value);
     }
@@ -160,11 +177,14 @@ const NewSurveyContextProvider = (props) => {
     }
 
     const value = {
+        fileImage,
         formTitle,
         sections,
         activeSection,
         activeQuestion,
         loading,
+        updateFileImage,
+        deleteFileImage,
         updateFormTitle,
         addSection,
         deleteSection,
