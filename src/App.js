@@ -32,7 +32,7 @@ function App() {
                 <PrivateRoute exact path="/admin/survey/new" component={NewSurvey} />
                 <PrivateRoute exact path="/admin/survey/response/:id" component={SurveyResponse} />
                 <Route exact path="/login" component={Login} />
-                <Route exact path="/" component={UserIndex} />
+                <UserRoute exact path="/" component={UserIndex} />
                 <Route exact path="/survey/:id" component={SurveyPage} />
                 <Route component={NotFound} />
               </Switch>
@@ -43,6 +43,23 @@ function App() {
       </AuthContextProvider>
     </BrowserRouter>
   );
+}
+
+const UserRoute = ({ component: Component, ...rest }) => {
+  const { currentUser, loading } = useAuth();
+  return(
+    <>
+    { 
+      loading ?
+        <Loading /> :
+        currentUser ? <Redirect to="/admin" /> :
+          <Route
+            {...rest}
+            render = { props => { return <Component {...props} /> }}
+          ></Route>
+    }
+    </>
+  )
 }
 
 const PrivateRoute = ({ component: Component, ...rest }) => {

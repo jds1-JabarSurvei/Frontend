@@ -9,9 +9,7 @@ class Index extends Component {
     render(){
         return (
             this.context.currentUser ? 
-            <>
                 <SurveyList isAdmin={true}/>
-            </>
             :
             <>
                 <Carousel/>
