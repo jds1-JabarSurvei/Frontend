@@ -21,28 +21,31 @@ export default function DrawerNav({ links, context }) {
         <div className="drawer">
             <React.Fragment key="right">
                 <Button variant="outlined" onClick={toggleDrawer(!toggle)} disableElevation> <MenuRoundedIcon/> </Button>
-                <Drawer className="drawer-container" anchor="right" open={toggle} onClose={toggleDrawer(false)}>
-                    {/* <Toolbar /> */}
-                    <span className="py-2" style={{padding:"0 30px", marginTop:"65px"}}>Halo,<br></br><strong>{context.currentUser}</strong></span>
-                    <Divider />
-                    <List>
-                        <li className="text-center my-2">
-                            <a href="/admin/survey/new" className="btn "style={{width:"70%", backgroundColor:"var(--green)", color:"white"}}><AddBoxIcon/> Buat Survei Baru</a>
-                        </li>
-                    </List>
-                    <Divider />
-                    <List style={{width:"25vw"}}>
-                        {links.map(link => {
-                                        return (
-                                            <a style={{padding:"0 30px"}} href={link.path} className="dropdown-item py-2">{link.title}</a>
-                                        );
-                                    })}
-                    </List>
-                    <Divider />
-                    <List>
-                        <li style={{padding:"0 30px"}} className="dropdown-item py-2" onClick={context.logout}>Keluar</li>
+                <Drawer anchor="right" open={toggle} onClose={toggleDrawer(false)}>
+                    <div className="drawer-container">
+                        <div className="admin-username py-2" style={{padding:"0 30px"}}>
+                            <span>Halo,<br></br><strong>{context.currentUser}</strong></span>
+                        </div>
+                        <Divider />
+                        <List>
+                            <li className="text-center my-2">
+                                <a href="/admin/survey/new" className="btn "style={{width:"70%", backgroundColor:"var(--green)", color:"white"}}><AddBoxIcon/> Buat Survei Baru</a>
+                            </li>
+                        </List>
+                        <Divider />
+                        <List>
+                            {links.map(link => {
+                                            return (
+                                                <a style={{padding:"0 0 0 30px"}} href={link.path} className="dropdown-item py-2">{link.title}</a>
+                                            );
+                                        })}
+                        </List>
+                        <Divider />
+                        <List>
+                            <li style={{padding:"0 30px"}} className="dropdown-item py-2" onClick={context.logout}>Keluar</li>
 
-                    </List>
+                        </List>
+                    </div>
                 </Drawer>
             </React.Fragment>
         </div>

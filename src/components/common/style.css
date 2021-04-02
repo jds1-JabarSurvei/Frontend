@@ -77,6 +77,11 @@ nav {
     padding: 10px;
 }
 
+.drawer-container {
+    width: 30vw;
+    margin-top: 65px;
+}
+
 @media only screen and (max-width: 992px) {
     /* .nav {
         height: 60px;
@@ -130,4 +135,11 @@ nav {
         display: none;
         z-index: 2;
     }
+}
+
+@media only screen and (max-width: 550px) {
+    .drawer-container {
+        width: 50vw;
+    }
+
 }
