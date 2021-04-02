@@ -31,8 +31,8 @@ function App() {
                 <PrivateRoute exact path="/admin/register" component={Register} />
                 <PrivateRoute exact path="/admin/survey/new" component={NewSurvey} />
                 <PrivateRoute exact path="/admin/survey/response/:id" component={SurveyResponse} />
+                <PrivateRoute exact path="/" component={UserIndex} />
                 <Route exact path="/login" component={Login} />
-                <UserRoute exact path="/" component={UserIndex} />
                 <Route exact path="/survey/:id" component={SurveyPage} />
                 <Route component={NotFound} />
               </Switch>
@@ -45,35 +45,19 @@ function App() {
   );
 }
 
-const UserRoute = ({ component: Component, ...rest }) => {
-  const { currentUser, loading } = useAuth();
-  return(
-    <>
-    { 
-      loading ?
-        <Loading /> :
-        currentUser ? <Redirect to="/admin" /> :
-          <Route
-            {...rest}
-            render = { props => { return <Component {...props} /> }}
-          ></Route>
-    }
-    </>
-  )
-}
-
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { currentUser, loading } = useAuth();
 
   return (
     <>
       {loading ? <Loading /> :
-        <Route
-          {...rest}
-          render={props => {
-            return currentUser ? <Component {...props} /> : <NotFound />
-          }}
-        ></Route>
+        rest.path == "/" ? 
+          currentUser ?
+            <Redirect to="/admin" />
+            :
+            <Route {...rest} render = { props => { return <Component {...props} /> }}></Route>
+          :
+          <Route {...rest} render = { props => { return currentUser ? <Component {...props} /> : <NotFound /> }}></Route>
       }
     </>
   )
