@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import APICall from 'utils/axios';
 import Table from 'components/responses/Table';
 import Loading from 'components/common/Loading';
 import { useParams } from 'react-router-dom';
+import { CSVLink } from "react-csv";
 
 const SurveyPage = () => {
     const [responses, setResponses] = useState([]);
@@ -10,26 +11,34 @@ const SurveyPage = () => {
     const [loading, setLoading] = useState(true);
     const [surveyInfo, setSurveyInfo] = useState({});
     const [error, setError] = useState(false);
+    const [downloadData, setDownloadData] = useState([]);
     const { id } = useParams();
+    const downloadRef = useRef();
 
     useEffect(() => {
         const fetchSurvey = async () => {
             let surveyInfoSuccess = false;
+            let csvData = [];
+            let tempColumns = [];
+            let tempResponses = [];
             await APICall(`/formQuestions/${id}`)
                 .then(response => {
 
-                    let tempColumns = [];
                     response.data.pertanyaan.forEach((bagian) => {
-                        let header = {
+                        let columns = [];
+                        let csvColumns = [];
+                        bagian.pertanyaan.forEach(pertanyaan => {
+                            columns.push({
+                                Header: pertanyaan.pertanyaan,
+                                accessor: bagian.bagian.toString() + "_" + pertanyaan.urutan.toString()
+                            });
+                            csvColumns.push(pertanyaan.pertanyaan);
+                        })
+                        tempColumns.push({
                             Header: bagian.judul,
-                            columns: bagian.pertanyaan.map(pertanyaan => {
-                                return {
-                                    Header: pertanyaan.pertanyaan,
-                                    accessor: bagian.bagian.toString() + "_" + pertanyaan.urutan.toString()
-                                }
-                            })
-                        }
-                        tempColumns.push(header);
+                            columns,
+                        });
+                        csvData.push(csvColumns);
                     });
                     surveyInfoSuccess = true;
                     let tempSurveyInfo = { ...response.data };
@@ -41,25 +50,28 @@ const SurveyPage = () => {
                     setError(true);
                 });
             if (surveyInfoSuccess) {
+                let csvRow = [];
                 await APICall(`/allFormResponses/${id}`)
                     .then(response => {
-                        let tempResponses = [];
                         response.data.forEach(indivResponse => {
+                            csvRow = [];
                             let questionResponse = {}
                             indivResponse.responses.forEach(sectionResponse => {
                                 sectionResponse.response.forEach((res) => {
                                     let questionKey = sectionResponse.bagian.toString() + '_' + res.urutan.toString();
-                                    questionResponse[questionKey] = res.value[0]
+                                    let value = res.value.join(", ");
+                                    questionResponse[questionKey] = value;
+                                    csvRow.push(value);
                                 })
                             })
                             tempResponses.push(questionResponse);
+                            csvData.push(csvRow);
                         })
                         setResponses(tempResponses);
-
+                        setDownloadData(csvData);
                     }).catch(() => {
                         setError(true);
                     })
-
             }
             setLoading(false);
         }
@@ -68,6 +80,14 @@ const SurveyPage = () => {
         fetchSurvey();
 
     }, []);
+
+    const onDownloadClick = () => {
+        if (downloadRef.current) {
+            console.log(downloadRef)
+            console.log(downloadData)
+            downloadRef.current.link.click();
+        }
+    }
 
     return (
         <>
@@ -83,6 +103,13 @@ const SurveyPage = () => {
                         <>
                             <h1>{surveyInfo.judulForm}</h1>
                             <span>Dibuat oleh: {surveyInfo.pembuat}</span>
+                            <button onClick={onDownloadClick}>Download</button>
+                            <CSVLink
+                                data={downloadData}
+                                filename={`${surveyInfo.judulForm}.csv`}
+                                ref={downloadRef}
+                                target="_blank" />
+
                             <Table columns={columns} data={responses} />
                         </>
                     }
