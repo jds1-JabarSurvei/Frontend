@@ -11,9 +11,8 @@ function SurveyCard(props) {
         if (!currentUser) {
             history.push(`/survey/${id}`);
         } else {
-            history.push(`admin/survey/response/${id}`);
+            history.push(`admin/survey/${id}`);
         }
-        // console.log('halo')
     }
     return (
         <div className="col pb-4" onClick={() => onSurveyClick(id)}>

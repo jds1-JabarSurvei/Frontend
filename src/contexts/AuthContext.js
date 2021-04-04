@@ -47,6 +47,8 @@ const AuthContextProvider = (props) => {
                 if (res.data.login === "Success") {
                     updateCurrentUser(res.data.email);
                     history.push('/admin');
+                    // Agar terbaca footer regex
+                    window.location.reload();
                     toast.success('Login Successful');
                     return true;
                 }
