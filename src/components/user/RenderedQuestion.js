@@ -17,7 +17,8 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
         provinsi: "",
         kabupaten: "",
         kecamatan: "",
-        kelurahan: ""
+        kelurahan: "",
+        detail: ""
     }
     })
 
@@ -41,10 +42,12 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
             } 
         }
         if (isSame){
-            answer[0].jawaban.splice(i,1, {"id_form_field" : id_form_field, "id_form_option": null, "value" : jawaban.provinsi + " " + jawaban.kabupaten + " " + jawaban.kecamatan + " " + jawaban.kelurahan})
+            answer[0].jawaban.splice(i,1, {"id_form_field" : id_form_field, "id_form_option": null, "value" : jawaban.provinsi + " " + jawaban.kabupaten + " " + jawaban.kecamatan + " " + jawaban.kelurahan + ";" + jawaban.detail})
         } else{
-            answer[0].jawaban.push({"id_form_field" : id_form_field, "id_form_option": null, "value" : jawaban.provinsi + " " + jawaban.kabupaten + " " + jawaban.kecamatan + " " + jawaban.kelurahan})
+            answer[0].jawaban.push({"id_form_field" : id_form_field, "id_form_option": null, "value" : jawaban.provinsi + " " + jawaban.kabupaten + " " + jawaban.kecamatan + " " + jawaban.kelurahan + ";" + jawaban.detail})
         }
+        console.log("AAAAAAAAAAAAAAA")
+        console.log(answer)
         
     }
 
