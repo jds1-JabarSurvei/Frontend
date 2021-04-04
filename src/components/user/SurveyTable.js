@@ -1,13 +1,17 @@
 import { useHistory } from 'react-router-dom';
+import { useAuth } from 'contexts/AuthContext';
 
 function SurveyTable(props) {
     const {id, title, owner, isAdmin, handleModal} = props;
-
+    const { currentUser } = useAuth();
     const history = useHistory();
 
     const onSurveyClick = (id) => {
-        history.push(`/survey/${id}`);
-        // console.log('halo')
+        if (!currentUser) {
+            history.push(`/survey/${id}`);
+        } else {
+            history.push(`admin/survey/${id}`);
+        }
     }
 
     return (

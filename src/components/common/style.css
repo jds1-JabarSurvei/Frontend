@@ -2,6 +2,7 @@ nav {
     /* box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.2); */
     background-color: white;
     height: 65px;
+    z-index: 2000!important;
 }
 
 .dropdown-item Link {
@@ -76,6 +77,11 @@ nav {
     padding: 10px;
 }
 
+.drawer-container {
+    width: 30vw;
+    margin-top: 65px;
+}
+
 @media only screen and (max-width: 992px) {
     /* .nav {
         height: 60px;
@@ -129,4 +135,11 @@ nav {
         display: none;
         z-index: 2;
     }
+}
+
+@media only screen and (max-width: 550px) {
+    .drawer-container {
+        width: 50vw;
+    }
+
 }
