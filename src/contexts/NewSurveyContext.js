@@ -14,6 +14,7 @@ const NewSurveyContextProvider = (props) => {
     const [activeSection, setActiveSection] = useState(-1);
     const [activeQuestion, setActiveQuestion] = useState(-1);
     const [fileImage, setFileImage] = useState(null);
+    const [fileImageBE, setFileImageBE] = useState('');
     const [formTitle, setFormTitle] = useState("Judul Survei");
     const [sections, setSections] = useState([
         {
@@ -49,6 +50,7 @@ const NewSurveyContextProvider = (props) => {
     const updateFileImage = event => {
         const file = event.target.files[0];
         if(file){
+            setFileImageBE(file);
             const reader = new FileReader();
             reader.onload = () => {
                 const result = reader.result;
@@ -60,6 +62,7 @@ const NewSurveyContextProvider = (props) => {
 
     const deleteFileImage = () => {
         setFileImage(null);
+        setFileImageBE('');
     }
     
     const updateFormTitle = (e) => {
@@ -167,10 +170,24 @@ const NewSurveyContextProvider = (props) => {
         });
         await APICall.post('buatform', payload)
             .then(res => {
-                history.push('/admin');
-                toast.success('Successfully added new form!');
+                // Upload Image
+                const formData = new FormData();
+                formData.append('file', fileImageBE);
+                formData.append('name', formTitle);
+                formData.append('id_form', res.data.id_form);
+                
+                APICall.post('upload', formData)
+                    .then( res => {
+                        // console.log(res);
+                        history.push('/admin');
+                        toast.success('Successfully added new form!');
+                    })
+                    .catch( () => {
+                        toast.error('Terdapat beberapa kesalahan. Silakan coba lagi nanti');
+                    });
+
             }).catch(() => {
-                toast.error('Some error occured. Please try again later');
+                toast.error('Terdapat beberapa kesalahan. Silakan coba lagi nanti');
             }).finally(() => {
                 setLoading(false);
             })
