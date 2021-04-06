@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Modal } from 'react-bootstrap';
+import {toast} from 'react-toastify'
 import SurveyCard from 'components/user/SurveyCard';
 import SurveyCardAdd from 'components/user/SurveyCardAdd';
 import SurveyTableAdd from 'components/user/SurveyTableAdd';
@@ -58,7 +59,20 @@ class SurveyList extends Component {
         const { idToDelete } = this.state;
         // Panggil API
         console.log(idToDelete);
+        APICall.post("/deleteform", {
+            id_form : idToDelete
+        }).then((res) =>{
+            // console.log("Sukses")
+            window.location.reload()
+            toast.success(`Anda berhasil menghapus survey`)
+        }).catch(() => toast.error(`Gagal menghapus survey`))
+        
     }
+    // handleDelete = (e, id, title) => {
+    //     if (window.confirm(`Anda yakin ingin menghapus Survey ${title}`)){
+            
+    //     }
+    // }
 
     handleSearch = (value, isAdmin) => {
         this.setState({ loading: true });

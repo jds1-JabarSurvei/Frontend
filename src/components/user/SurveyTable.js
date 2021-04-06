@@ -9,23 +9,27 @@ function SurveyTable(props) {
         history.push(`/survey/${id}`);
         // console.log('halo')
     }
-
+    const onDeleteClick = (e) => {
+        e.preventDefault()
+        console.log("TES")
+    }
     return (
         <>
-        <tr onClick={() => onSurveyClick(id)} className="survey-table-item">
-            <td className="p-3">{title}</td>
-            <td className="p-3">{owner}</td>
+        <tr  className="survey-table-item">
+            <td className="p-3" onClick={() => onSurveyClick(id)}>{title}</td>
+            <td className="p-3" onClick={() => onSurveyClick(id)}>{owner}</td>
             <td className="p-3">
-                {/* {
+                {
                     isAdmin ? 
                     <div className="dropdown">
                         <i class="fas fa-ellipsis-h menuTable" id={id} data-bs-toggle="dropdown" aria-expanded="false"></i>
                         <ul className="dropdown-menu" aria-labelledby={id}>
                             <li><span className="dropdown-item"><i class="far fa-edit dropdownMenuCard"></i> UBAH</span></li>
                             <li onClick={ () => handleModal(`${id}`)}><span className="dropdown-item"><i class="far fa-trash-alt dropdownMenuCard"></i> HAPUS</span></li>
+                            {/* <li onClick={ () => onDeleteClick()}><span className="dropdown-item"><i class="far fa-trash-alt dropdownMenuCard"></i> HAPUS</span></li> */}
                         </ul>
                     </div> : ""
-                } */}
+                }
             </td>
         </tr>
         </>
