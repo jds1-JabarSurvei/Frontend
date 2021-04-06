@@ -58,21 +58,14 @@ class SurveyList extends Component {
     handleDelete = () => {
         const { idToDelete } = this.state;
         // Panggil API
-        console.log(idToDelete);
         APICall.post("/deleteform", {
             id_form : idToDelete
         }).then((res) =>{
-            // console.log("Sukses")
             window.location.reload()
             toast.success(`Anda berhasil menghapus survey`)
         }).catch(() => toast.error(`Gagal menghapus survey`))
         
     }
-    // handleDelete = (e, id, title) => {
-    //     if (window.confirm(`Anda yakin ingin menghapus Survey ${title}`)){
-            
-    //     }
-    // }
 
     handleSearch = (value, isAdmin) => {
         this.setState({ loading: true });

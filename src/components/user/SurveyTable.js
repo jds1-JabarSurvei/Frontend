@@ -9,10 +9,6 @@ function SurveyTable(props) {
         history.push(`/survey/${id}`);
         // console.log('halo')
     }
-    const onDeleteClick = (e) => {
-        e.preventDefault()
-        console.log("TES")
-    }
     return (
         <>
         <tr  className="survey-table-item">
@@ -26,7 +22,6 @@ function SurveyTable(props) {
                         <ul className="dropdown-menu" aria-labelledby={id}>
                             <li><span className="dropdown-item"><i class="far fa-edit dropdownMenuCard"></i> UBAH</span></li>
                             <li onClick={ () => handleModal(`${id}`)}><span className="dropdown-item"><i class="far fa-trash-alt dropdownMenuCard"></i> HAPUS</span></li>
-                            {/* <li onClick={ () => onDeleteClick()}><span className="dropdown-item"><i class="far fa-trash-alt dropdownMenuCard"></i> HAPUS</span></li> */}
                         </ul>
                     </div> : ""
                 }
