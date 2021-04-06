@@ -171,20 +171,22 @@ const NewSurveyContextProvider = (props) => {
         await APICall.post('buatform', payload)
             .then(res => {
                 // Upload Image
-                const formData = new FormData();
-                formData.append('file', fileImageBE);
-                formData.append('name', formTitle);
-                formData.append('id_form', res.data.id_form);
-                
-                APICall.post('upload', formData)
-                    .then( res => {
-                        // console.log(res);
-                        history.push('/admin');
-                        toast.success('Successfully added new form!');
-                    })
-                    .catch( () => {
-                        toast.error('Terdapat beberapa kesalahan. Silakan coba lagi nanti');
-                    });
+                if(fileImageBE){
+                    const formData = new FormData();
+                    formData.append('file', fileImageBE);
+                    formData.append('name', formTitle);
+                    formData.append('id_form', res.data.id_form);
+                    
+                    APICall.post('upload', formData)
+                        .then( res => {
+                            // console.log(res);
+                            history.push('/admin');
+                            toast.success('Successfully added new form!');
+                        })
+                        .catch( () => {
+                            toast.error('Terdapat beberapa kesalahan. Silakan coba lagi nanti');
+                        });
+                }
 
             }).catch(() => {
                 toast.error('Terdapat beberapa kesalahan. Silakan coba lagi nanti');

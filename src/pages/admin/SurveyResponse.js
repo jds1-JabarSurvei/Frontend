@@ -27,30 +27,30 @@ const SurveyPage = () => {
             .then( response => {
                 setHasilSurvey(response.data);
                 
-                let csvData = [];
-                let tempPertanyaan = [];
-                let tempMatrixJawaban = [];
-                response.data.responses.forEach( bagian => {
-                    bagian.response.forEach( pertanyaan => {
-                        let tempJawaban = [];
-                        tempPertanyaan.push(pertanyaan.pertanyaan.toString());
+                // let csvData = [];
+                // let tempPertanyaan = [];
+                // let tempMatrixJawaban = [];
+                // response.data.responses.forEach( bagian => {
+                //     bagian.response.forEach( pertanyaan => {
+                //         let tempJawaban = [];
+                //         tempPertanyaan.push(pertanyaan.pertanyaan.toString());
 
-                        pertanyaan.value.forEach( jawaban => {
-                            tempJawaban.push(jawaban.jawaban.toString());
-                        })
+                //         pertanyaan.value.forEach( jawaban => {
+                //             tempJawaban.push(jawaban.jawaban.toString());
+                //         })
 
-                        tempMatrixJawaban.push(tempJawaban);
-                    });
-                });
+                //         tempMatrixJawaban.push(tempJawaban);
+                //     });
+                // });
 
-                // Tranpose Matrix
-                let matrixJawaban = tempMatrixJawaban[0].map((_, colIndex) => tempMatrixJawaban.map(row => row[colIndex]));
+                // // Tranpose Matrix
+                // let matrixJawaban = tempMatrixJawaban[0].map((_, colIndex) => tempMatrixJawaban.map(row => row[colIndex]));
                 
-                csvData.push(tempPertanyaan);
-                matrixJawaban.forEach( row => {
-                    csvData.push(row);
-                });
-                setDownloadData(csvData);
+                // csvData.push(tempPertanyaan);
+                // matrixJawaban.forEach( row => {
+                //     csvData.push(row);
+                // });
+                // setDownloadData(csvData);
             })
             // let surveyInfoSuccess = false;
             // let csvData = [];
