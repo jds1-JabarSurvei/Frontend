@@ -47,12 +47,10 @@ const SurveyDetailPage = (props) => {
             </AntTabs>
         </div>
 
-        <div className="container">
+        <div className="tab-container">
             <div className={ value == 0 ? "tab-panel" : "hide"}>
-                <p>Cek</p>
+                <p>HALAMAN EDIT</p>
             </div>
-        </div>
-        <div className="container">
             <div className={ value == 1 ? "tab-panel" : "hide"}>
                 <SurveyResponse/>
             </div>
