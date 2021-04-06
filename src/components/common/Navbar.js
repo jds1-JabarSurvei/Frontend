@@ -19,7 +19,6 @@ class Navbar extends Component {
     }
     
     render() {
-        console.log(window.location.href);
         const loginPathRegex = /\/login/;
         // Links bakal tergantung lagi login admin atau tidak, bakal ngikut dari route
         // Sekarang pake dummy begini dulu
