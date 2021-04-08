@@ -69,6 +69,10 @@
     margin-top: 20px;
 }
 
+.checkbox-container {
+    padding: 20px 0;
+}
+
 .short_answer {
     background-color: #eee;
     border-radius: 5px;
