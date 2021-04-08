@@ -71,7 +71,30 @@ const ResponsesField = ({ hasilSurvey, onDownloadClick }) => {
                                                             :
                                                             // Jika Tipe Pertanyaannya adalah Alamat
                                                             (pertanyaan.tipe == "alamat") ?
-                                                                console.log("alamat")
+                                                                <div className="jawaban_short_container">
+                                                                    <div className="alamat_header alamat_row">
+                                                                        <div className="alamat_column">Provinsi</div>
+                                                                        <div className="alamat_column">Kabupaten</div>
+                                                                        <div className="alamat_column">Kecamatan</div>
+                                                                        <div className="alamat_column">Kelurahan</div>
+                                                                        <div className="alamat_column">Detail</div>
+                                                                    </div>
+                                                                    {
+                                                                        pertanyaan.value.map(jawaban => {
+                                                                            let jawabanArray = jawaban.jawaban.toString().split(";");
+                                                                            console.log(jawabanArray);
+                                                                            return (
+                                                                                <div className="short_answer alamat_row">
+                                                                                    <div className="alamat_column">{jawabanArray[0]}</div>
+                                                                                    <div className="alamat_column">{jawabanArray[1]}</div>
+                                                                                    <div className="alamat_column">{jawabanArray[2]}</div>
+                                                                                    <div className="alamat_column">{jawabanArray[3]}</div>
+                                                                                    <div className="alamat_column">{jawabanArray[4]}</div>
+                                                                                </div>
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </div>
                                                                 :
                                                                 ""
                                             }
