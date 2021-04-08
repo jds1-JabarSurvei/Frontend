@@ -1,16 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import APICall from 'utils/axios';
-import Table from 'components/responses/Table';
 import Loading from 'components/common/Loading';
 import { useParams } from 'react-router-dom';
 import { CSVLink } from "react-csv";
 import ResponsesField from './ResponsesField';
-import GetAppIcon from '@material-ui/icons/GetApp';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
 
 const SurveyPage = () => {
-    const [responses, setResponses] = useState([]);
     const [headers, setHeaders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -22,7 +17,6 @@ const SurveyPage = () => {
 
     useEffect(() => {
         const fetchSurvey = async () => {
-            console.log('halo')
             await APICall(`/allFormResponses/${id}`)
                 .then(response => {
                     setHasilSurvey(response.data);
@@ -76,9 +70,6 @@ const SurveyPage = () => {
                         <h6>Error detected. Please try again and refresh</h6>
                         :
                         <>
-                            {/* <h1>{surveyInfo.judulForm}</h1>
-                            <span>Dibuat oleh: {surveyInfo.pembuat}</span>
-                            <button onClick={onDownloadClick}>Download</button> */}
 
                             <CSVLink
                                 data={downloadData}
@@ -87,7 +78,6 @@ const SurveyPage = () => {
                                 ref={downloadRef}
                                 target="_blank" />
 
-                            {/* <Table columns={columns} data={responses} /> */}
                             <ResponsesField onDownloadClick={onDownloadClick} hasilSurvey={hasilSurvey} />
                         </>
                     }
