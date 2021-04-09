@@ -49,7 +49,7 @@ const NewSurveyContextProvider = (props) => {
 
     const updateFileImage = event => {
         const file = event.target.files[0];
-        if(file){
+        if (file) {
             setFileImageBE(file);
             const reader = new FileReader();
             reader.onload = () => {
@@ -64,7 +64,7 @@ const NewSurveyContextProvider = (props) => {
         setFileImage(null);
         setFileImageBE('');
     }
-    
+
     const updateFormTitle = (e) => {
         setFormTitle(e.target.value);
     }
@@ -168,22 +168,23 @@ const NewSurveyContextProvider = (props) => {
             });
             payload.bagian.push(tempBagian);
         });
+        console.log(payload);
         await APICall.post('buatform', payload)
             .then(res => {
                 // Upload Image
-                if(fileImageBE){
+                if (fileImageBE) {
                     const formData = new FormData();
                     formData.append('file', fileImageBE);
                     formData.append('name', formTitle);
                     formData.append('id_form', res.data.id_form);
-                    
+
                     APICall.post('upload', formData)
-                        .then( res => {
+                        .then(res => {
                             // console.log(res);
                             history.push('/admin');
                             toast.success('Successfully added new form!');
                         })
-                        .catch( () => {
+                        .catch(() => {
                             toast.error('Terdapat beberapa kesalahan. Silakan coba lagi nanti');
                         });
                 }

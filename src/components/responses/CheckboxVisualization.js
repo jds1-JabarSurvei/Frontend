@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, LabelList, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 
 
-const CheckboxChart = ({ answers, options }) => {
+const CheckboxVisualization = ({ answers, options }) => {
     const [chartData, setChartData] = useState([]);
 
     useEffect(() => {
@@ -25,16 +25,14 @@ const CheckboxChart = ({ answers, options }) => {
                 label: tempChartCount[idx].toString() + " - (" + (tempChartCount[idx] * 100 / tempMaxCount).toFixed(2).toString() + "%)"
             }
         });
+        tempChartData.sort((a, b) => (a.count < b.count) ? 1 : ((b.count < a.count) ? -1 : 0))
         setChartData(tempChartData);
     }, []);
 
     return (
         <div className="checkbox-container">
-            {/* <h1>Checkbox Containerrr</h1> */}
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={30 * (chartData.length + 3)}>
                 <BarChart
-                    // width={500}
-                    // height={500}
                     data={chartData}
                     margin={{
                         top: 5,
@@ -43,13 +41,12 @@ const CheckboxChart = ({ answers, options }) => {
                         bottom: 5,
                     }}
                     layout="vertical"
+                    barSize={30}
                 >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis type="number" domain={[0, 'dataMax + 2']} />
                     <YAxis type="category" dataKey="name" />
-                    {/* <Tooltip />
-                    <Legend /> */}
-                    <Bar dataKey="count" fill="#8884d8">
+                    <Bar dataKey="count" fill="#399F4F">
                         <LabelList dataKey="label" position="right" />
                     </Bar>
                 </BarChart>
@@ -58,4 +55,4 @@ const CheckboxChart = ({ answers, options }) => {
     );
 }
 
-export default CheckboxChart;
+export default CheckboxVisualization;
