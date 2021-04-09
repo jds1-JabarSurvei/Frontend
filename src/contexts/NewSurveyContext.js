@@ -22,11 +22,13 @@ const NewSurveyContextProvider = (props) => {
             description: 'Deskripsi',
             questions: [
                 {
-                    type: 'short_answer',
+                    type: 'checkbox',
                     title: 'Pertanyaan',
                     description: 'Question description',
                     required: false,
-                    options: [],
+                    options: [
+                        'Option A',
+                    ],
                 },
             ]
         },
@@ -49,7 +51,7 @@ const NewSurveyContextProvider = (props) => {
 
     const updateFileImage = event => {
         const file = event.target.files[0];
-        if(file){
+        if (file) {
             setFileImageBE(file);
             const reader = new FileReader();
             reader.onload = () => {
@@ -64,7 +66,7 @@ const NewSurveyContextProvider = (props) => {
         setFileImage(null);
         setFileImageBE('');
     }
-    
+
     const updateFormTitle = (e) => {
         setFormTitle(e.target.value);
     }
@@ -171,19 +173,19 @@ const NewSurveyContextProvider = (props) => {
         await APICall.post('buatform', payload)
             .then(res => {
                 // Upload Image
-                if(fileImageBE){
+                if (fileImageBE) {
                     const formData = new FormData();
                     formData.append('file', fileImageBE);
                     formData.append('name', formTitle);
                     formData.append('id_form', res.data.id_form);
-                    
+
                     APICall.post('upload', formData)
-                        .then( res => {
+                        .then(res => {
                             // console.log(res);
                             history.push('/admin');
                             toast.success('Successfully added new form!');
                         })
-                        .catch( () => {
+                        .catch(() => {
                             toast.error('Terdapat beberapa kesalahan. Silakan coba lagi nanti');
                         });
                 }

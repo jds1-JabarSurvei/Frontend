@@ -280,6 +280,29 @@ select.form-control {
     width: 100%;
 }
 
+.new-survey-multiple-question:hover {
+    border-bottom: 1px solid #bdbdbd;
+}
+
+.multiple-inactive {
+    display: flex;
+    align-items: center;
+}
+
+.delete-option {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-option:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
 .input-multiple {
     margin-left: 5px;
     border-bottom: 1px solid #bdbdbd;
