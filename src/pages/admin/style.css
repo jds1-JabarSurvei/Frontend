@@ -69,6 +69,21 @@
     margin-top: 20px;
 }
 
+.alamat_header {
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.alamat_row{
+    display:flex;
+}
+
+.alamat_column{
+    text-align: center;
+    flex-basis: 100%;
+}
+
 .short_answer {
     background-color: #eee;
     border-radius: 5px;
