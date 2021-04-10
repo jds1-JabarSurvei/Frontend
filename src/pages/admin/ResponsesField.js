@@ -2,6 +2,7 @@ import React from 'react';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+import CheckboxVisualization from 'components/responses/CheckboxVisualization';
 
 const ResponsesField = ({ hasilSurvey, onDownloadClick }) => {
     const deleteNull = (arrayJawaban) => {
@@ -63,7 +64,7 @@ const ResponsesField = ({ hasilSurvey, onDownloadClick }) => {
                                                     :
                                                     // Jika Tipe Pertanyaannya adalah Checkbox
                                                     (pertanyaan.tipe == "checkbox") ?
-                                                        console.log("checkbox")
+                                                        <CheckboxVisualization answers={pertanyaan.value} options={pertanyaan.option} />
                                                         :
                                                         // Jika Tipe Pertanyaannya adalah RadioButton
                                                         (pertanyaan.tipe == "radio") ?

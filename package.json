@@ -28,6 +28,8 @@
     "react-table-6": "^6.11.0",
     "react-toastify": "^7.0.3",
     "react-uuid": "^1.0.2",
+    "rechart": "0.0.1",
+    "recharts": "^2.0.9",
     "styled-components": "^5.2.1",
     "web-vitals": "^1.1.0"
   },
