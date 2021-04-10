@@ -19,7 +19,6 @@ function SurveyCard(props) {
 
     
     return (
-        <div>
             <div className="col pb-4" >
             <div className="card shadow-sm h-100">
                 <img src={imagesource} className="survey-img card-img-top" height="100%" width="auto" alt={title} onClick={() => onSurveyClick(id)}/>
@@ -46,7 +45,6 @@ function SurveyCard(props) {
                 </div>
             </div>
             </div>
-        </div>
     )
 }
 

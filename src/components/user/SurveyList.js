@@ -13,12 +13,6 @@ class SurveyList extends Component {
     state = {
         listSurvey: [],
 
-        // Untuk tampilan List-View atau Grid View
-        isGrid: true,
-
-        // Sort
-        isAscending: true,
-
         // Modal
         showModal: false,
 
@@ -37,17 +31,22 @@ class SurveyList extends Component {
         },
 
         // Teks Hasil Percarian
-        searchText: ""
+        searchText: "",
+
+        view: "module",
+
+        sortBy: "alphabetAscending"
     }
 
-    handleView = () => {
-        const { isGrid } = this.state;
-        this.setState({ isGrid: !isGrid });
+    handleView = (event, nextView) => {
+        if (nextView !== null){
+            this.setState({view : nextView});
+        }
     }
 
-    handleSort = () => {
-        const { isAscending } = this.state;
-        this.setState({ isAscending: !isAscending });
+    handleSort = (event) => {
+        console.log(event.target.value);
+        this.setState({sortBy : event.target.value});
     }
 
     handleModal = (id) => {
@@ -178,16 +177,26 @@ class SurveyList extends Component {
     }
 
     render() {
-        const { isGrid, listSurvey, isAscending, showModal, loading, style, searchText } = this.state;
+        const { listSurvey, showModal, loading, style, searchText, view, sortBy } = this.state;
         const { handleView, handleSort, handleModal, handleDelete, ascending, descending, handleSearch } = this;
         const { isAdmin } = this.props;
 
-        // Sort Data by Name
-        let data = isAscending ? listSurvey.sort(ascending) : listSurvey.sort(descending);
-
+        console.log(listSurvey);
+        
+        // Sort Data
+        let data = (sortBy == "alphabetAscending") ? 
+            listSurvey.sort(ascending)
+            :
+            (sortBy == "alphabetDescending") ?
+            listSurvey.sort(descending)
+            :
+            (sortBy == "timestampAscending") ?
+            listSurvey
+            :
+            listSurvey
         return (
             <>
-                <SurveyMenu style={style} isGrid={isGrid} isAscending={isAscending} handleView={handleView} handleSearch={handleSearch} handleSort={handleSort} searchText={searchText} isAdmin={isAdmin} />
+                <SurveyMenu style={style} view={view} handleView={handleView} handleSearch={handleSearch} handleSort={handleSort} searchText={searchText} isAdmin={isAdmin} />
                 <div className={`container survey-list-container ${loading ? "d-flex align-items-center justify-content-center" : ""}`}>
                     {loading ?
                         <div className="spinner-grow text-warning text-align-center" role="status">
@@ -195,7 +204,7 @@ class SurveyList extends Component {
                         </div> 
                             :
                         listSurvey.length > 0 ?
-                            isGrid ?
+                            view == "module" ?
                                 <div className="survey-list row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4" style={isAdmin ? { marginTop: '120px' } : { marginTop: style.marginTop }}>
                                     {
                                         isAdmin ? <SurveyCardAdd/> : ""
