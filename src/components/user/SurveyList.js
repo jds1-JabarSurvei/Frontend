@@ -45,7 +45,6 @@ class SurveyList extends Component {
     }
 
     handleSort = (event) => {
-        console.log(event.target.value);
         this.setState({sortBy : event.target.value});
     }
 
@@ -181,8 +180,6 @@ class SurveyList extends Component {
         const { handleView, handleSort, handleModal, handleDelete, ascending, descending, handleSearch } = this;
         const { isAdmin } = this.props;
 
-        console.log(listSurvey);
-        
         // Sort Data
         let data = (sortBy == "alphabetAscending") ? 
             listSurvey.sort(ascending)
@@ -191,9 +188,9 @@ class SurveyList extends Component {
             listSurvey.sort(descending)
             :
             (sortBy == "timestampAscending") ?
-            listSurvey
+            listSurvey.sort((a, b) => a.time - b.time)
             :
-            listSurvey
+            listSurvey.sort((a, b) => b.time - a.time)
         return (
             <>
                 <SurveyMenu style={style} view={view} handleView={handleView} handleSearch={handleSearch} handleSort={handleSort} searchText={searchText} isAdmin={isAdmin} />
@@ -216,7 +213,9 @@ class SurveyList extends Component {
                                                     id={survey.id}
                                                     title={survey.title}
                                                     owner={survey.owner}
-                                                    imagesource="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFjqmqjKhzjQm4roF6T1CsMkoBGczrg6bLFQ&usqp=CAU"
+                                                    time={survey.time}
+                                                    // imagesource="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFjqmqjKhzjQm4roF6T1CsMkoBGczrg6bLFQ&usqp=CAU"
+                                                    imagesource={`http://localhost:5000${survey.image.path}`}
                                                     isAdmin={isAdmin}
                                                     handleModal={handleModal}
                                                 />
@@ -229,8 +228,9 @@ class SurveyList extends Component {
                                     <table className="survey-list table" style={isAdmin ? { marginTop: '120px' } : { marginTop: style.marginTop }}>
                                         <thead>
                                             <tr>
-                                                <th scope="col-7" className="p-3 col-7">Nama Survei</th>
-                                                <th scope="col-4" className="p-3 col-4">Dibuat Oleh</th>
+                                                <th scope="col-5" className="p-3 col-5">Nama Survei</th>
+                                                <th scope="col-3" className="p-3 col-3">Dibuat Oleh</th>
+                                                <th scope="col-3" className="p-3 col-3">Dibuat Pada</th>
                                                 <th scope="col-1" className="p-3 col-1"></th>
                                             </tr>
                                         </thead>
@@ -245,6 +245,7 @@ class SurveyList extends Component {
                                                             id={survey.id}
                                                             title={survey.title}
                                                             owner={survey.owner}
+                                                            time={survey.time}
                                                             isAdmin={isAdmin}
                                                             handleModal={handleModal}
                                                         />
@@ -261,6 +262,7 @@ class SurveyList extends Component {
                 <Modal
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
+                    backdropClassName="backdropModal"
                     centered
                     show={showModal}
                     onHide={() => handleModal(0)}

@@ -160,6 +160,10 @@ i {
     margin: 30px 20px;
 }
 
+.backdropModal {
+    z-index: 2011;
+}
+
 /* Survey List */
 .survey-list-container {
     min-height: calc(100vh - 60px);

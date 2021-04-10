@@ -2,9 +2,24 @@ import { useHistory } from 'react-router-dom';
 import { useAuth } from 'contexts/AuthContext';
 
 function SurveyTable(props) {
-    const {id, title, owner, isAdmin, handleModal} = props;
+    const {id, title, owner, time, isAdmin, handleModal} = props;
     const { currentUser } = useAuth();
     const history = useHistory();
+
+    const timeConverter = (unixTime) => {
+        var a = new Date(unixTime * 1000);
+        var months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+        var year = a.getFullYear();
+        var month = months[a.getMonth()];
+        var date = a.getDate();
+        // var hour = a.getHours();
+        // var min = a.getMinutes();
+        // var sec = a.getSeconds();
+        var time = date + ' ' + month + ' ' + year;
+        return time;
+    }
+    
+    const date = timeConverter(time);
 
     const onSurveyClick = (id) => {
         if (!currentUser) {
@@ -18,6 +33,7 @@ function SurveyTable(props) {
         <tr  className="survey-table-item">
             <td className="p-3" onClick={() => onSurveyClick(id)}>{title}</td>
             <td className="p-3" onClick={() => onSurveyClick(id)}>{owner}</td>
+            <td className="p-3" onClick={() => onSurveyClick(id)}>{date}</td>
             <td className="p-3">
                 {
                     isAdmin ? 
