@@ -17,6 +17,7 @@ import SurveyDetailPage from 'pages/admin/SurveyDetailPage';
 import './App.css';
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 import AuthContextProvider, { useAuth } from 'contexts/AuthContext';
+import NewSurveyContextProvider from 'contexts/NewSurveyContext';
 import Loading from 'components/common/Loading';
 
 function App() {
@@ -54,13 +55,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
     <>
       {loading ? <Loading /> :
-        rest.path == "/" ? 
+        rest.path == "/" ?
           currentUser ?
             <Redirect to="/admin" />
             :
-            <Route {...rest} render = { props => { return <Component {...props} /> }}></Route>
+            <Route {...rest} render={props => { return <Component {...props} /> }}></Route>
           :
-          <Route {...rest} render = { props => { return currentUser ? <Component {...props} /> : <NotFound /> }}></Route>
+          <Route {...rest} render={props => { return currentUser ? <Component {...props} /> : <NotFound /> }}></Route>
       }
     </>
   )

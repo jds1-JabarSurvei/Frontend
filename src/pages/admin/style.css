@@ -4,8 +4,8 @@
   }
 
 .tab-container {
-    min-height: calc(100vh - 60px);
     background-color: #F6F6F6;
+    min-height: calc(100vh - 60px);
     padding: 65px 20vw;
 }
 

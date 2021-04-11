@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { Modal } from 'react-bootstrap';
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 import SurveyCard from 'components/user/SurveyCard';
 import SurveyCardAdd from 'components/user/SurveyCardAdd';
 import SurveyTableAdd from 'components/user/SurveyTableAdd';
@@ -59,12 +59,12 @@ class SurveyList extends Component {
         const { idToDelete } = this.state;
         // Panggil API
         APICall.post("/deleteform", {
-            id_form : idToDelete
-        }).then((res) =>{
+            id_form: idToDelete
+        }).then((res) => {
             window.location.reload()
             toast.success(`Anda berhasil menghapus survey`)
         }).catch(() => toast.error(`Gagal menghapus survey`))
-        
+
     }
 
     handleSearch = (value, isAdmin) => {
@@ -165,11 +165,14 @@ class SurveyList extends Component {
             .then(res => {
                 /* If successful */
                 this.setState({ listSurvey: [...res.data] });
-                this.setState({ loading: false });
+
             }).catch(() => {
                 /* If error */
                 this.setState({ listSurvey: [] });
+            }).finally(() => {
+                this.setState({ loading: false });
             })
+
     }
 
     componentDidMount() {
@@ -192,15 +195,15 @@ class SurveyList extends Component {
                     {loading ?
                         <div className="spinner-grow text-warning text-align-center" role="status">
                             <span className="visually-hidden">Loading...</span>
-                        </div> 
-                            :
+                        </div>
+                        :
                         listSurvey.length > 0 ?
                             isGrid ?
                                 <div className="survey-list row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4" style={isAdmin ? { marginTop: '120px' } : { marginTop: style.marginTop }}>
                                     {
-                                        isAdmin ? <SurveyCardAdd/> : ""
+                                        isAdmin ? <SurveyCardAdd /> : ""
                                     }
-                                    { 
+                                    {
                                         data.map(survey => {
                                             return (
                                                 <SurveyCard
@@ -227,9 +230,9 @@ class SurveyList extends Component {
                                         </thead>
                                         <tbody>
                                             {
-                                                isAdmin ? <SurveyTableAdd/> : ""
+                                                isAdmin ? <SurveyTableAdd /> : ""
                                             }
-                                            {   
+                                            {
                                                 data.map(survey => {
                                                     return (
                                                         <SurveyTable
