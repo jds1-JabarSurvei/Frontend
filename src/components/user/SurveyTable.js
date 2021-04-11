@@ -7,15 +7,16 @@ function SurveyTable(props) {
     const history = useHistory();
 
     const timeConverter = (unixTime) => {
-        var a = new Date(unixTime * 1000);
-        var months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-        var year = a.getFullYear();
-        var month = months[a.getMonth()];
-        var date = a.getDate();
-        // var hour = a.getHours();
-        // var min = a.getMinutes();
-        // var sec = a.getSeconds();
-        var time = date + ' ' + month + ' ' + year;
+        const a = new Date(unixTime * 1000 + 7 * 1000 * 3600);
+        const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+        const year = a.getFullYear();
+        const month = months[a.getMonth()];
+        const date = a.getDate();
+        // const hour = ("0" + a.getHours()).slice(-2);
+        // const min = ("0" + a.getMinutes()).slice(-2);
+        // const sec = ("0" + a.getSeconds()).slice(-2);
+        // const time = date + ' ' + month + ' ' + year + " " + hour + ":" + min + ":" + sec;
+        const time = date + ' ' + month + ' ' + year;
         return time;
     }
     
