@@ -64,7 +64,7 @@ const Section = ({ section, idx, length }) => {
                         :
                         <>
                             <div className="section-title-new">{section.title}</div>
-                            <div className="section-description-new" style={{whiteSpace: "pre-line"}}>{section.description}</div>
+                            <div className="section-description-new" style={{ whiteSpace: "pre-line" }}>{section.description}</div>
                         </>
                     }
 
@@ -73,7 +73,7 @@ const Section = ({ section, idx, length }) => {
             {section.questions.map((question, questionIdx) => {
                 return (
                     <Question
-                        key={question.title}
+                        key={question.id}
                         question={question}
                         sectionIdx={idx}
                         questionIdx={questionIdx}
