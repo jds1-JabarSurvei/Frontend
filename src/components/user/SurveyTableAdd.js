@@ -11,7 +11,7 @@ function SurveyTableAdd() {
     return (
         <>
         <tr className="survey-table-add" onClick={() => onSurveyClick()}>
-            <td className="p-3" colspan="3">
+            <td className="p-3" colspan="4">
                 <AddBoxIcon/>
                 <span style={{padding:"0 10px"}}>Buat Survei Baru</span>
             </td>
