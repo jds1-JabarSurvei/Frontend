@@ -5,10 +5,21 @@
 }
 .carousel-item {
     height: calc(100vh - 60px);
-    background: #777;
     color: white;
     position: relative;
+    background-size: cover;
+    background-position: center;
 }
+
+.carousel-item p {
+    font-size: 4vw;
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, .5);
+}
+
+
 
 /* Survey Menu */
 .survey-menu {

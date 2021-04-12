@@ -1,37 +1,68 @@
 import { Component } from 'react';
+import APICall from '../../utils/axios';
+import Loading from '../../components/common/Loading';
 import './style.css';
 
 class Carousel extends Component {
+
+    state = {
+        listCarousel : [],
+        loading: false,
+        history: this.props.history
+    }
+
+    callListCarousel() {
+        this.setState({ loading : true });
+        APICall.get(`listOfCarousel`)
+        .then( res => {
+            this.setState({ listCarousel : [...res.data]});
+            this.setState({ loading : false });
+        })
+        .catch(() => {})
+    }
+
+    onSurveyClick = (id) => {
+        const { history } = this.state;
+        history.push(`/survey/${id}`);
+    }
+
+    componentDidMount(){
+        this.callListCarousel();
+    }
+
     render(){
+        const { listCarousel, loading } = this.state;
+        const { onSurveyClick } = this;
+
         return(
-            <div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="carousel">
+            <div id="carouselExampleCaptions" className="carousel carousel-user slide" data-bs-ride="carousel">
                 <div className="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    {
+                        loading ?
+                            ""
+                        :
+                            listCarousel.map( (item, index ) => {
+                                return(
+                                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to={index} className={index == 0 ? "active" : ""} aria-current={index == 0 ? "true" : ""} aria-label={`Slide ${index}`}></button>
+                                )
+                            })
+                    }
                 </div>
                 <div className="carousel-inner">
-                    <div className="carousel-item active">
-                        <img src="..." className="d-block w-100" alt="..."/>
-                        <div className="carousel-caption d-none d-md-block">
-                            <h5>First slide label</h5>
-                            <p>Some representative placeholder content for the first slide.</p>
-                        </div>
-                    </div>
-                    <div className="carousel-item">
-                        <img src="..." className="d-block w-100" alt="..."/>
-                        <div className="carousel-caption d-none d-md-block">
-                            <h5>Second slide label</h5>
-                            <p>Some representative placeholder content for the second slide.</p>
-                        </div>
-                    </div>
-                    <div className="carousel-item">
-                        <img src="..." className="d-block w-100" alt="..."/>
-                        <div className="carousel-caption d-none d-md-block">
-                            <h5>Third slide label</h5>
-                            <p>Some representative placeholder content for the third slide.</p>
-                        </div>
-                    </div>
+                    {
+                        loading ?
+                            <div className="carousel-item carousel-item-user active" style={{ background:"white"}}>
+                                <Loading/>
+                            </div>
+                        :
+                            listCarousel.map( (item, index) => {
+                                return(
+                                    <div className={`carousel-item carousel-item-user ${index == 0 ? "active" : ""}`} style={{cursor:"pointer", backgroundImage:`linear-gradient(to top, rgba(0,0,0,.8), rgba(0,0,0,0)), url("http://localhost:5000${item.image.path}")`}} onClick={() => onSurveyClick(item.id)}>
+                                        <p>{item.title}</p>
+                                    </div>
+                                )
+                            })
+                    }
                 </div>
                 <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"  data-bs-slide="prev">
                     <span className="carousel-control-prev-icon" aria-hidden="true"></span>

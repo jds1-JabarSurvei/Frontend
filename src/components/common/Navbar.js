@@ -26,7 +26,7 @@ class Navbar extends Component {
         // Link-link sementara, bakal bertambah seiring waktu
         const links = this.context.currentUser ? [
             { title: 'Survei', path: '/admin' },
-            // { title: 'Carousel', path: '/admin' },
+            { title: 'Carousel', path: '/admin/carousel' },
             { title: 'Tambah Admin', path: '/admin/register' }
         ] : [
             { title: 'Beranda', path: '/' },
