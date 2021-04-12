@@ -3,6 +3,7 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import CheckboxVisualization from 'components/responses/CheckboxVisualization';
+import PieCharts from 'components/responses/PieCharts'
 
 const ResponsesField = ({ hasilSurvey, onDownloadClick }) => {
     const deleteNull = (arrayJawaban) => {
@@ -68,7 +69,7 @@ const ResponsesField = ({ hasilSurvey, onDownloadClick }) => {
                                                         :
                                                         // Jika Tipe Pertanyaannya adalah RadioButton
                                                         (pertanyaan.tipe == "radio") ?
-                                                            console.log("radio")
+                                                            <PieCharts answers={pertanyaan.value} options={pertanyaan.option} />
                                                             :
                                                             // Jika Tipe Pertanyaannya adalah Alamat
                                                             (pertanyaan.tipe == "alamat") ?
