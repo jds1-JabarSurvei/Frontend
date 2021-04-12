@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import './style.css';
 import { AuthContext } from 'contexts/AuthContext';
-import { Link } from 'react-router-dom';
 import Logo from 'assets/images/logo_jds.png';
 import illustration from 'assets/images/illustration.png';
 import intersect from 'assets/images/Intersect.png';

@@ -12,6 +12,7 @@ import SurveyResponse from 'pages/admin/SurveyResponse';
 import NotFound from 'pages/NotFound';
 import SurveyPage from 'pages/user/SurveyPage';
 import SurveyDetailPage from 'pages/admin/SurveyDetailPage';
+import EditCarouselPage from 'pages/admin/carousel/EditCarouselPage';
 
 // Others
 import './App.css';
@@ -33,6 +34,7 @@ function App() {
                 <PrivateRoute exact path="/admin/register" component={Register} />
                 <PrivateRoute exact path="/admin/survey/new" component={NewSurvey} />
                 <PrivateRoute exact path="/admin/survey/:id" component={SurveyDetailPage} />
+                <PrivateRoute exact path="/admin/carousel" component={EditCarouselPage} />
                 {/* <PrivateRoute exact path="/admin/survey/response/:id" component={SurveyResponse} /> */}
                 <PrivateRoute exact path="/" component={UserIndex} />
                 <Route exact path="/login" component={Login} />

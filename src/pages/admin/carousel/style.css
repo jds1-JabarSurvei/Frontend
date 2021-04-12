@@ -1,0 +1,31 @@
+.edit-carousel-container {
+    padding: 65px;
+}
+
+.preview-carousel-container {
+    margin-top: 50px;
+}
+
+.tab-panel {
+    min-height: 100%;
+}
+
+.pilih-carousel {
+    padding: 20px 0;
+}
+
+.carousel-admin {
+    height: calc(100vh - 60px);
+}
+
+.carousel-inner {
+    height: 100%;
+}
+
+.carousel-item-admin {
+    height: calc(100vh - 60px);
+    color: white;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+}

@@ -7,12 +7,14 @@ class Index extends Component {
     static contextType = AuthContext;
 
     render(){
+        console.log(this.props.history);
+
         return (
             this.context.currentUser ? 
                 <SurveyList isAdmin={true}/>
             :
             <>
-                <Carousel/>
+                <Carousel history={this.props.history}/>
                 <SurveyList isAdmin={false}/>
             </>
         );
