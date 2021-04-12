@@ -68,7 +68,7 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
 
                     <div className="edit-question-new">
                         <div className="input-text-box input-question">
-                            <input className="input-text-new" type="text" defaultValue={question.title} onBlur={updateTitle} />
+                            <input className="input-text-new" type="text" defaultValue={question.title} onChange={updateTitle} />
                             <span className="focus-border"></span>
                         </div>
                         <select className="form-select mx-auto" defaultValue={question.type} onChange={updateType}>
@@ -95,11 +95,10 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
                             icon={faTrash}
                         /></div> */}
                         <Tooltip title="Hapus Pertanyaan" placement="right" arrow>
-                            <IconButton  onClick={onDelete} aria-label="delete">
+                            <IconButton onClick={onDelete} aria-label="delete">
                                 <DeleteIcon />
                             </IconButton>
                         </Tooltip>
-                        {/* <div className='required-new'>Wajib</div>
                         <div className='slider-new'>
                             <Switch
                                 onChange={updateRequired}
@@ -108,7 +107,7 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
                                 uncheckedIcon={false}
                                 onColor='#399F4F'
                             />
-                        </div> */}
+                        </div>
                         {/* <div className='additional-settings-new'>
                             <div className='question-icon-new'><FontAwesomeIcon
                                 color="#5F6368"

@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import APICall from 'utils/axios';
 import { useHistory } from 'react-router-dom';
+import * as uuid from "uuid";
 
 export const NewSurveyContext = createContext();
 
@@ -11,41 +12,90 @@ export const useNewSurvey = () => {
 }
 
 const NewSurveyContextProvider = (props) => {
+    const [isNewSurvey, setIsNewSurvey] = useState(true);
     const [activeSection, setActiveSection] = useState(-1);
     const [activeQuestion, setActiveQuestion] = useState(-1);
     const [fileImage, setFileImage] = useState(null);
     const [fileImageBE, setFileImageBE] = useState('');
-    const [formTitle, setFormTitle] = useState("Judul Survei");
-    const [sections, setSections] = useState([
-        {
-            title: 'Judul',
-            description: 'Deskripsi',
-            questions: [
-                {
-                    type: 'short_answer',
-                    title: 'Pertanyaan',
-                    description: 'Question description',
-                    required: false,
-                    options: [],
-                },
-            ]
-        },
-        {
-            title: 'Judul',
-            description: 'Deskripsi',
-            questions: [
-                {
-                    type: 'paragraph',
-                    title: 'Pertanyaan',
-                    description: 'Question description',
-                    required: true,
-                    options: [],
-                },
-            ],
-        }
-    ]);
+    const [formTitle, setFormTitle] = useState('Judul Form');
+    const [sections, setSections] = useState([]);
+    const [editedFormID, setEditedFormID] = useState(-1);
     const history = useHistory();
     const [loading, setLoading] = useState(false);
+
+    const fillQuestion = async (isNew, formId) => {
+        if (!isNew) {
+            setLoading(true);
+            await APICall.get(`formQuestions/${formId}`)
+                .then(response => {
+                    let tempSections = [];
+                    response.data.pertanyaan.forEach((section) => {
+                        let tempSection = {};
+                        tempSection.title = section.judul;
+                        tempSection.description = section.deskripsi;
+                        tempSection.questions = [];
+                        section.pertanyaan.forEach(pertanyaan => {
+                            let tempOption = []
+                            if (pertanyaan.option.length > 0) {
+                                pertanyaan.option.forEach(opt => {
+                                    tempOption.push(opt.nilai)
+                                })
+                            }
+
+                            let tempQuestion = {
+                                id: uuid.v4(),
+                                title: pertanyaan.pertanyaan,
+                                description: pertanyaan.deskripsi,
+                                required: pertanyaan.required ? "1" : "0",
+                                type: pertanyaan.tipe,
+                                options: tempOption,
+                            }
+                            tempSection.questions.push(tempQuestion);
+                        });
+                        tempSections.push(tempSection);
+                    });
+                    setSections(tempSections);
+                    setFormTitle(response.data.judulForm);
+                    setEditedFormID(formId);
+                }).catch((err) => {
+                    console.log(err)
+                    toast.error('Error detected');
+                })
+            setLoading(false);
+        } else {
+            setSections([
+                {
+                    title: 'Judul',
+                    description: 'Deskripsi',
+                    questions: [
+                        {
+                            id: uuid.v4(),
+                            type: 'short_answer',
+                            title: 'Pertanyaan',
+                            description: 'Question description',
+                            required: false,
+                            options: [],
+                        },
+                    ]
+                },
+                {
+                    title: 'Judul',
+                    description: 'Deskripsi',
+                    questions: [
+                        {
+                            id: uuid.v4(),
+                            type: 'paragraph',
+                            title: 'Pertanyaan',
+                            description: 'Question description',
+                            required: true,
+                            options: [],
+                        },
+                    ],
+                }
+            ]);
+        }
+        setIsNewSurvey(isNew);
+    }
 
     const updateFileImage = event => {
         const file = event.target.files[0];
@@ -76,6 +126,7 @@ const NewSurveyContextProvider = (props) => {
             description: 'Deskripsi',
             questions: [
                 {
+                    id: uuid.v4(),
                     type: 'short_answer',
                     title: 'Pertanyaan',
                     description: 'Question description 2',
@@ -85,6 +136,8 @@ const NewSurveyContextProvider = (props) => {
             ],
         });
         setSections(tempSections);
+        setActiveSection(activeSection + 1);
+        setActiveQuestion(0);
         toast('Bagian Baru telah Ditambahkan');
     }
 
@@ -107,6 +160,7 @@ const NewSurveyContextProvider = (props) => {
     const addQuestion = () => {
         let tempSections = [...sections];
         tempSections[activeSection].questions.splice(activeQuestion + 1, 0, {
+            id: uuid.v4(),
             type: 'short_answer',
             title: 'Pertanyaan',
             description: 'Question description 2',
@@ -135,6 +189,10 @@ const NewSurveyContextProvider = (props) => {
     }
 
     const submitForm = async () => {
+        if (isNewSurvey && !fileImageBE) {
+            toast.error('Please upload your image');
+            return;
+        }
         // Untuk sementara, bakal ngetranslate dulu dari yang udah dibuat ke punya zaidan biar lebih cepat
         setLoading(true);
         let payload = {};
@@ -153,7 +211,11 @@ const NewSurveyContextProvider = (props) => {
                 let tempOption = []
                 if (question.options.length > 0) {
                     question.options.forEach(opt => {
-                        tempOption.push({ nilai: opt })
+                        if (isNewSurvey) {
+                            tempOption.push({ nilai: opt })
+                        } else {
+                            tempOption.push(opt);
+                        }
                     })
                 }
                 let tempPertanyaan = {
@@ -168,11 +230,10 @@ const NewSurveyContextProvider = (props) => {
             });
             payload.bagian.push(tempBagian);
         });
-        console.log(payload);
-        await APICall.post('buatform', payload)
-            .then(res => {
-                // Upload Image
-                if (fileImageBE) {
+        if (isNewSurvey) {
+            await APICall.post('buatform', payload)
+                .then(res => {
+
                     const formData = new FormData();
                     formData.append('file', fileImageBE);
                     formData.append('name', formTitle);
@@ -187,22 +248,38 @@ const NewSurveyContextProvider = (props) => {
                         .catch(() => {
                             toast.error('Terdapat beberapa kesalahan. Silakan coba lagi nanti');
                         });
-                }
 
-            }).catch(() => {
-                toast.error('Terdapat beberapa kesalahan. Silakan coba lagi nanti');
-            }).finally(() => {
-                setLoading(false);
-            })
+
+                }).catch(() => {
+                    toast.error('Terdapat beberapa kesalahan. Silakan coba lagi nanti');
+                })
+        } else {
+            payload.id_form = editedFormID;
+            console.log(payload);
+            await APICall.post('editform', payload)
+                .then(() => {
+                    history.push('/admin');
+                    toast.success('Successfully edited form!');
+
+                }).catch(() => {
+                    toast.error('Terdapat beberapa kesalahan. Silakan coba lagi nanti');
+                })
+            setEditedFormID(-1);
+        }
+
+        setLoading(false);
+
     }
 
     const value = {
+        isNewSurvey,
         fileImage,
         formTitle,
         sections,
         activeSection,
         activeQuestion,
         loading,
+        fillQuestion,
         updateFileImage,
         deleteFileImage,
         updateFormTitle,
