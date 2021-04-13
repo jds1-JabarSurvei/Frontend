@@ -55,7 +55,7 @@ const PieCharts = ({ answers, options }) => {
 
     return (
                 <div className="radio-container">
-                    <ResponsiveContainer width="100%" height={30 * (chartData.length + 3)}>
+                    <ResponsiveContainer width="100%" height={250}>
                         <PieChart width={400} height={250}>
                             <Legend layout="vertical" align="center" verticalAlign="middle" margin={  0, 100, 10, 0 }/>
                             <Pie data={chartData} 
