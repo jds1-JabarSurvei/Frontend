@@ -57,9 +57,9 @@ class Carousel extends Component {
                         :
                             listCarousel.map( (item, index) => {
                                 return(
-                                    // <div className={`carousel-item carousel-item-user ${index == 0 ? "active" : ""}`} style={{cursor:"pointer", backgroundImage:`linear-gradient(to top, rgba(0,0,0,.8), rgba(0,0,0,0)), url("http://localhost:5000${item.image.path}")`}} onClick={() => onSurveyClick(item.id)}>
+                                    <div className={`carousel-item carousel-item-user ${index == 0 ? "active" : ""}`} style={{cursor:"pointer", backgroundImage:`linear-gradient(to top, rgba(0,0,0,.8), rgba(0,0,0,0)), url("http://localhost:5000${item.image.path}")`}} onClick={() => onSurveyClick(item.id)}>
                                         <p>{item.title}</p>
-                                    // </div>
+                                    </div>
                                 )
                             })
                     }

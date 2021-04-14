@@ -33,7 +33,7 @@ const SurveyPage = () => {
                                 pertanyaan.value.forEach(val => tempResponses.push({}))
                             }
                             pertanyaan.value.forEach((value, idx) => {
-                                tempResponses[idx][bagian.bagian.toString() + '_' + pertanyaan.urutan.toString()] = value.jawaban.join(", ");
+                                tempResponses[idx][bagian.bagian.toString() + '_' + pertanyaan.urutan.toString()] = value.jawaban && value.jawaban.join(", ");
                             })
                         });
                     });

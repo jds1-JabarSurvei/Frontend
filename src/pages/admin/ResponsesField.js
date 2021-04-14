@@ -8,7 +8,7 @@ import PieCharts from 'components/responses/PieCharts'
 const ResponsesField = ({ hasilSurvey, onDownloadClick }) => {
     const deleteNull = (arrayJawaban) => {
         arrayJawaban.forEach((element, index) => {
-            if (element.jawaban == "") {
+            if (element.jawaban == null) {
                 arrayJawaban.splice(index, 1);
             }
         });
