@@ -1,8 +1,9 @@
 import { Component } from 'react';
 import './style.css';
 import { AuthContext } from 'contexts/AuthContext';
-import APICall from '../utils/axios';
-
+import Logo from 'assets/images/logo_jds.png';
+import illustration from 'assets/images/illustration.png';
+import intersect from 'assets/images/Intersect.png';
 const emailValidator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 class Login extends Component {
@@ -56,33 +57,50 @@ class Login extends Component {
         if (this.context.currentUser) {
             this.props.history.push('/admin');
         }
-        // console.log(this.context.loading);
+
         const { isVisible, wrongPassword, wrongEmail } = this.state;
         return (
-            <div className="container">
-                <div className="row content">
-                    <div className="col-md-12 line"></div>
-                    <div className="col-md-6 field">
-                        {/* <h3 className="signin-text mb-3">Sign In</h3> */}
-                        <form onSubmit={this.handleSubmit}>
-                            <div className="form-group">
-                                <input type="text" name="email" autoComplete="off" onChange={this.handleEmail} style={wrongEmail ? { borderBottom: `2px solid red` } : {}} required />
-                                <label htmlFor="email" style={wrongEmail ? { color: `red` } : {}}>Email</label>
-                                <h6 className="wrong">{wrongEmail ? "Email tidak valid" : ""}</h6>
-                            </div>
-                            <div className="form-group">
-                                <input type={isVisible ? "text" : "password"} name="password" autoComplete="off" style={wrongPassword ? { borderBottom: `2px solid red` } : {}} onChange={this.handlePassword} required />
-                                <label htmlFor="password" style={wrongPassword ? { color: `red` } : {}}>Kata Sandi</label>
-                                <i
-                                    className={`fa ${isVisible ? "fa-eye" : "fa-eye-slash"} password-icon`}
-                                    style={isVisible ? (wrongPassword ? { color: 'red' } : { color: '#198754' }) : { color: '#999' }}
-                                    onClick={this.toggleVisiblity}
-                                />
-                                <h6 className="wrong">{wrongPassword ? "Kata sandi salah" : ""}</h6>
-                            </div>
-                            <input className={this.context.loading ? "disabled-btn" : ""} disabled={this.context.loading} type="submit" name="login" value={this.context.loading ? "Loading" : "Masuk"}></input>
-                        </form>
-                    </div>
+            <div className="login m-0">
+                <div className="container login-logo">
+                    <a href="/">
+                        <img src={Logo} alt="" width={100} />
+                    </a>
+                </div>
+                <div className="illustration">
+                    <img src={illustration} />
+                </div>
+                <div className="login-container">
+                <div className="field login-card shadow" style={{zIndex:"2", position:"relative", backgroundColor:"white"}}>
+                    <form className="login-form" onSubmit={this.handleSubmit}>
+                        <div className="form-group">
+                            <input type="text" name="email" autoComplete="off" onChange={this.handleEmail} style={wrongEmail ? { borderBottom: `2px solid #A20E0E` } : {}} required />
+                            <label htmlFor="email" style={wrongEmail ? { color: `#A20E0E` } : {}}>Email</label>
+                            <h6 className="wrong">{wrongEmail ? "Email tidak valid" : ""}</h6>
+                        </div>
+                        <div className="form-group">
+                            <input type={isVisible ? "text" : "password"} name="password" autoComplete="off" style={wrongPassword ? { borderBottom: `2px solid #A20E0E` } : {}} onChange={this.handlePassword} required />
+                            <label htmlFor="password" style={wrongPassword ? { color: `#A20E0E` } : {}}>Kata Sandi</label>
+                            <i
+                                className={`fa ${isVisible ? "fa-eye" : "fa-eye-slash"} password-icon`}
+                                style={isVisible ? (wrongPassword ? { color: '#A20E0E' } : { color: '#198754' }) : { color: '#999' }}
+                                onClick={this.toggleVisiblity}
+                            />
+                            <h6 className="wrong">{wrongPassword ? "Kata sandi salah" : ""}</h6>
+                        </div>
+                        <button disabled={this.context.loading || wrongEmail } type="submit" class="btn" style={{background:"var(--green)", color:"white", width:"100%", padding:"10px 0"}}>
+                            {
+                                this.context.loading ?
+                                    <div class="spinner-border spinner-border-sm text-light" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                </div> :
+                                "Masuk"
+                            }
+                        </button>
+                    </form>
+                </div>
+                <div className="intersect" style={{position:"absolute", bottom:"0", right:"0", zIndex:"1"}}>
+                    <img src={intersect} />
+                </div>
                 </div>
             </div>
         );

@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
 import SurveyList from 'components/user/SurveyList';
 import Carousel from 'components/user/Carousel';
+import { AuthContext } from 'contexts/AuthContext';
 
-const Index = () => {
-    return (
-        <>
-            <Carousel/>
-            <SurveyList isAdmin={false}/>
-        </>
-    );
+class Index extends Component {
+    static contextType = AuthContext;
+
+    render(){
+        console.log(this.props.history);
+
+        return (
+            this.context.currentUser ? 
+                <SurveyList isAdmin={true}/>
+            :
+            <>
+                <Carousel history={this.props.history}/>
+                <SurveyList isAdmin={false}/>
+            </>
+        );
+    }
 }
 
 export default Index;

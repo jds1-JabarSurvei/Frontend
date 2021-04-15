@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Modal } from 'react-bootstrap';
+import { toast } from 'react-toastify'
 import SurveyCard from 'components/user/SurveyCard';
 import SurveyCardAdd from 'components/user/SurveyCardAdd';
 import SurveyTableAdd from 'components/user/SurveyTableAdd';
@@ -11,12 +12,6 @@ import Loading from '../common/Loading';
 class SurveyList extends Component {
     state = {
         listSurvey: [],
-
-        // Untuk tampilan List-View atau Grid View
-        isGrid: true,
-
-        // Sort
-        isAscending: true,
 
         // Modal
         showModal: false,
@@ -36,17 +31,21 @@ class SurveyList extends Component {
         },
 
         // Teks Hasil Percarian
-        searchText: ""
+        searchText: "",
+
+        view: "module",
+
+        sortBy: "alphabetAscending"
     }
 
-    handleView = () => {
-        const { isGrid } = this.state;
-        this.setState({ isGrid: !isGrid });
+    handleView = (event, nextView) => {
+        if (nextView !== null){
+            this.setState({view : nextView});
+        }
     }
 
-    handleSort = () => {
-        const { isAscending } = this.state;
-        this.setState({ isAscending: !isAscending });
+    handleSort = (event) => {
+        this.setState({sortBy : event.target.value});
     }
 
     handleModal = (id) => {
@@ -57,7 +56,13 @@ class SurveyList extends Component {
     handleDelete = () => {
         const { idToDelete } = this.state;
         // Panggil API
-        console.log(idToDelete);
+        APICall.post("/deleteform", {
+            id_form: idToDelete
+        }).then((res) => {
+            window.location.reload()
+            toast.success(`Anda berhasil menghapus survey`)
+        }).catch(() => toast.error(`Gagal menghapus survey`))
+
     }
 
     handleSearch = (value, isAdmin) => {
@@ -158,11 +163,14 @@ class SurveyList extends Component {
             .then(res => {
                 /* If successful */
                 this.setState({ listSurvey: [...res.data] });
-                this.setState({ loading: false });
+
             }).catch(() => {
                 /* If error */
                 this.setState({ listSurvey: [] });
+            }).finally(() => {
+                this.setState({ loading: false });
             })
+
     }
 
     componentDidMount() {
@@ -171,32 +179,46 @@ class SurveyList extends Component {
     }
 
     render() {
-        const { isGrid, listSurvey, isAscending, showModal, loading, style, searchText } = this.state;
+        const { listSurvey, showModal, loading, style, searchText, view, sortBy } = this.state;
         const { handleView, handleSort, handleModal, handleDelete, ascending, descending, handleSearch } = this;
         const { isAdmin } = this.props;
 
-        // Sort Data by Name
-        let data = isAscending ? listSurvey.sort(ascending) : listSurvey.sort(descending);
-
+        // Sort Data
+        let data = (sortBy == "alphabetAscending") ? 
+            listSurvey.sort(ascending)
+            :
+            (sortBy == "alphabetDescending") ?
+            listSurvey.sort(descending)
+            :
+            (sortBy == "timestampAscending") ?
+            listSurvey.sort((a, b) => a.time - b.time)
+            :
+            listSurvey.sort((a, b) => b.time - a.time)
         return (
             <>
-                <SurveyMenu style={style} isGrid={isGrid} isAscending={isAscending} handleView={handleView} handleSearch={handleSearch} handleSort={handleSort} searchText={searchText} isAdmin={isAdmin} />
-                <div className="container">
-                    {loading ? <div className="survey-list" style={isAdmin ? { marginTop: '125px' } : { marginTop: style.marginTop }}><Loading /></div> :
+                <SurveyMenu style={style} view={view} handleView={handleView} handleSearch={handleSearch} handleSort={handleSort} searchText={searchText} isAdmin={isAdmin} />
+                <div className={`container survey-list-container ${loading ? "d-flex align-items-center justify-content-center" : ""}`}>
+                    {loading ?
+                        <div className="spinner-grow text-warning text-align-center" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                        :
                         listSurvey.length > 0 ?
-                            isGrid ?
+                            view == "module" ?
                                 <div className="survey-list row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4" style={isAdmin ? { marginTop: '120px' } : { marginTop: style.marginTop }}>
                                     {
-                                        isAdmin ? <SurveyCardAdd/> : ""
+                                        isAdmin ? <SurveyCardAdd /> : ""
                                     }
-                                    { 
+                                    {
                                         data.map(survey => {
                                             return (
                                                 <SurveyCard
                                                     id={survey.id}
                                                     title={survey.title}
                                                     owner={survey.owner}
-                                                    imagesource="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFjqmqjKhzjQm4roF6T1CsMkoBGczrg6bLFQ&usqp=CAU"
+                                                    time={survey.time}
+                                                    // imagesource="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFjqmqjKhzjQm4roF6T1CsMkoBGczrg6bLFQ&usqp=CAU"
+                                                    imagesource={`http://localhost:5000${survey.image.path}`}
                                                     isAdmin={isAdmin}
                                                     handleModal={handleModal}
                                                 />
@@ -209,22 +231,24 @@ class SurveyList extends Component {
                                     <table className="survey-list table" style={isAdmin ? { marginTop: '120px' } : { marginTop: style.marginTop }}>
                                         <thead>
                                             <tr>
-                                                <th scope="col-7" className="p-3 col-7">Nama Survei</th>
-                                                <th scope="col-4" className="p-3 col-4">Dibuat Oleh</th>
+                                                <th scope="col-5" className="p-3 col-5">Nama Survei</th>
+                                                <th scope="col-3" className="p-3 col-3">Dibuat Oleh</th>
+                                                <th scope="col-3" className="p-3 col-3">Dibuat Pada</th>
                                                 <th scope="col-1" className="p-3 col-1"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
-                                                isAdmin ? <SurveyTableAdd/> : ""
+                                                isAdmin ? <SurveyTableAdd /> : ""
                                             }
-                                            {   
+                                            {
                                                 data.map(survey => {
                                                     return (
                                                         <SurveyTable
                                                             id={survey.id}
                                                             title={survey.title}
                                                             owner={survey.owner}
+                                                            time={survey.time}
                                                             isAdmin={isAdmin}
                                                             handleModal={handleModal}
                                                         />
@@ -241,6 +265,7 @@ class SurveyList extends Component {
                 <Modal
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
+                    backdropClassName="backdropModal"
                     centered
                     show={showModal}
                     onHide={() => handleModal(0)}

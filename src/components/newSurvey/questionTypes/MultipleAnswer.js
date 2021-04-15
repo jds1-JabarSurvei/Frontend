@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { useNewSurvey } from 'contexts/NewSurveyContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faTimes
+} from '@fortawesome/free-solid-svg-icons';
 
 const MultipleAnswer = ({ question, sectionIdx, questionIdx }) => {
     const { activeSection, activeQuestion, updateQuestion } = useNewSurvey();
@@ -25,6 +29,13 @@ const MultipleAnswer = ({ question, sectionIdx, questionIdx }) => {
         setActiveOption(-1);
     }
 
+    const deleteOption = (idx) => {
+        let newQuestion = { ...question };
+        newQuestion.options.splice(idx, 1);
+
+        updateQuestion(sectionIdx, questionIdx, newQuestion);
+    }
+
     return (
         <div className="new-question multiple-choice">
             {question.options.map((option, idx) => {
@@ -32,29 +43,38 @@ const MultipleAnswer = ({ question, sectionIdx, questionIdx }) => {
                     <div className="multiple-choice-option" key={option}>
                         {idx === activeOption ?
                             <>
-                                <label>
+                                <label className="new-survey-multiple-question">
                                     <div className="flex-row">
                                         <input className="m-auto" value={true} disabled type={question.type} name={option} value={option} />
                                         <div className="input-text-box m-auto">
                                             <input autoFocus type="text" className="input-text-new input-multiple" defaultValue={option} onBlur={(e) => updateOption(idx, e.target.value)} />
                                             <span className="focus-border input-multiple"></span>
                                         </div>
+
                                     </div>
                                 </label><br />
                             </>
                             :
-                            <>
-                                <label onClick={() => updateActiveOption(idx)}>
+                            <div className="multiple-inactive">
+                                <label className="new-survey-multiple-question" onClick={() => updateActiveOption(idx)}>
                                     <div className="check-input">
                                         <input value={true} disabled type={question.type} name={option} value={option} /> {option}
                                     </div>
-                                </label><br />
-                            </>}
+                                </label>
+                                {activeSection === sectionIdx ?
+                                    <div className="delete-option" onClick={() => deleteOption(idx)}>
+                                        <FontAwesomeIcon
+                                            color="#858585"
+                                            icon={faTimes}
+                                        />
+                                    </div>
+                                    : null}
+                            </div>}
                     </div>
                 );
             })}
             {activeSection === sectionIdx && activeQuestion === questionIdx ?
-                <div className="multiple-choice-option add-option check-input" onClick={addOption}>
+                <div className="multiple-choice-option add-option check-input new-survey-multiple-question" onClick={addOption}>
                     <label htmlFor="add" className="add"><input type={question.type} disabled name="add" value="add" /> Add Option</label><br />
                 </div>
                 :

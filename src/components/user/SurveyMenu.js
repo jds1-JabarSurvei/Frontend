@@ -1,10 +1,14 @@
 import { Component } from 'react';
 // import { Tooltip, OverlayTrigger } from 'react-bootstrap';
-import ViewListIcon from '@material-ui/icons/ViewList';
 import ViewComfyIcon from '@material-ui/icons/ViewComfy';
 import SortIcon from '@material-ui/icons/Sort';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+import ViewListIcon from '@material-ui/icons/ViewList';
+import ViewModuleIcon from '@material-ui/icons/ViewModule';
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+
 class SurveyMenu extends Component {
     state = {
         categoryMenu : [],
@@ -24,7 +28,7 @@ class SurveyMenu extends Component {
 
 
     render(){
-        const { isGrid, handleView, handleSort, handleSearch, isAscending, style, searchText, isAdmin } = this.props;
+        const { handleView, view, handleSort, handleSearch, style, searchText, isAdmin } = this.props;
 
         return(
             <>
@@ -33,29 +37,32 @@ class SurveyMenu extends Component {
             </form>
             <div className="survey-menu" style={ isAdmin ? {position:"fixed", top:'65px', boxShadow:'0px 6px 20px rgba(0, 0, 0, 0.25)'} : {position:style.position, boxShadow:style.boxShadow, top:style.top}}>
                 <div className="container">
-                    <div className="row">
-                        <div className="col-6 left">
+                    <div className="flex-menu">
+                        <div className="search-flex">
                             <h6 className="status-menu">{searchText}</h6>
                         </div>
 
-                        <div className="col-6 right">
-                            {/* <OverlayTrigger key="list" placement="bottom" overlay={<Tooltip id={`tooltip-bottom`}>Ubah Ke Tampilan {isGrid ? "Daftar" : "Kartu"}</Tooltip>}>
-                                <i className={`fas fa-th-${isGrid ? "list" : "large"}`} onClick={handleView} />
-                            </OverlayTrigger>
-                            <OverlayTrigger key="sort" placement="bottom" overlay={<Tooltip id={`tooltip-bottom`}>Urutkan {isAscending ? "Menaik" : "Menurun"}</Tooltip>}>
-                                <i className={`fas fa-sort-alpha-${isAscending ? "down" : "up"}`} onClick={handleSort} />
-                            </OverlayTrigger> */}
-
-                            <Tooltip title={`Ubah Ke Tampilan ${isGrid ? "Daftar" : "Kartu"}`} placement="bottom" arrow>
-                                <IconButton onClick={handleView} aria-label="delete question">
-                                    { isGrid ? <ViewComfyIcon /> : <ViewListIcon/> }
-                                </IconButton>
-                            </Tooltip>
-                            <Tooltip title={`Urutkan ${isAscending ? "Menaik" : "Menurun"}`} placement="bottom" arrow>
-                                <IconButton onClick={handleSort} aria-label="delete question">
-                                    { isAscending ? <SortIcon /> : <SortIcon style={{transform: "rotateX(180deg)"}}/> }
-                                </IconButton>
-                            </Tooltip>
+                        <div className="sort-flex right" style={{marginTop:"5px"}}>
+                            <div className="sort-select">
+                                <select className=" mx-auto" onChange={handleSort}>
+                                    <option className="m-3" value="alphabetAscending" key="alphabetAscending">Abjad Menaik</option>
+                                    <option className="m-3" value="alphabetDescending" key="alphabetDescending">Abjad Menurun</option>
+                                    <option className="m-3" value="timestampAscending" key="timestampAscending">Tanggal Menaik</option>
+                                    <option className="m-3" value="timestampDescending" key="timestampDescending">Tanggal Menurun</option>
+                                </select>
+                            </div>
+                            <ToggleButtonGroup style={{height:'40px'}} value={view} exclusive onChange={handleView}>
+                                <ToggleButton value="list" aria-label="list">
+                                    <Tooltip title={ view == "module" ? "Ubah Ke Tampilan Daftar" : ""} placement="bottom" arrow>
+                                        <ViewListIcon />
+                                    </Tooltip>
+                                </ToggleButton>
+                                <ToggleButton value="module" aria-label="module">
+                                    <Tooltip title={ view == "list" ? "Ubah Ke Tampilan Kartu" : ""} placement="bottom" arrow>
+                                        <ViewModuleIcon />
+                                    </Tooltip>
+                                </ToggleButton>
+                            </ToggleButtonGroup>
                         </div>
                     </div>
                 </div>

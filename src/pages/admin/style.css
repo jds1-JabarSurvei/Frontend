@@ -4,8 +4,8 @@
   }
 
 .tab-container {
-    min-height: calc(100vh - 60px);
     background-color: #F6F6F6;
+    min-height: calc(100vh - 60px);
     padding: 65px 20vw;
 }
 
@@ -50,6 +50,57 @@
 .loading-container {
     min-height: calc(100vh - 60px);
     padding: 40px 0;
+}
+
+.tab-menu {
+    position: fixed;
+    z-index: 1000;
+    top: 65px;
+    background-color: white;
+    width: 100%;
+    box-shadow:0px 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.jawaban_short_container {
+    max-height: 50vh;
+    overflow-y: scroll;
+    border-top: .5px solid #eee;
+    border-bottom: .5px solid #eee;
+    margin-top: 20px;
+}
+
+.checkbox-container {
+    padding: 20px 0;
+}
+.radio-container {
+    padding: 20px ;   
+}
+.alamat_header {
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.alamat_row{
+    display:flex;
+}
+
+.alamat_column{
+    text-align: center;
+    flex-basis: 100%;
+}
+
+.short_answer {
+    background-color: #eee;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.download-csv {
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 @media only screen and (max-width: 767px) {

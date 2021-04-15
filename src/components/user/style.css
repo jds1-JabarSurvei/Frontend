@@ -5,10 +5,21 @@
 }
 .carousel-item {
     height: calc(100vh - 60px);
-    background: #777;
     color: white;
     position: relative;
+    background-size: cover;
+    background-position: center;
 }
+
+.carousel-item p {
+    font-size: 4vw;
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, .5);
+}
+
+
 
 /* Survey Menu */
 .survey-menu {
@@ -55,6 +66,22 @@ tr {
     background-color: rgba(66,66,66,0.1);
     transition: .3s;
 }
+.flex-menu {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.sort-flex, .search-flex {
+    flex-basis: 50%;
+}
+
+.sort-flex {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
 
 .survey-menu .right {
     text-align: right;
@@ -68,8 +95,20 @@ i {
     position: fixed;
     top: 12.5px;
     /* z-index: 9998!important; */
-    z-index: 1030;
+    z-index: 2010;
     width: 30%;
+}
+
+.sort-select {
+    width: 100%;
+    padding: 0 20px;
+}
+.sort-select select {
+    height: 40px;
+    width: 60%;
+    outline: none;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
 .modal {
@@ -132,7 +171,14 @@ i {
     margin: 30px 20px;
 }
 
+.backdropModal {
+    z-index: 2011;
+}
+
 /* Survey List */
+.survey-list-container {
+    min-height: calc(100vh - 60px);
+}
 .survey-list {
     margin-bottom: 50px;
 }
@@ -154,4 +200,22 @@ i {
 .carousel-inner:hover ~ .carousel-control-prev {
     opacity: 1;
     transition: .5s;
+}
+
+.detail {
+    border: solid black;
+}
+
+@media only screen and (max-width:750px){
+    .sort-flex {
+        flex-basis: 100%;
+    }
+    .search-flex {
+        display: none;
+    }
+
+    .sort-select select {
+        margin: 0 20px;
+        width: 100%;
+    }
 }

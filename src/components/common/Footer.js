@@ -16,6 +16,7 @@ const Footer = () => {
     // Links bakal tergantung lagi login admin atau tidak, bakal ngikut dari route
     // Sekarang pake dummy begini dulu
     const admin = false;
+    const loginPathRegex = /\/login/;
     // Link-link sementara, bakal bertambah seiring waktu
     const links = admin ? [
         { title: 'Surveys', path: '/' }
@@ -26,7 +27,7 @@ const Footer = () => {
         ];
 
     return (
-        <>
+        <div className={loginPathRegex.test(window.location.href) ? "hide" : "cek"}>
             <div className="footer">
                 <div className="footer-general">
                     <div className="logo">
@@ -104,7 +105,7 @@ const Footer = () => {
             <div className="copyright">
                 Jabar Digital Service © 2021
             </div>
-        </>
+        </div>
     );
 }
 
