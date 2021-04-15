@@ -42,21 +42,58 @@ const SurveyPage = () => {
         }).then((res) => {
             console.log(answer)
             history.push('/');
-            toast.success('Your response has been recorded!');
+            toast.success('Jawabanmu sudah terkirim!');
         }).catch(() =>
             console.log('halooooo')
         )
     }
-    
+
+    const handleSubmit = () => {
+        let isSubmit = [];
+        let isCorrect = true;
+        let count = 0;
+
+        for (var i = 0; i<survey[0].pertanyaan.length; i++){
+            for (var j = 0; j<survey[0].pertanyaan[i].pertanyaan.length; j++){
+                isSubmit.push(false);
+            }
+        }
+
+        for (var i = 0; i<survey[0].pertanyaan.length; i++){
+            for (var j = 0; j<survey[0].pertanyaan[i].pertanyaan.length; j++){
+                count++;
+                for (var k = 0; k<answer[0].jawaban.length; k++){
+                    if (survey[0].pertanyaan[i].pertanyaan[j].id_form_field == answer[0].jawaban[k].id_form_field && answer[0].jawaban[k].value != ""){
+                        isSubmit[count-1] = true;
+                    }
+                    if (survey[0].pertanyaan[i].pertanyaan[j].required == "0"){
+                        isSubmit[count-1] = true;
+                    }
+                }
+                // 
+            }
+        }
+        console.log(isSubmit)
+        // console.log(answer[0].jawaban)
+        for (var i = 0; i<isSubmit.length; i++){
+            if (!isSubmit[i]){
+                isCorrect = isSubmit[i];
+                break;
+            }
+        }
+        if (isCorrect){
+            postResponse();
+        } else{
+            toast.error('Terdapat pertanyaan wajib yang belum dijawab');
+        }
+    }
+
     const back = (event) => {
         event.preventDefault();
-        console.log(answer)
         setSectionIdx(sectionIdx - 1);
     }
     const next = (event) => {
         event.preventDefault();
-        console.log("masukk next");
-        console.log(answer[0])
         setSectionIdx(sectionIdx + 1);
     }
     const checkButton = (nSection) => {
@@ -77,7 +114,7 @@ const SurveyPage = () => {
             return (
                 <>
                     <button className="back" onClick={back}>KEMBALI</button>
-                    <button type="button" className="submit" onClick={postResponse}>KIRIM</button>
+                    <button type="button" className="submit" onClick={handleSubmit}>KIRIM</button>
                 </>
 
             )
@@ -85,7 +122,7 @@ const SurveyPage = () => {
         if (nSection == 1) {
             return (
                 <>
-                    <button type="button" className="submit" onClick={postResponse}>KIRIM</button>
+                    <button type="button" className="submit" onClick={handleSubmit}>KIRIM</button>
                 </>
             )
         }
@@ -121,13 +158,14 @@ const SurveyPage = () => {
                                                     </div>
                                                 </div>
                                                 <div className={sectionIdx == j ? "" : "hide"}>
-                                                    {pertanyaan.map(({ pertanyaan, id_form_field, tipe, option }, k) => {
+                                                    {pertanyaan.map(({ pertanyaan, id_form_field, tipe, option, required }, k) => {
                                                         return (
                                                             <div className="question-container">
                                                                 {/* Section Container */}
                                                                 <div className="question-title">
                                                                     <div className="form-group">
-                                                                        <label for={pertanyaan} className="question">{pertanyaan}</label><br></br>
+                                                                        <label for={pertanyaan} className="question">{pertanyaan}</label>
+                                                                        <i className={required == "0"? "unrequired":"requireds"}>*</i><br></br>
                                                                         <RenderedQuestion
                                                                             answer={answer}
                                                                             type={tipe}

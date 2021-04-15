@@ -15,7 +15,8 @@ class Address extends Component {
             provinsi: "",
             kabupaten: "",
             kecamatan: "",
-            kelurahan: ""
+            kelurahan: "",
+            detail: ""
         }
     }
 
@@ -123,6 +124,15 @@ class Address extends Component {
         }});
     }
 
+    handleDetail = e => {
+        const {jawaban} = this.state;
+        this.setState({ jawaban : {
+            ...jawaban,
+            detail: e.target.value
+        }});
+        console.log(e.target.value)
+    }
+
     componentDidUpdate(prevState){
         if(this.state.jawaban && this.state.jawaban.provinsi && this.state.jawaban.kabupaten && this.state.jawaban.kecamatan && this.state.jawaban.kelurahan){
             console.log("yoooo");
@@ -139,7 +149,6 @@ class Address extends Component {
 
     render(){
         const { listProvinsi, listKabupaten, listKecamatan, listKelurahan, jawaban } = this.state;
-        const {getProvinsi, handleProvinsi, handleKabupaten, handleKecamatan, handleKelurahan} = this.props;
         return(
             <div className="container">
               {/* {console.log(jawaban)} */}
@@ -184,6 +193,11 @@ class Address extends Component {
                             })
                         }
                     </select>
+                    {/* <textarea className="detail"></textarea> */}
+                    <div>
+                        <label for="detail">Keterangan</label>
+                        <input type="text" className="form-control detail" id="detail" onChange={this.handleDetail.bind(this)}></input>
+                    </div>
                 </form>
             </div>
         )

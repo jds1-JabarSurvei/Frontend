@@ -280,6 +280,29 @@ select.form-control {
     width: 100%;
 }
 
+.new-survey-multiple-question:hover {
+    border-bottom: 1px solid #bdbdbd;
+}
+
+.multiple-inactive {
+    display: flex;
+    align-items: center;
+}
+
+.delete-option {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-option:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
 .input-multiple {
     margin-left: 5px;
     border-bottom: 1px solid #bdbdbd;
@@ -331,6 +354,36 @@ select.form-control {
 .add:hover {
     color: black;
     cursor: pointer;
+}
+
+.image-survey-container {
+    width: 100%;
+    min-height: 150px;
+    border: 1px dashed #858585;
+    border-radius: 5px;
+    text-align: right;
+    overflow: hidden;
+}
+
+.button-image-survey {
+    margin: 50px 0;
+}
+
+.ubah-foto{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.image-survey {
+    width: 100%;
+    object-fit: cover;
+    box-sizing: border-box;
+}
+
+.tooltip-hapus {
+    margin: 0 20px;
 }
 
 @media only screen and (max-width: 767px) {

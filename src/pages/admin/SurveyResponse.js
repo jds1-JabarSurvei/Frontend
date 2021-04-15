@@ -1,73 +1,62 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import APICall from 'utils/axios';
-import Table from 'components/responses/Table';
 import Loading from 'components/common/Loading';
 import { useParams } from 'react-router-dom';
+import { CSVLink } from "react-csv";
+import ResponsesField from './ResponsesField';
 
 const SurveyPage = () => {
-    const [responses, setResponses] = useState([]);
-    const [columns, setColumns] = useState([]);
+    const [headers, setHeaders] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [surveyInfo, setSurveyInfo] = useState({});
     const [error, setError] = useState(false);
+    const [downloadData, setDownloadData] = useState([]);
     const { id } = useParams();
+    const downloadRef = useRef();
+
+    const [hasilSurvey, setHasilSurvey] = useState({})
 
     useEffect(() => {
         const fetchSurvey = async () => {
-            let surveyInfoSuccess = false;
-            await APICall(`/formQuestions/${id}`)
+            await APICall(`/allFormResponses/${id}`)
                 .then(response => {
-
-                    let tempColumns = [];
-                    response.data.pertanyaan.forEach((bagian) => {
-                        let header = {
-                            Header: bagian.judul,
-                            columns: bagian.pertanyaan.map(pertanyaan => {
-                                return {
-                                    Header: pertanyaan.pertanyaan,
-                                    accessor: bagian.bagian.toString() + "_" + pertanyaan.urutan.toString()
-                                }
+                    setHasilSurvey(response.data);
+                    let tempHeaders = [];
+                    let tempResponses = [];
+                    response.data.responses.forEach(bagian => {
+                        bagian.response.forEach(pertanyaan => {
+                            tempHeaders.push({
+                                label: pertanyaan.pertanyaan,
+                                key: bagian.bagian.toString() + '_' + pertanyaan.urutan.toString()
+                            });
+                            // First push empty objects to tempResponses
+                            if (tempResponses.length == 0) {
+                                pertanyaan.value.forEach(val => tempResponses.push({}))
+                            }
+                            pertanyaan.value.forEach((value, idx) => {
+                                tempResponses[idx][bagian.bagian.toString() + '_' + pertanyaan.urutan.toString()] = value.jawaban && value.jawaban.join(", ");
                             })
-                        }
-                        tempColumns.push(header);
+                        });
                     });
-                    surveyInfoSuccess = true;
-                    let tempSurveyInfo = { ...response.data };
-                    delete tempSurveyInfo["pertanyaan"];
-                    setSurveyInfo(tempSurveyInfo);
-                    setColumns(tempColumns);
-                }).catch(() => {
-                    console.log('Error retrieving survey');
-                    setError(true);
-                });
-            if (surveyInfoSuccess) {
-                await APICall(`/allFormResponses/${id}`)
-                    .then(response => {
-                        let tempResponses = [];
-                        response.data.forEach(indivResponse => {
-                            let questionResponse = {}
-                            indivResponse.responses.forEach(sectionResponse => {
-                                sectionResponse.response.forEach((res) => {
-                                    let questionKey = sectionResponse.bagian.toString() + '_' + res.urutan.toString();
-                                    questionResponse[questionKey] = res.value[0]
-                                })
-                            })
-                            tempResponses.push(questionResponse);
-                        })
-                        setResponses(tempResponses);
 
-                    }).catch(() => {
-                        setError(true);
-                    })
-
-            }
-            setLoading(false);
+                    setHeaders(tempHeaders);
+                    setDownloadData(tempResponses)
+                }).finally(() => {
+                    setLoading(false);
+                })
         }
 
 
         fetchSurvey();
 
     }, []);
+
+    const onDownloadClick = () => {
+        if (downloadRef.current) {
+            console.log(downloadRef)
+            console.log(downloadData)
+            downloadRef.current.link.click();
+        }
+    }
 
     return (
         <>
@@ -81,9 +70,15 @@ const SurveyPage = () => {
                         <h6>Error detected. Please try again and refresh</h6>
                         :
                         <>
-                            <h1>{surveyInfo.judulForm}</h1>
-                            <span>Dibuat oleh: {surveyInfo.pembuat}</span>
-                            <Table columns={columns} data={responses} />
+
+                            <CSVLink
+                                data={downloadData}
+                                headers={headers}
+                                filename={`${hasilSurvey.judulForm}.csv`}
+                                ref={downloadRef}
+                                target="_blank" />
+
+                            <ResponsesField onDownloadClick={onDownloadClick} hasilSurvey={hasilSurvey} />
                         </>
                     }
                 </>
