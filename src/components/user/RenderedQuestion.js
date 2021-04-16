@@ -41,21 +41,26 @@ const RenderedQuestion = ({answer, type, id_form_field, pertanyaan, option}) =>{
                 }
             } 
         }
-        if (isSame){
-            answer[0].jawaban.splice(i,1, {"id_form_field" : id_form_field, "id_form_option": null, "value" : jawaban.provinsi + ";" + jawaban.kabupaten + ";" + jawaban.kecamatan + ";" + jawaban.kelurahan + ";" + jawaban.detail})
-        } else{
-            answer[0].jawaban.push({"id_form_field" : id_form_field, "id_form_option": null, "value" : jawaban.provinsi + ";" + jawaban.kabupaten + ";" + jawaban.kecamatan + ";" + jawaban.kelurahan + ";" + jawaban.detail})
+        if (jawaban.provinsi == " " || jawaban.kabupaten == " " || jawaban.kecamatan == " " || jawaban.kelurahan == " " || jawaban.detail == ""){
+            if (isSame){
+                answer[0].jawaban.splice(i,1, {"id_form_field" : id_form_field, "id_form_option": null, "value" : ""})
+            } else{
+                answer[0].jawaban.push({"id_form_field" : id_form_field, "id_form_option": null, "value" : ""})
+            }
         }
-        console.log("AAAAAAAAAAAAAAA")
-        console.log(answer)
+        else{
+            if (isSame){
+                answer[0].jawaban.splice(i,1, {"id_form_field" : id_form_field, "id_form_option": null, "value" : jawaban.provinsi + ";" + jawaban.kabupaten + ";" + jawaban.kecamatan + ";" + jawaban.kelurahan + ";" + jawaban.detail})
+            } else{
+                answer[0].jawaban.push({"id_form_field" : id_form_field, "id_form_option": null, "value" : jawaban.provinsi + ";" + jawaban.kabupaten + ";" + jawaban.kecamatan + ";" + jawaban.kelurahan + ";" + jawaban.detail})
+            }
+        }
         
     }
 
     const getAnswer = (event) => {
         var isSame = false;
         const value = event.target.value;
-        // console.log("answer")
-        // console.log(answer)
         for (var i = 0; i<answer[0].jawaban.length; i++){
             if (typeof answer[0].jawaban[i] !== "undefined"){
                 if (answer[0].jawaban[i].id_form_field == id_form_field){
