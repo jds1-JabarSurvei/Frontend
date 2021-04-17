@@ -206,6 +206,10 @@ i {
     border: solid black;
 }
 
+#detail {
+    resize: none
+}
+
 @media only screen and (max-width:750px){
     .sort-flex {
         flex-basis: 100%;
@@ -219,3 +223,4 @@ i {
         width: 100%;
     }
 }
+
