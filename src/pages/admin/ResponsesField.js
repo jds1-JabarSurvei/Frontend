@@ -1,11 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import CheckboxVisualization from 'components/responses/CheckboxVisualization';
-import PieCharts from 'components/responses/PieCharts'
+import PieCharts from 'components/responses/PieCharts';
+import ReactExport from "react-export-excel";
+
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 const ResponsesField = ({ hasilSurvey, onDownloadClick }) => {
+    const [headers, setHeaders] = useState([]);
+    const [downloadData, setDownloadData] = useState([]);
+
+    useEffect(() => {
+
+
+        let tempHeaders = [];
+        let tempResponses = [];
+        hasilSurvey.responses.forEach(bagian => {
+            bagian.response.forEach(pertanyaan => {
+                // <ExcelColumn label="Name" value="name" />
+                tempHeaders.push(<ExcelColumn label={pertanyaan.pertanyaan} value={bagian.bagian.toString() + '_' + pertanyaan.urutan.toString()} />)
+                // tempHeaders.push({
+                //     label: pertanyaan.pertanyaan,
+                //     key: bagian.bagian.toString() + '_' + pertanyaan.urutan.toString()
+                // });
+                // First push empty objects to tempResponses
+                if (tempResponses.length == 0) {
+                    pertanyaan.value.forEach(val => tempResponses.push({}))
+                }
+                pertanyaan.value.forEach((value, idx) => {
+                    tempResponses[idx][bagian.bagian.toString() + '_' + pertanyaan.urutan.toString()] = value.jawaban && value.jawaban.join(", ");
+                })
+            });
+        });
+
+        setHeaders(tempHeaders);
+        setDownloadData(tempResponses);
+        console.log(tempHeaders)
+        console.log(tempResponses)
+    }, []);
+
+
     const deleteNull = (arrayJawaban) => {
         arrayJawaban.forEach((element, index) => {
             if (element.jawaban == null) {
@@ -21,11 +59,20 @@ const ResponsesField = ({ hasilSurvey, onDownloadClick }) => {
                 <h1>{hasilSurvey.judulForm}</h1>
                 <span>Dibuat oleh: {hasilSurvey.pembuat}</span>
                 <div className="download-csv">
-                    <Tooltip title="Unduh File CSV" placement="right" arrow>
-                        <IconButton aria-label="download" onClick={onDownloadClick}>
-                            <GetAppIcon style={{ color: '#399F4F' }} />
-                        </IconButton>
-                    </Tooltip>
+                    <ExcelFile
+                        filename={hasilSurvey.judulForm}
+                        element={
+                            <Tooltip title="Unduh File Excel" placement="right" arrow>
+                                <IconButton aria-label="download" onClick={onDownloadClick}>
+                                    <GetAppIcon style={{ color: '#399F4F' }} />
+                                </IconButton>
+                            </Tooltip>
+                        }>
+                        <ExcelSheet data={downloadData} name={hasilSurvey.judulForm}>
+                            {headers}
+                        </ExcelSheet>
+                    </ExcelFile>
+
                 </div>
             </div>
 
@@ -84,7 +131,6 @@ const ResponsesField = ({ hasilSurvey, onDownloadClick }) => {
                                                                     {
                                                                         pertanyaan.value.map(jawaban => {
                                                                             let jawabanArray = jawaban.jawaban.toString().split(";");
-                                                                            console.log(jawabanArray);
                                                                             return (
                                                                                 <div className="short_answer alamat_row">
                                                                                     <div className="alamat_column">{jawabanArray[0]}</div>
