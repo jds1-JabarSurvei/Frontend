@@ -4,7 +4,7 @@ import Loading from 'components/common/Loading';
 import { useParams } from 'react-router-dom';
 import ResponsesField from './ResponsesField';
 
-const SurveyPage = () => {
+const SurveyResponsePage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const { id } = useParams();
@@ -25,25 +25,26 @@ const SurveyPage = () => {
 
     return (
         <>
-            {loading ?
-                <div className="loading-container">
-                    <Loading />
-                </div>
-                :
-                <>
-                    {error ?
-                        <h6>Error detected. Please try again and refresh</h6>
-                        :
-                        <>
-                            <ResponsesField
-                                hasilSurvey={hasilSurvey} />
-                        </>
-                    }
-                </>
-
-            }
+            <div className="tab-container">
+                {loading ?
+                    <div className="loading-container">
+                        <Loading />
+                    </div>
+                    :
+                    <>
+                        {error ?
+                            <h6>Kesalahan terdeteksi. silakan coba lagi nanti</h6>
+                            :
+                            <>
+                                <ResponsesField
+                                    hasilSurvey={hasilSurvey} />
+                            </>
+                        }
+                    </>
+                }
+            </div>
         </>
     );
 }
 
-export default SurveyPage;
+export default SurveyResponsePage;
