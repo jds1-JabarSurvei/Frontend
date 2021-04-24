@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import APICall from 'utils/axios';
 import { useHistory } from 'react-router-dom';
 import * as uuid from "uuid";
+import { useAuth } from 'contexts/AuthContext';
 
 export const NewSurveyContext = createContext();
 
@@ -22,6 +23,7 @@ const NewSurveyContextProvider = (props) => {
     const [editedFormID, setEditedFormID] = useState(-1);
     const history = useHistory();
     const [loading, setLoading] = useState(false);
+    const { currentUser } = useAuth();
 
     const fillQuestion = async (isNew, formId) => {
         if (!isNew) {
@@ -198,7 +200,7 @@ const NewSurveyContextProvider = (props) => {
         let payload = {};
         let tempSections = [...sections];
         // const firstSection = tempSections[0];
-        payload.user_id = "1";
+        payload.user_id = currentUser.id;
         // payload.judulForm = firstSection.title;
         payload.judulForm = formTitle;
         payload.bagian = [];

@@ -27,22 +27,18 @@ class Register extends Component {
     submitSuccess: false,
   };
 
-  registerFun = async() => {
+  registerFun = async () => {
     let result = await registerAPI(this.state.email, this.state.password, this.state.HPNumber, this.state.gender, this.state.address, this.state.birthday);
-    if(result.data.error === "Email has been taken"){
+    if (result.data.error === "Email has been taken") {
       this.setState({ emailHasExisted: true });
     }
-    else{
-      if(result.data){
+    else {
+      if (result.data) {
         this.setState({ submitSuccess: true });
         document.getElementsByName("registerForm")[0].reset();
         toast.success('Account registered successfully!');
       }
     }
-    // console.log("Halooo");
-    // let result = await registerAPI(this.state.email, this.state.password, this.state.HPNumber, this.state.gender, this.state.address, this.state.birthday);
-    // console.log("Haii");
-    // console.log(result);
   }
 
   componentDidUpdate(_prevProps, prevState) {
@@ -59,28 +55,8 @@ class Register extends Component {
         !this.state.wrongUsername &&
         !this.state.wrongNumber
       ) {
-          this.registerFun();
-          // if(result.data.success){
-          //   this.setState({ submitSuccess: true });
-          //   document.getElementsByName("registerForm")[0].reset();
-          //   toast.success('Account registered successfully!');
-          //   alert("Success");
-          // }
-          // else if(result.data.error === "Email has been taken"){
-          //   this.setState({ emailHasExisted: true });
-          // }
-          
-        // console.log("Register done");
-        // document.getElementsByName("registerForm")[0].reset();
-        // alert("Success");
-        // document.getElementsByName("registerForm").reset();
-        // console.log(this.state.email);
-        // console.log(this.state.HPNumber);
-        // console.log(this.state.password);
-        // console.log(this.state.confirmPassword);
-        // console.log(this.state.gender);
-        // console.log(this.state.address);
-        }
+        this.registerFun();
+      }
       this.setState({ isSubmitted: false });
     }
   }
@@ -141,12 +117,12 @@ class Register extends Component {
     this.setState({ gender: event.target.value });
   }
 
-  handleBirthday = (event) =>{
-    this.setState({ birthday: event.target.value});
+  handleBirthday = (event) => {
+    this.setState({ birthday: event.target.value });
   }
 
   handleAddress = (event) => {
-    this.setState({ address: event.target.value});
+    this.setState({ address: event.target.value });
   }
 
   handleSubmit = (event) => {
@@ -232,10 +208,10 @@ class Register extends Component {
                 id="birthdate" name="birthdate" onChange={this.handleBirthday} required></input>
             </div>
 
-              <div className="form-group">
-                <h7 style={{fontSize: "20px"}}>Jenis Kelamin</h7><br></br>
-                <div className="form-check form-check-inline">
-                  <input
+            <div className="form-group">
+              <h7 style={{ fontSize: "20px" }}>Jenis Kelamin</h7><br></br>
+              <div className="form-check form-check-inline">
+                <input
                   className="form-check-input mt-1 mr-5"
                   type="radio"
                   id="male"
@@ -244,17 +220,17 @@ class Register extends Component {
                   autoCorrect="off"
                   onChange={this.handleGender}
                   required
-                  />
-                  <label className="form-check-label mt-1 mr-5"
+                />
+                <label className="form-check-label mt-1 mr-5"
                   for="male"
-                  style={{fontSize:"16px"}}
-                  >Laki-laki
+                  style={{ fontSize: "16px" }}
+                >Laki-laki
                   </label>
               </div>
               <div
                 className="form-check form-check-inline"
-                >
-                  <input
+              >
+                <input
                   className="form-check-input mt-1"
                   type="radio"
                   id="female"
@@ -262,12 +238,12 @@ class Register extends Component {
                   value="F"
                   autoCorrect="off"
                   onChange={this.handleGender}
-                  />
-                  <label className="form-check-label mt-1"
-                   style={{fontSize:"16px"}}
-                   for="female"
-                  >
-                    Perempuan
+                />
+                <label className="form-check-label mt-1"
+                  style={{ fontSize: "16px" }}
+                  for="female"
+                >
+                  Perempuan
                   </label>
               </div>
             </div>

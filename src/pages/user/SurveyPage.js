@@ -32,19 +32,15 @@ const SurveyPage = () => {
     }
 
     const postResponse = async () => {
-        // e.preventDefault();
-        console.log("Alohaa!!");
-        console.log(answer);
-        console.log("Alohhaaa!!!");
+
         await APICall.post("/submitjawaban", {
             id_form: answer[0].idform,
-            jawaban: answer[0].jawaban 
+            jawaban: answer[0].jawaban
         }).then((res) => {
-            console.log(answer)
             history.push('/');
             toast.success('Jawabanmu sudah terkirim!');
         }).catch(() =>
-            console.log('halooooo')
+            console.log('Error detected')
         )
     }
 
@@ -53,21 +49,21 @@ const SurveyPage = () => {
         let isCorrect = true;
         let count = 0;
 
-        for (var i = 0; i<survey[0].pertanyaan.length; i++){
-            for (var j = 0; j<survey[0].pertanyaan[i].pertanyaan.length; j++){
+        for (var i = 0; i < survey[0].pertanyaan.length; i++) {
+            for (var j = 0; j < survey[0].pertanyaan[i].pertanyaan.length; j++) {
                 isSubmit.push(false);
             }
         }
 
-        for (var i = 0; i<survey[0].pertanyaan.length; i++){
-            for (var j = 0; j<survey[0].pertanyaan[i].pertanyaan.length; j++){
+        for (var i = 0; i < survey[0].pertanyaan.length; i++) {
+            for (var j = 0; j < survey[0].pertanyaan[i].pertanyaan.length; j++) {
                 count++;
-                for (var k = 0; k<answer[0].jawaban.length; k++){
-                    if (survey[0].pertanyaan[i].pertanyaan[j].id_form_field == answer[0].jawaban[k].id_form_field && answer[0].jawaban[k].value != ""){
-                        isSubmit[count-1] = true;
+                for (var k = 0; k < answer[0].jawaban.length; k++) {
+                    if (survey[0].pertanyaan[i].pertanyaan[j].id_form_field == answer[0].jawaban[k].id_form_field && answer[0].jawaban[k].value != "") {
+                        isSubmit[count - 1] = true;
                     }
-                    if (survey[0].pertanyaan[i].pertanyaan[j].required == "0"){
-                        isSubmit[count-1] = true;
+                    if (survey[0].pertanyaan[i].pertanyaan[j].required == "0") {
+                        isSubmit[count - 1] = true;
                     }
                 }
                 // 
@@ -75,15 +71,15 @@ const SurveyPage = () => {
         }
         console.log(isSubmit)
         // console.log(answer[0].jawaban)
-        for (var i = 0; i<isSubmit.length; i++){
-            if (!isSubmit[i]){
+        for (var i = 0; i < isSubmit.length; i++) {
+            if (!isSubmit[i]) {
                 isCorrect = isSubmit[i];
                 break;
             }
         }
-        if (isCorrect){
+        if (isCorrect) {
             postResponse();
-        } else{
+        } else {
             toast.error('Terdapat pertanyaan wajib yang belum dijawab');
         }
     }
@@ -135,7 +131,7 @@ const SurveyPage = () => {
                 <>
                     {survey.map(({ form_id, pembuat, judulForm, pertanyaan }, i) => {
                         return (
-                            
+
                             <div key={i}>
                                 <form>
                                     {/* Judul Form */}
@@ -165,7 +161,7 @@ const SurveyPage = () => {
                                                                 <div className="question-title">
                                                                     <div className="form-group">
                                                                         <label for={pertanyaan} className="question">{pertanyaan}</label>
-                                                                        <i className={required == "0"? "unrequired":"requireds"}>*</i><br></br>
+                                                                        <i className={required == "0" ? "unrequired" : "requireds"}>*</i><br></br>
                                                                         <RenderedQuestion
                                                                             answer={answer}
                                                                             type={tipe}
