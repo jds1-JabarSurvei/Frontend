@@ -11,8 +11,8 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
 class SurveyMenu extends Component {
     state = {
-        categoryMenu : [],
-        statusMenu : ""
+        categoryMenu: [],
+        statusMenu: ""
     }
 
     handleSearchValue = e => {
@@ -22,51 +22,51 @@ class SurveyMenu extends Component {
 
         statusMenu = (value === "") ? "" : `Hasil Pencarian "${e.target.value}"`;
         this.setState({ statusMenu });
-        
-        if(value != "") window.scrollBy(0, countScroll);
+
+        if (value != "") window.scrollBy(0, countScroll);
     }
 
 
-    render(){
+    render() {
         const { handleView, view, handleSort, handleSearch, style, searchText, isAdmin } = this.props;
 
-        return(
+        return (
             <>
-            <form className="d-flex align-items-center flex-column ">
-                <input className="cari-survei form-control me-2" type="search" placeholder="Cari Survei" aria-label="Search" onChange={e => handleSearch(e.target.value, isAdmin)}/>
-            </form>
-            <div className="survey-menu" style={ isAdmin ? {position:"fixed", top:'65px', boxShadow:'0px 6px 20px rgba(0, 0, 0, 0.25)'} : {position:style.position, boxShadow:style.boxShadow, top:style.top}}>
-                <div className="container">
-                    <div className="flex-menu">
-                        <div className="search-flex">
-                            <h6 className="status-menu">{searchText}</h6>
-                        </div>
-
-                        <div className="sort-flex right" style={{marginTop:"5px"}}>
-                            <div className="sort-select">
-                                <select className=" mx-auto" onChange={handleSort}>
-                                    <option className="m-3" value="alphabetAscending" key="alphabetAscending">Abjad Menaik</option>
-                                    <option className="m-3" value="alphabetDescending" key="alphabetDescending">Abjad Menurun</option>
-                                    <option className="m-3" value="timestampAscending" key="timestampAscending">Tanggal Menaik</option>
-                                    <option className="m-3" value="timestampDescending" key="timestampDescending">Tanggal Menurun</option>
-                                </select>
+                <form className="d-flex align-items-center flex-column ">
+                    <input className="cari-survei form-control me-2" type="search" placeholder="Cari Survei" aria-label="Search" onChange={e => handleSearch(e.target.value, isAdmin)} />
+                </form>
+                <div className="survey-menu" style={isAdmin ? { position: "fixed", top: '65px', boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.25)' } : { position: style.position, boxShadow: style.boxShadow, top: style.top }}>
+                    <div className="container">
+                        <div className="flex-menu">
+                            <div className="search-flex">
+                                <h6 className="status-menu">{searchText}</h6>
                             </div>
-                            <ToggleButtonGroup style={{height:'40px'}} value={view} exclusive onChange={handleView}>
-                                <ToggleButton value="list" aria-label="list">
-                                    <Tooltip title={ view == "module" ? "Ubah Ke Tampilan Daftar" : ""} placement="bottom" arrow>
-                                        <ViewListIcon />
-                                    </Tooltip>
-                                </ToggleButton>
-                                <ToggleButton value="module" aria-label="module">
-                                    <Tooltip title={ view == "list" ? "Ubah Ke Tampilan Kartu" : ""} placement="bottom" arrow>
-                                        <ViewModuleIcon />
-                                    </Tooltip>
-                                </ToggleButton>
-                            </ToggleButtonGroup>
+
+                            <div className="sort-flex right" style={{ marginTop: "5px" }}>
+                                <div className="sort-select">
+                                    <select data-testid="sort_survey_select" className=" mx-auto" onChange={handleSort}>
+                                        <option className="m-3" value="alphabetAscending" key="alphabetAscending">Abjad Menaik</option>
+                                        <option className="m-3" value="alphabetDescending" key="alphabetDescending">Abjad Menurun</option>
+                                        <option className="m-3" value="timestampAscending" key="timestampAscending">Tanggal Menaik</option>
+                                        <option className="m-3" value="timestampDescending" key="timestampDescending">Tanggal Menurun</option>
+                                    </select>
+                                </div>
+                                <ToggleButtonGroup style={{ height: '40px' }} value={view} exclusive onChange={handleView}>
+                                    <ToggleButton value="list" aria-label="list">
+                                        <Tooltip title={view == "module" ? "Ubah Ke Tampilan Daftar" : ""} placement="bottom" arrow>
+                                            <ViewListIcon />
+                                        </Tooltip>
+                                    </ToggleButton>
+                                    <ToggleButton value="module" aria-label="module">
+                                        <Tooltip title={view == "list" ? "Ubah Ke Tampilan Kartu" : ""} placement="bottom" arrow>
+                                            <ViewModuleIcon />
+                                        </Tooltip>
+                                    </ToggleButton>
+                                </ToggleButtonGroup>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </>
         )
     }
