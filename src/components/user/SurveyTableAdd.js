@@ -10,12 +10,12 @@ function SurveyTableAdd() {
 
     return (
         <>
-        <tr className="survey-table-add" onClick={() => onSurveyClick()}>
-            <td className="p-3" colspan="4">
-                <AddBoxIcon/>
-                <span style={{padding:"0 10px"}}>Buat Survei Baru</span>
-            </td>
-        </tr>
+            <tr className="survey-table-add" onClick={() => onSurveyClick()} data-testid="survey_table_add">
+                <td className="p-3" colSpan="4">
+                    <AddBoxIcon />
+                    <span style={{ padding: "0 10px" }}>Buat Survei Baru</span>
+                </td>
+            </tr>
         </>
     )
 }
