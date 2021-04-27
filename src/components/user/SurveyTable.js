@@ -26,26 +26,32 @@ function SurveyTable(props) {
         history.push(`admin/survey/${toPage}/${id}`);
     }
 
+    const onSurveyClick = (id) => {
+        if (!currentUser) {
+            history.push(`/survey/${id}`);
+        }
+    }
+
     return (
         <>
-            <tr className="survey-table-item" data-testid="survey_table">
-                <td className="p-3">{title}</td>
-                <td className="p-3">{owner}</td>
-                <td className="p-3">{date}</td>
-                <td className="p-3">
-                    {
-                        isAdmin ?
-                            <div className="dropdown">
-                                <i className="fas fa-ellipsis-h menuTable" id={id} data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                <ul className="dropdown-menu" aria-labelledby={id}>
-                                    <li onClick={() => handleClickMenu(id, "response")} ><span className="dropdown-item"><VisibilityIcon className="dropdownMenuCard" />     Lihat Hasil</span></li>
-                                    <li onClick={() => handleClickMenu(id, "edit")} ><span className="dropdown-item"><EditIcon className="dropdownMenuCard" />     Ubah</span></li>
-                                    <li onClick={() => handleModal(id, title)}><span className="dropdown-item"><DeleteIcon className="dropdownMenuCard" />     Hapus</span></li>
-                                </ul>
-                            </div> : ""
-                    }
-                </td>
-            </tr>
+        <tr  className="survey-table-item">
+            <td className="p-3" onClick={() => onSurveyClick(id)} >{title}</td>
+            <td className="p-3" onClick={() => onSurveyClick(id)} >{owner}</td>
+            <td className="p-3" onClick={() => onSurveyClick(id)} >{date}</td>
+            <td className="p-3">
+                {
+                    isAdmin ? 
+                    <div className="dropdown">
+                        <i class="fas fa-ellipsis-h menuTable" id={id} data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <ul className="dropdown-menu" aria-labelledby={id}>
+                            <li onClick={ () => handleClickMenu(id, "response") } ><span className="dropdown-item"><VisibilityIcon className="dropdownMenuCard" />     Lihat Hasil</span></li>
+                            <li onClick={ () => handleClickMenu(id, "edit") } ><span className="dropdown-item"><EditIcon className="dropdownMenuCard"/>     Ubah</span></li>
+                            <li onClick={ () => handleModal(id, title)}><span className="dropdown-item"><DeleteIcon className="dropdownMenuCard" />     Hapus</span></li>
+                        </ul>
+                    </div> : ""
+                }
+            </td>
+        </tr>
         </>
     )
 }

@@ -1,13 +1,12 @@
 import { Component } from 'react';
 import { Modal } from 'react-bootstrap';
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
 import SurveyCard from 'components/user/SurveyCard';
 import SurveyCardAdd from 'components/user/SurveyCardAdd';
 import SurveyTableAdd from 'components/user/SurveyTableAdd';
 import SurveyTable from 'components/user/SurveyTable';
 import SurveyMenu from 'components/user/SurveyMenu';
 import APICall from '../../utils/axios';
-import Loading from '../common/Loading';
 
 class SurveyList extends Component {
     state = {

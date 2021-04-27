@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 const NotFound = () => {
     return (

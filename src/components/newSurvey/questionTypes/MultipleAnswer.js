@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { useNewSurvey } from 'contexts/NewSurveyContext';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faTimes
-} from '@fortawesome/free-solid-svg-icons';
+import CloseIcon from '@material-ui/icons/Close';
 
 const MultipleAnswer = ({ question, sectionIdx, questionIdx }) => {
     const { activeSection, activeQuestion, updateQuestion } = useNewSurvey();
@@ -63,10 +60,7 @@ const MultipleAnswer = ({ question, sectionIdx, questionIdx }) => {
                                 </label>
                                 {activeSection === sectionIdx ?
                                     <div className="delete-option" onClick={() => deleteOption(idx)}>
-                                        <FontAwesomeIcon
-                                            color="#858585"
-                                            icon={faTimes}
-                                        />
+                                        <CloseIcon  style={{color : "#858585" }}/>
                                     </div>
                                     : null}
                             </div>}

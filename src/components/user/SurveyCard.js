@@ -26,30 +26,37 @@ function SurveyCard(props) {
         history.push(`admin/survey/${toPage}/${id}`);
     }
 
-    return (
-        <div className="col pb-4" data-testid="survey_card">
-            <div className="card shadow-sm h-100">
-                <img src={imagesource} className="survey-img card-img-top" height="100%" width="auto" alt={title} />
-                <div className="card-body">
-                    <div className="row ">
-                        <div className="col-9">
-                            <h5 className="card-title">{title}</h5>
-                            <h6 className="card-text">oleh: {owner}</h6>
-                            <h6 className="text-muted" style={{ fontSize: "12px" }}>{date}</h6>
-                        </div>
-                        <div className="col-3">
-                            {
-                                isAdmin ?
-                                    <div className="dropdown">
-                                        <i className="fas fa-ellipsis-v menuCard" id={id} data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                        <ul className="dropdown-menu" aria-labelledby={id}>
-                                            <li onClick={() => handleClickMenu(id, "response")} ><span className="dropdown-item"><VisibilityIcon className="dropdownMenuCard" />     Lihat Hasil</span></li>
-                                            <li onClick={() => handleClickMenu(id, "edit")} ><span className="dropdown-item"><EditIcon className="dropdownMenuCard" />     Ubah</span></li>
-                                            <li onClick={() => handleModal(id, title)} ><span className="dropdown-item"><DeleteIcon className="dropdownMenuCard" />     Hapus</span></li>
-                                        </ul>
+    const onSurveyClick = (id) => {
+        if (!currentUser) {
+            history.push(`/survey/${id}`);
+        }
+    }
 
-                                    </div> : ""
-                            }
+    return (
+            <div className="col pb-4" >
+                <div className="card shadow-sm h-100">
+                    <img src={imagesource} className="survey-img card-img-top" height="100%" width="auto" alt={title} onClick={() => onSurveyClick(id)} />
+                    <div className="card-body">
+                        <div className="row ">
+                            <div className="col-9" onClick={() => onSurveyClick(id)} >
+                                <h5 className="card-title">{title}</h5>
+                                <h6 className="card-text">oleh: {owner}</h6>
+                                <h6 className="text-muted" style={{fontSize:"12px"}}>{date}</h6>
+                            </div>
+                            <div className="col-3">
+                        {
+                        isAdmin ?
+                            <div className="dropdown">
+                                <i className="fas fa-ellipsis-v menuCard" id={id} data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                    <ul className="dropdown-menu" aria-labelledby={id}>
+                                        <li onClick={ () => handleClickMenu(id, "response")} ><span className="dropdown-item"><VisibilityIcon className="dropdownMenuCard" />     Lihat Hasil</span></li>
+                                        <li onClick={ () => handleClickMenu(id, "edit")} ><span className="dropdown-item"><EditIcon className="dropdownMenuCard"/>     Ubah</span></li>
+                                        <li onClick={ () => handleModal(id, title)} ><span className="dropdown-item"><DeleteIcon className="dropdownMenuCard" />     Hapus</span></li>
+                                    </ul>
+                                    
+                            </div> : ""
+                        }
+                            </div>
                         </div>
                     </div>
                 </div>

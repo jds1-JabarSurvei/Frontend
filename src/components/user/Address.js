@@ -1,8 +1,6 @@
 import { Component } from 'react';
 import axios from "axios";
 
-
-
 class Address extends Component {
     state = {
         token: "",
