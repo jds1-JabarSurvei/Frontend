@@ -61,7 +61,6 @@ function SurveyCard(props) {
                     </div>
                 </div>
             </div>
-        </div>
     )
 }
 
