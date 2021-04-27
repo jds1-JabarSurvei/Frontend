@@ -51,13 +51,13 @@ class SurveyMenu extends Component {
                                         <option className="m-3" value="timestampDescending" key="timestampDescending">Tanggal Menurun</option>
                                     </select>
                                 </div>
-                                <ToggleButtonGroup style={{ height: '40px' }} value={view} exclusive onChange={handleView}>
-                                    <ToggleButton value="list" aria-label="list">
+                                <ToggleButtonGroup style={{ height: '40px' }} value={view} exclusive onChange={handleView} data-testid="survey_view_select">
+                                    <ToggleButton value="list" aria-label="list" data-testid="survey_view_list_button">
                                         <Tooltip title={view == "module" ? "Ubah Ke Tampilan Daftar" : ""} placement="bottom" arrow>
                                             <ViewListIcon />
                                         </Tooltip>
                                     </ToggleButton>
-                                    <ToggleButton value="module" aria-label="module">
+                                    <ToggleButton value="module" aria-label="module" data-testid="survey_view_module_button">
                                         <Tooltip title={view == "list" ? "Ubah Ke Tampilan Kartu" : ""} placement="bottom" arrow>
                                             <ViewModuleIcon />
                                         </Tooltip>
