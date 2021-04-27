@@ -3,12 +3,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle, faFile } from '@fortawesome/free-solid-svg-icons';
 import { useNewSurvey } from 'contexts/NewSurveyContext';
-import {
-    Overlay
-} from 'react-bootstrap'
 import useWindowSize from 'hooks/useWindowSize';
 
 const ToolBar = () => {

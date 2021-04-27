@@ -1,5 +1,4 @@
-import React, { useRef } from 'react';
-import { useNewSurvey } from 'contexts/NewSurveyContext';
+import React from 'react';
 
 const LinearScale = ({ question, sectionIdx, questionIdx }) => {
     return (

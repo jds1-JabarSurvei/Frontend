@@ -1,8 +1,4 @@
 import { Component } from 'react';
-// import { Tooltip, OverlayTrigger } from 'react-bootstrap';
-import ViewComfyIcon from '@material-ui/icons/ViewComfy';
-import SortIcon from '@material-ui/icons/Sort';
-import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';

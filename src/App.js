@@ -17,7 +17,6 @@ import EditCarouselPage from 'pages/admin/carousel/EditCarouselPage';
 // Others
 import './App.css';
 import Loading from 'components/common/Loading';
-import NewSurveyContextProvider from 'contexts/NewSurveyContext';
 import AuthContextProvider, { useAuth } from 'contexts/AuthContext';
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 

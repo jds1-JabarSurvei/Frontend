@@ -1,6 +1,6 @@
 import SurveyContent from 'components/newSurvey/SurveyContent';
-import React, { useEffect } from 'react';
-import NewSurveyContextProvider, { useNewSurvey } from 'contexts/NewSurveyContext';
+import React from 'react';
+import NewSurveyContextProvider from 'contexts/NewSurveyContext';
 
 import './style.css';
 

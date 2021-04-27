@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import Question from './Question';
 import ToolBar from './ToolBar';
 import { useNewSurvey } from 'contexts/NewSurveyContext';
-import { text } from '@fortawesome/fontawesome-svg-core';
 
 const Section = ({ section, idx, length }) => {
     const { activeSection, activeQuestion, updateActiveQuestion, deleteSection, updateSection } = useNewSurvey();

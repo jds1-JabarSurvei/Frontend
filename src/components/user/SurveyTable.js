@@ -26,12 +26,18 @@ function SurveyTable(props) {
         history.push(`admin/survey/${toPage}/${id}`);
     }
 
+    const onSurveyClick = (id) => {
+        if (!currentUser) {
+            history.push(`/survey/${id}`);
+        }
+    }
+
     return (
         <>
         <tr  className="survey-table-item">
-            <td className="p-3">{title}</td>
-            <td className="p-3">{owner}</td>
-            <td className="p-3">{date}</td>
+            <td className="p-3" onClick={() => onSurveyClick(id)} >{title}</td>
+            <td className="p-3" onClick={() => onSurveyClick(id)} >{owner}</td>
+            <td className="p-3" onClick={() => onSurveyClick(id)} >{date}</td>
             <td className="p-3">
                 {
                     isAdmin ? 

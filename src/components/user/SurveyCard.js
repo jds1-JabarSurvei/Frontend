@@ -26,13 +26,19 @@ function SurveyCard(props) {
         history.push(`admin/survey/${toPage}/${id}`);
     }
 
+    const onSurveyClick = (id) => {
+        if (!currentUser) {
+            history.push(`/survey/${id}`);
+        }
+    }
+
     return (
             <div className="col pb-4" >
                 <div className="card shadow-sm h-100">
-                    <img src={imagesource} className="survey-img card-img-top" height="100%" width="auto" alt={title} />
+                    <img src={imagesource} className="survey-img card-img-top" height="100%" width="auto" alt={title} onClick={() => onSurveyClick(id)} />
                     <div className="card-body">
                         <div className="row ">
-                            <div className="col-9">
+                            <div className="col-9" onClick={() => onSurveyClick(id)} >
                                 <h5 className="card-title">{title}</h5>
                                 <h6 className="card-text">oleh: {owner}</h6>
                                 <h6 className="text-muted" style={{fontSize:"12px"}}>{date}</h6>
