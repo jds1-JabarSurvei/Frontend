@@ -43,7 +43,7 @@ class EditCarouselPage extends Component {
             .then(res => {
                 /* If successful */
                 this.setState({ listSurvey: [...res.data] });
-                
+
                 const { listSurvey } = this.state;
                 listSurvey.forEach(survey => {
                     survey.isActive = false;
@@ -62,14 +62,14 @@ class EditCarouselPage extends Component {
             .then(res => {
                 /* If successful */
                 let list = res.data.carousel.split(',');
-                list = list.map( element => {return parseInt(element)});
+                list = list.map(element => { return parseInt(element) });
                 this.setState({ listSelected: list });
-                
+
                 const { listSurvey, listSelected, listCarousel } = this.state;
                 let selectedIndex = 1;
-                for(let i = 0; i < listSelected.length; i++){
-                    let checkIndex = listSurvey.map( survey => { return survey.id }).indexOf(listSelected[i]);
-                    if(checkIndex >= 0){
+                for (let i = 0; i < listSelected.length; i++) {
+                    let checkIndex = listSurvey.map(survey => { return survey.id }).indexOf(listSelected[i]);
+                    if (checkIndex >= 0) {
                         listSurvey[checkIndex].isActive = true;
                         listSurvey[checkIndex].selectedIndex = selectedIndex;
                         listCarousel.push(listSurvey[checkIndex]);
@@ -85,25 +85,25 @@ class EditCarouselPage extends Component {
                 this.setState({ listCarousel: [] });
             })
     }
-    
+
     handleChange = (event, newValue) => {
-        this.setState({ value : newValue });
+        this.setState({ value: newValue });
     }
 
     handleChoose = id => {
-        const {listSurvey, listSelected, listCarousel } = this.state;
+        const { listSurvey, listSelected, listCarousel } = this.state;
 
         let isFound = false;
         let index = -1;
-        for(let i = 0; i < listSelected.length; i++){
-            if( id == listSelected[i]){
+        for (let i = 0; i < listSelected.length; i++) {
+            if (id == listSelected[i]) {
                 isFound = true;
                 index = i;
             }
         }
 
-        let check = listSurvey.map( survey => { return survey.id }).indexOf(id);
-        if(!isFound){
+        let check = listSurvey.map(survey => { return survey.id }).indexOf(id);
+        if (!isFound) {
             // Jika belum dicentang
             listSelected.push(id);
             listSurvey[check].isActive = true;
@@ -116,15 +116,15 @@ class EditCarouselPage extends Component {
             listSurvey[check].isActive = false;
             listSurvey[check].selectedIndex = 0;
             let selectedIndex = 1;
-            for( let i = 0; i < listSelected.length; i++){
-                let idx = listSurvey.map( survey => { return survey.id }).indexOf(listSelected[i]);
-                if( idx >= 0){
+            for (let i = 0; i < listSelected.length; i++) {
+                let idx = listSurvey.map(survey => { return survey.id }).indexOf(listSelected[i]);
+                if (idx >= 0) {
                     listSurvey[idx].selectedIndex = selectedIndex;
                     selectedIndex += 1;
                 }
             }
 
-            let idxToDelete = listCarousel.map( survey => { return survey.id }).indexOf(id);
+            let idxToDelete = listCarousel.map(survey => { return survey.id }).indexOf(id);
             listCarousel.splice(idxToDelete, 1);
         }
 
@@ -134,14 +134,13 @@ class EditCarouselPage extends Component {
     }
 
     handleSubmit = () => {
-        // console.log("submit");
         const { listSelected } = this.state;
 
-        if(listSelected.length > 0){
+        if (listSelected.length > 0) {
             let data = {
-                carousel : listSelected.toString()
+                carousel: listSelected.toString()
             };
-    
+
             APICall.post('inputcarousel', data)
                 .then(() => {
                     toast.success('Perubahan berhasil disimpan!');
@@ -158,10 +157,10 @@ class EditCarouselPage extends Component {
         this.callListSurvey();
     }
 
-    render(){
+    render() {
         const { value, listSurvey, listCarousel, loading } = this.state;
         const { handleChange, handleChoose, handleSubmit } = this;
-        return(
+        return (
             <>
                 <div className="tab-menu">
                     <AntTabs
@@ -170,22 +169,22 @@ class EditCarouselPage extends Component {
                         indicatorColor="primary"
                         textColor="var(--green)"
                         centered
-                        style={{ color:"grey"}}
+                        style={{ color: "grey" }}
                     >
                         <AntTab label="Ubah" />
                         <AntTab label="Pratinjau" />
                     </AntTabs>
                 </div>
-        
-                <div className={ value == 0 ? "tab-panel" : "hide"}>
+
+                <div className={value == 0 ? "tab-panel" : "hide"}>
                     <EditCarouselTab loading={loading} listSurvey={listSurvey} handleChoose={handleChoose} />
                 </div>
-                <div className={ value == 1 ? "tab-panel" : "hide"}>
+                <div className={value == 1 ? "tab-panel" : "hide"}>
                     <PreviewCarouselTab loading={loading} listCarousel={listCarousel} />
                 </div>
 
-                <div className="save-carousel" style={{position:"fixed", bottom:"30px", right:"30px", zIndex:"2"}}>
-                    <Button style={{ backgroundColor:"#399F4F"}} variant="contained" color="secondary" startIcon={<SaveIcon />} onClick={handleSubmit}>
+                <div className="save-carousel" style={{ position: "fixed", bottom: "30px", right: "30px", zIndex: "2" }}>
+                    <Button style={{ backgroundColor: "#399F4F" }} variant="contained" color="secondary" startIcon={<SaveIcon />} onClick={handleSubmit}>
                         Simpan Perubahan
                     </Button>
                 </div >

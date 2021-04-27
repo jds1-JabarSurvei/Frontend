@@ -70,39 +70,39 @@ class Login extends Component {
                     <img src={illustration} />
                 </div>
                 <div className="login-container">
-                <div className="field login-card shadow" style={{zIndex:"2", position:"relative", backgroundColor:"white"}}>
-                    <form className="login-form" onSubmit={this.handleSubmit}>
-                        <div className="form-group">
-                            <input data-testid="email_input" type="text" name="email" autoComplete="off" onChange={this.handleEmail} style={wrongEmail ? { borderBottom: `2px solid #A20E0E` } : {}} required />
-                            <label htmlFor="email" style={wrongEmail ? { color: `#A20E0E` } : {}}>Email</label>
-                            <h6 data-testid="email_validation_message" className="wrong">{wrongEmail ? "Email tidak valid" : ""}</h6>
-                        </div>
-                        <div className="form-group">
-                            <input data-testid="password_input" type={isVisible ? "text" : "password"} name="password" autoComplete="off" style={wrongPassword ? { borderBottom: `2px solid #A20E0E` } : {}} onChange={this.handlePassword} required />
-                            <label htmlFor="password" style={wrongPassword ? { color: `#A20E0E` } : {}}>Kata Sandi</label>
-                            <i
-                                className={`fa ${isVisible ? "fa-eye" : "fa-eye-slash"} password-icon`}
-                                style={isVisible ? (wrongPassword ? { color: '#A20E0E' } : { color: '#198754' }) : { color: '#999' }}
-                                onClick={this.toggleVisiblity}
-                            />
-                            <h6 className="wrong">{wrongPassword ? "Kata sandi salah" : ""}</h6>
-                        </div>
-                        <button data-testid="submit_login" disabled={this.context && this.context.loading || wrongEmail } type="submit" className="btn" style={{background:"var(--green)", color:"white", width:"100%", padding:"10px 0"}}>
-                            {
-                                this.context && this.context.loading ?
-                                    <div className="spinner-border spinner-border-sm text-light" role="status">
-                                        <span className="visually-hidden">Loading...</span>
-                                </div> :
-                                "Masuk"
-                            }
-                        </button>
-                    </form>
+                    <div className="field login-card shadow" style={{ zIndex: "2", position: "relative", backgroundColor: "white" }}>
+                        <form className="login-form" onSubmit={this.handleSubmit}>
+                            <div className="form-group">
+                                <input data-testid="email_input" type="text" name="email" autoComplete="off" onChange={this.handleEmail} style={wrongEmail ? { borderBottom: `2px solid #A20E0E` } : {}} required />
+                                <label htmlFor="email" style={wrongEmail ? { color: `#A20E0E` } : {}}>Email</label>
+                                <h6 data-testid="email_validation_message" className="wrong">{wrongEmail ? "Email tidak valid" : ""}</h6>
+                            </div>
+                            <div className="form-group">
+                                <input data-testid="password_input" type={isVisible ? "text" : "password"} name="password" autoComplete="off" style={wrongPassword ? { borderBottom: `2px solid #A20E0E` } : {}} onChange={this.handlePassword} required />
+                                <label htmlFor="password" style={wrongPassword ? { color: `#A20E0E` } : {}}>Kata Sandi</label>
+                                <i
+                                    className={`fa ${isVisible ? "fa-eye" : "fa-eye-slash"} password-icon`}
+                                    style={isVisible ? (wrongPassword ? { color: '#A20E0E' } : { color: '#198754' }) : { color: '#999' }}
+                                    onClick={this.toggleVisiblity}
+                                />
+                                <h6 className="wrong">{wrongPassword ? "Kata sandi salah" : ""}</h6>
+                            </div>
+                            <button data-testid="submit_login" disabled={this.context && this.context.loading || wrongEmail} type="submit" className="btn" style={{ background: "var(--green)", color: "white", width: "100%", padding: "10px 0" }}>
+                                {
+                                    this.context && this.context.loading ?
+                                        <div className="spinner-border spinner-border-sm text-light" role="status">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </div> :
+                                        "Masuk"
+                                }
+                            </button>
+                        </form>
+                    </div>
+                    <div className="intersect" style={{ position: "absolute", bottom: "0", right: "0", zIndex: "1" }}>
+                        <img src={intersect} />
+                    </div>
                 </div>
-                <div className="intersect" style={{position:"absolute", bottom:"0", right:"0", zIndex:"1"}}>
-                    <img src={intersect} />
-                </div>
-                </div>
-            </div>
+            </div >
         );
     }
 }

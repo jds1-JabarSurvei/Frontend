@@ -6,17 +6,16 @@ import { AuthContext } from 'contexts/AuthContext';
 class Index extends Component {
     static contextType = AuthContext;
 
-    render(){
-        console.log(this.props.history);
+    render() {
 
         return (
-            this.context.currentUser ? 
-                <SurveyList isAdmin={true}/>
-            :
-            <>
-                <Carousel history={this.props.history}/>
-                <SurveyList isAdmin={false}/>
-            </>
+            this.context.currentUser ?
+                <SurveyList isAdmin={true} />
+                :
+                <>
+                    <Carousel history={this.props.history} />
+                    <SurveyList isAdmin={false} />
+                </>
         );
     }
 }
