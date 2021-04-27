@@ -16,7 +16,7 @@ import Switch from "react-switch";
 
 
 const Question = ({ question, sectionIdx, questionIdx }) => {
-    const { activeSection, activeQuestion, updateActiveQuestion, deleteQuestion, updateQuestion } = useNewSurvey();
+    const { activeSection, activeQuestion, updateActiveQuestion, deleteQuestion, updateQuestion, isNewSurvey } = useNewSurvey();
     const questionComponents = {
         short_answer: Short,
         paragraph: Paragraph,
@@ -63,7 +63,7 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
     let RenderedQuestion = questionComponents[question.type];
 
     return (
-        
+
 
         <div className={isActive() ? "question-container-new active-question-new shadow" : "question-container-new"} onClick={toggleActive}>
             {isActive() ?
@@ -93,32 +93,27 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
                 <>
                     <hr />
                     <div className="question-setting-new">
-                        {/* <div className='question-icon-new' onClick={onDelete}><FontAwesomeIcon
-                            color="#5F6368"
-                            icon={faTrash}
-                        /></div> */}
-                        <Tooltip title="Hapus Pertanyaan" placement="right" arrow>
-                            <IconButton onClick={onDelete} aria-label="delete">
-                                <DeleteIcon />
-                            </IconButton>
-                        </Tooltip>
+                        {isNewSurvey ?
+                            <Tooltip title="Hapus Pertanyaan" placement="right" arrow>
+                                <IconButton onClick={onDelete} aria-label="delete">
+                                    <DeleteIcon />
+                                </IconButton>
+                            </Tooltip> : null}
                         <div className='slider-new'>
+
                             <Switch
                                 onChange={updateRequired}
-                                checked={parseInt(question.required)}
+                                checked={question.required}
                                 checkedIcon={false}
                                 uncheckedIcon={false}
                                 onColor='#399F4F'
                             />
+                            <div className="required-text">Required</div>
                         </div>
-                        {/* <div className='additional-settings-new'>
-                            <div className='question-icon-new'><FontAwesomeIcon
-                                color="#5F6368"
-                                icon={faEllipsisV}
-                            /></div>
-                        </div> */}
                     </div>
-                    <ToolBar />
+                    {isNewSurvey ?
+                        <ToolBar />
+                        : null}
                 </>
                 : null}
         </div>
