@@ -39,13 +39,13 @@ class SurveyList extends Component {
     }
 
     handleView = (event, nextView) => {
-        if (nextView !== null){
-            this.setState({view : nextView});
+        if (nextView !== null) {
+            this.setState({ view: nextView });
         }
     }
 
     handleSort = (event) => {
-        this.setState({sortBy : event.target.value});
+        this.setState({ sortBy: event.target.value });
     }
 
     handleModal = (id, title) => {
@@ -184,16 +184,16 @@ class SurveyList extends Component {
         const { isAdmin } = this.props;
 
         // Sort Data
-        let data = (sortBy == "alphabetAscending") ? 
+        let data = (sortBy == "alphabetAscending") ?
             listSurvey.sort(ascending)
             :
             (sortBy == "alphabetDescending") ?
-            listSurvey.sort(descending)
-            :
-            (sortBy == "timestampAscending") ?
-            listSurvey.sort((a, b) => a.time - b.time)
-            :
-            listSurvey.sort((a, b) => b.time - a.time)
+                listSurvey.sort(descending)
+                :
+                (sortBy == "timestampAscending") ?
+                    listSurvey.sort((a, b) => a.time - b.time)
+                    :
+                    listSurvey.sort((a, b) => b.time - a.time)
         return (
             <>
                 <SurveyMenu style={style} view={view} handleView={handleView} handleSearch={handleSearch} handleSort={handleSort} searchText={searchText} isAdmin={isAdmin} />
@@ -214,6 +214,7 @@ class SurveyList extends Component {
                                             return (
                                                 <SurveyCard
                                                     id={survey.id}
+                                                    key={survey.id}
                                                     title={survey.title}
                                                     owner={survey.owner}
                                                     time={survey.time}
@@ -246,6 +247,7 @@ class SurveyList extends Component {
                                                     return (
                                                         <SurveyTable
                                                             id={survey.id}
+                                                            key={survey.id}
                                                             title={survey.title}
                                                             owner={survey.owner}
                                                             time={survey.time}
