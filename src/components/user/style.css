@@ -51,9 +51,12 @@
 tr {
     cursor: pointer;
 }
+
 .dropdownMenuCard {
-    padding: 10px;
+    padding: 3px;
+    color: #333;
 }
+
 .dropdown-item {
     cursor: pointer;
 }
@@ -178,6 +181,8 @@ i {
 /* Survey List */
 .survey-list-container {
     min-height: calc(100vh - 60px);
+    
+    overflow-x: hidden;
 }
 .survey-list {
     margin-bottom: 50px;
@@ -206,6 +211,10 @@ i {
     border: solid black;
 }
 
+#detail {
+    resize: none
+}
+
 @media only screen and (max-width:750px){
     .sort-flex {
         flex-basis: 100%;
@@ -219,3 +228,4 @@ i {
         width: 100%;
     }
 }
+

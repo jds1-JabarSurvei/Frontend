@@ -1,8 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from 'contexts/AuthContext';
-import APICall from 'utils/axios';
-import { toast } from 'react-toastify';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 function SurveyCard(props) {
     const { id, title, owner, time, imagesource, isAdmin, handleModal } = props;
@@ -15,31 +16,23 @@ function SurveyCard(props) {
         const year = a.getFullYear();
         const month = months[a.getMonth()];
         const date = a.getDate();
-        // const hour = ("0" + a.getHours()).slice(-2);
-        // const min = ("0" + a.getMinutes()).slice(-2);
-        // const sec = ("0" + a.getSeconds()).slice(-2);
-        // const time = date + ' ' + month + ' ' + year + " " + hour + ":" + min + ":" + sec;
         const time = date + ' ' + month + ' ' + year;
         return time;
     }
     
     const date = timeConverter(time);
 
-    const onSurveyClick = (id) => {
-        if (!currentUser) {
-            history.push(`/survey/${id}`);
-        } else {
-            history.push(`admin/survey/${id}`);
-        }
+    const handleClickMenu = (id, toPage) => {
+        history.push(`admin/survey/${toPage}/${id}`);
     }
 
     return (
             <div className="col pb-4" >
                 <div className="card shadow-sm h-100">
-                    <img src={imagesource} className="survey-img card-img-top" height="100%" width="auto" alt={title} onClick={() => onSurveyClick(id)}/>
+                    <img src={imagesource} className="survey-img card-img-top" height="100%" width="auto" alt={title} />
                     <div className="card-body">
                         <div className="row ">
-                            <div className="col-9"  onClick={() => onSurveyClick(id)}>
+                            <div className="col-9">
                                 <h5 className="card-title">{title}</h5>
                                 <h6 className="card-text">oleh: {owner}</h6>
                                 <h6 className="text-muted" style={{fontSize:"12px"}}>{date}</h6>
@@ -50,8 +43,9 @@ function SurveyCard(props) {
                             <div className="dropdown">
                                 <i className="fas fa-ellipsis-v menuCard" id={id} data-bs-toggle="dropdown" aria-expanded="false"></i>
                                     <ul className="dropdown-menu" aria-labelledby={id}>
-                                        <li><span className="dropdown-item"><i className="far fa-edit dropdownMenuCard"></i> UBAH</span></li>
-                                        <li onClick={() => handleModal(`${id}`)}><span className="dropdown-item"><i className="far fa-trash-alt dropdownMenuCard"></i> HAPUS</span></li>
+                                        <li onClick={ () => handleClickMenu(id, "response")} ><span className="dropdown-item"><VisibilityIcon className="dropdownMenuCard" />     Lihat Hasil</span></li>
+                                        <li onClick={ () => handleClickMenu(id, "edit")} ><span className="dropdown-item"><EditIcon className="dropdownMenuCard"/>     Ubah</span></li>
+                                        <li onClick={ () => handleModal(id, title)} ><span className="dropdown-item"><DeleteIcon className="dropdownMenuCard" />     Hapus</span></li>
                                     </ul>
                                     
                             </div> : ""

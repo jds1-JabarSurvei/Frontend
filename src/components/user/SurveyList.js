@@ -18,6 +18,7 @@ class SurveyList extends Component {
 
         // Delete Survey
         idToDelete: 0,
+        titleToDelete: "",
 
         // Loading
         loading: true,
@@ -48,9 +49,9 @@ class SurveyList extends Component {
         this.setState({sortBy : event.target.value});
     }
 
-    handleModal = (id) => {
+    handleModal = (id, title) => {
         const { showModal } = this.state;
-        this.setState({ showModal: !showModal, idToDelete: id });
+        this.setState({ showModal: !showModal, idToDelete: id, titleToDelete: title });
     }
 
     handleDelete = () => {
@@ -273,7 +274,8 @@ class SurveyList extends Component {
                 >
                     <Modal.Body className="modal-body">
                         <i className="fas fa-exclamation-circle text-danger"></i>
-                        <h4>Hapus Survei?</h4>
+                        <h5>Anda yakin untuk menghapus</h5>
+                        <h4>"{this.state.titleToDelete}" ?</h4>
                         <button type="button" className="btn btn-secondary" onClick={() => handleModal(0)}>Kembali</button>
                         <button type="button" className="btn btn-danger" onClick={handleDelete}>Hapus</button>
                     </Modal.Body>

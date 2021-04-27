@@ -61,7 +61,10 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
     }
 
     let RenderedQuestion = questionComponents[question.type];
+
     return (
+        
+
         <div className={isActive() ? "question-container-new active-question-new shadow" : "question-container-new"} onClick={toggleActive}>
             {isActive() ?
                 <>
@@ -102,7 +105,7 @@ const Question = ({ question, sectionIdx, questionIdx }) => {
                         <div className='slider-new'>
                             <Switch
                                 onChange={updateRequired}
-                                checked={question.required}
+                                checked={parseInt(question.required)}
                                 checkedIcon={false}
                                 uncheckedIcon={false}
                                 onColor='#399F4F'

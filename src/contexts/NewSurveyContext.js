@@ -48,7 +48,7 @@ const NewSurveyContextProvider = (props) => {
                                 id: uuid.v4(),
                                 title: pertanyaan.pertanyaan,
                                 description: pertanyaan.deskripsi,
-                                required: pertanyaan.required ? "1" : "0",
+                                required: pertanyaan.required,
                                 type: pertanyaan.tipe,
                                 options: tempOption,
                             }
