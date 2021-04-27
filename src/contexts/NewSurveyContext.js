@@ -22,10 +22,12 @@ const NewSurveyContextProvider = (props) => {
     const [editedFormID, setEditedFormID] = useState(-1);
     const history = useHistory();
     const [loading, setLoading] = useState(false);
-    const [deletedFormId, setDeletedFieldId] = useState([]);
+    const [deletedField, setDeletedField] = useState([]);
+    const [deletedSection, setDeletedSection] = useState([]);
 
     const fillQuestion = async (isNew, formId) => {
-        setDeletedFieldId([]);
+        setDeletedField([]);
+        setDeletedSection([]);
         if (!isNew) {
             setLoading(true);
             await APICall.get(`formQuestions/${formId}`)
@@ -172,6 +174,9 @@ const NewSurveyContextProvider = (props) => {
         let tempSections = [...sections];
         tempSections.splice(sectionIdx, 1);
         setSections(tempSections);
+        if (isNewSurvey) {
+            setDeletedSection(sectionIdx);
+        }
         toast.error('Bagian telah Dihapus');
     }
 
@@ -213,7 +218,7 @@ const NewSurveyContextProvider = (props) => {
         let tempSections = [...sections];
         let deleted = tempSections[sectionIdx].questions.splice(questionIdx, 1);
         if (deleted.length > 0 && deleted[0].id_form_field) {
-            setDeletedFieldId([...deletedFormId, deleted[0].id_form_field]);
+            setDeletedField([...deletedField, deleted[0].id_form_field]);
         }
         setSections(tempSections);
     }
@@ -297,8 +302,8 @@ const NewSurveyContextProvider = (props) => {
                 })
         } else {
             payload.id_form = editedFormID;
-            payload.deletedFieldId = deletedFormId;
-            console.log(payload.deletedFieldId)
+            payload.deletedField = deletedField;
+            payload.deletedSection = deletedSection;
             await APICall.post('editform', payload)
                 .then(() => {
                     history.push('/admin');
@@ -314,8 +319,8 @@ const NewSurveyContextProvider = (props) => {
 
     }
 
-    const adddeletedFormId = (id) => {
-        setDeletedFieldId([...deletedFormId, id]);
+    const adddeletedField = (id) => {
+        setDeletedField([...deletedField, id]);
     }
 
     const value = {
@@ -340,7 +345,7 @@ const NewSurveyContextProvider = (props) => {
         deleteQuestion,
         updateQuestion,
         submitForm,
-        adddeletedFormId
+        adddeletedField
     }
 
     return (
