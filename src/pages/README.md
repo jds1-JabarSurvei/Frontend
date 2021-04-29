@@ -1,6 +1,39 @@
 # Pages
 This folder is for storing components that represents a page. Filename must be in <b>Pascal Case</b>.
 
-Example: `Login.js`, `Registration.js`, `Dashboard.js`, `SurveyList.js`
+The structure of this folder is :
+```
+pages
+|--admin
+|----carousel
+|------EditCarouselPage.js
+|------EditCarouselPage.js
+|------PreviewCarouselTab.js
+|----Index.js
+|----NewSurvey.js
+|----ResponsesField.js
+|----SurveyDetailPage.js
+|----SurveyResponses.js
+|----style.css
+|--user
+|----Index.js
+|----style.css
+|--Example.js
+|--Homepage.js
+|--Login.js
+|--NotFound.js
+|--Register.js
+|--style.css
+```
 
-You can group similar pages in a folder, like `Login.js` and `Registration.js` in a `Login` folder.
+## Homepage.js
+This file handle page `/` and `/admin`.
+
+## Login.js
+This file handle page `/login`.
+
+## NotFound.js
+This file handle not found page.
+
+## Register.js
+This file handle page `/admin/register`.

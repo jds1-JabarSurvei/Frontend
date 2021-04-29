@@ -1,15 +1,11 @@
 import React from 'react';
 import './style.css';
 import Logo from 'assets/images/logo_jds.png';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faYoutubeSquare,
-    faInstagramSquare,
-    faFacebookSquare,
-    faTwitterSquare,
-    faLinkedin,
-    faMedium
-} from '@fortawesome/free-brands-svg-icons';
+import YouTubeIcon from '@material-ui/icons/YouTube';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -64,40 +60,19 @@ const Footer = () => {
                 </span>
                     <div className="footer-socials-icons">
                         <a className="social-icon">
-                            <FontAwesomeIcon
-                                color="#A82400"
-                                icon={faYoutubeSquare}
-                            />
+                            <YouTubeIcon fontSize="large" style={{ color :"#A82400"}}/>
                         </a>
                         <a className="social-icon">
-                            <FontAwesomeIcon
-                                color="#EA2C59"
-                                icon={faInstagramSquare}
-                            />
+                            <InstagramIcon fontSize="large" style={{ color :"#EA2C59"}} />
                         </a>
                         <a className="social-icon">
-                            <FontAwesomeIcon
-                                color="#3B5998"
-                                icon={faFacebookSquare}
-                            />
+                            <FacebookIcon fontSize="large" style={{ color :"#3B5998"}} />
                         </a>
                         <a className="social-icon">
-                            <FontAwesomeIcon
-                                color="#1DA1F2"
-                                icon={faTwitterSquare}
-                            />
+                            <TwitterIcon fontSize="large" style={{ color :"#1DA1F2"}} />
                         </a>
                         <a className="social-icon">
-                            <FontAwesomeIcon
-                                color="#007BB6"
-                                icon={faLinkedin}
-                            />
-                        </a>
-                        <a className="social-icon">
-                            <FontAwesomeIcon
-                                color="#000000"
-                                icon={faMedium}
-                            />
+                            <LinkedInIcon fontSize="large" style={{ color :"#007BB6"}}/>
                         </a>
                     </div>
                 </div>

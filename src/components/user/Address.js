@@ -1,8 +1,6 @@
 import { Component } from 'react';
 import axios from "axios";
 
-
-
 class Address extends Component {
     state = {
         token: "",
@@ -50,10 +48,12 @@ class Address extends Component {
         const index = e.nativeEvent.target.selectedIndex;
         this.setState({ jawaban : {
             ...jawaban,
-            provinsi: e.nativeEvent.target[index].text
+            provinsi: e.nativeEvent.target[index].text,
+            kabupaten: " ",
+            kecamatan: " ",
+            kelurahan: " "
         }})
 
-        // Call API
         if(e.target.value != 0){
             axios.get(`https://x.rajaapi.com/MeP7c5ne${this.state.token}/m/wilayah/kabupaten?idpropinsi=${e.target.value}`)
             .then(res => {
@@ -75,7 +75,9 @@ class Address extends Component {
         const index = e.nativeEvent.target.selectedIndex;
         this.setState({ jawaban : {
             ...jawaban,
-            kabupaten: e.nativeEvent.target[index].text
+            kabupaten: e.nativeEvent.target[index].text,
+            kecamatan: " ",
+            kelurahan: " "
         }})
         
         // Call API
@@ -99,7 +101,8 @@ class Address extends Component {
         const index = e.nativeEvent.target.selectedIndex;
         this.setState({ jawaban : {
             ...jawaban,
-            kecamatan: e.nativeEvent.target[index].text
+            kecamatan: e.nativeEvent.target[index].text,
+            kelurahan: " "
         }})
         
         // Call API
@@ -135,8 +138,8 @@ class Address extends Component {
 
     componentDidUpdate(prevState){
         if(this.state.jawaban && this.state.jawaban.provinsi && this.state.jawaban.kabupaten && this.state.jawaban.kecamatan && this.state.jawaban.kelurahan){
-            console.log("yoooo");
-            console.log(this.state.jawaban);
+            // console.log("yoooo");
+            // console.log(this.state.jawaban);
             this.props.getAnswerAlamat(this.state.jawaban);
         }
         
@@ -193,10 +196,9 @@ class Address extends Component {
                             })
                         }
                     </select>
-                    {/* <textarea className="detail"></textarea> */}
                     <div>
-                        <label for="detail">Keterangan</label>
-                        <input type="text" className="form-control detail" id="detail" onChange={this.handleDetail.bind(this)}></input>
+                        <label for="detail">Alamat Lengkap</label>
+                        <textarea className="form-control" id="detail" rows="3" onChange={this.handleDetail.bind(this)}></textarea>
                     </div>
                 </form>
             </div>

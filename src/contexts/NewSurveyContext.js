@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import APICall from 'utils/axios';
 import { useHistory } from 'react-router-dom';
 import * as uuid from "uuid";
+import { useAuth } from 'contexts/AuthContext';
 
 export const NewSurveyContext = createContext();
 
@@ -22,8 +23,13 @@ const NewSurveyContextProvider = (props) => {
     const [editedFormID, setEditedFormID] = useState(-1);
     const history = useHistory();
     const [loading, setLoading] = useState(false);
+    const [deletedField, setDeletedField] = useState([]);
+    const [deletedSection, setDeletedSection] = useState([]);
+    const { currentUser } = useAuth();
 
     const fillQuestion = async (isNew, formId) => {
+        setDeletedField([]);
+        setDeletedSection([]);
         if (!isNew) {
             setLoading(true);
             await APICall.get(`formQuestions/${formId}`)
@@ -46,9 +52,10 @@ const NewSurveyContextProvider = (props) => {
                                 id: uuid.v4(),
                                 title: pertanyaan.pertanyaan,
                                 description: pertanyaan.deskripsi,
-                                required: pertanyaan.required ? "1" : "0",
+                                required: pertanyaan.required,
                                 type: pertanyaan.tipe,
                                 options: tempOption,
+                                id_form_field: pertanyaan.id_form_field,
                             }
                             tempSection.questions.push(tempQuestion);
                         });
@@ -141,6 +148,27 @@ const NewSurveyContextProvider = (props) => {
         toast('Bagian Baru telah Ditambahkan');
     }
 
+    const addLastSection = () => {
+        let prevLength = sections.length;
+        setSections([...sections, {
+            title: 'Judul',
+            description: 'Deskripsi',
+            questions: [
+                {
+                    id: uuid.v4(),
+                    type: 'short_answer',
+                    title: 'Pertanyaan',
+                    description: 'Question description 2',
+                    required: true,
+                    options: [],
+                },
+            ],
+        }]);
+        setActiveSection(prevLength);
+        setActiveQuestion(0);
+        toast('Bagian Baru telah Ditambahkan');
+    }
+
     const deleteSection = (sectionIdx) => {
         if (sections.length <= 1) {
             return;
@@ -148,6 +176,9 @@ const NewSurveyContextProvider = (props) => {
         let tempSections = [...sections];
         tempSections.splice(sectionIdx, 1);
         setSections(tempSections);
+        if (isNewSurvey) {
+            setDeletedSection(sectionIdx);
+        }
         toast.error('Bagian telah Dihapus');
     }
 
@@ -171,9 +202,26 @@ const NewSurveyContextProvider = (props) => {
         toast('Pertanyaan Baru telah Ditambahkan');
     }
 
+    const addLastQuestion = () => {
+        let tempSections = [...sections];
+        tempSections[sections.length - 1].questions.push({
+            id: uuid.v4(),
+            type: 'short_answer',
+            title: 'Pertanyaan',
+            description: 'Question description 2',
+            required: true,
+            options: [],
+        });
+        setSections(tempSections);
+        toast('Pertanyaan Baru telah Ditambahkan');
+    }
+
     const deleteQuestion = (sectionIdx, questionIdx) => {
         let tempSections = [...sections];
-        tempSections[sectionIdx].questions.splice(questionIdx, 1);
+        let deleted = tempSections[sectionIdx].questions.splice(questionIdx, 1);
+        if (deleted.length > 0 && deleted[0].id_form_field) {
+            setDeletedField([...deletedField, deleted[0].id_form_field]);
+        }
         setSections(tempSections);
     }
 
@@ -198,7 +246,7 @@ const NewSurveyContextProvider = (props) => {
         let payload = {};
         let tempSections = [...sections];
         // const firstSection = tempSections[0];
-        payload.user_id = "1";
+        payload.user_id = currentUser.id;
         // payload.judulForm = firstSection.title;
         payload.judulForm = formTitle;
         payload.bagian = [];
@@ -225,6 +273,7 @@ const NewSurveyContextProvider = (props) => {
                     urutan: (idx + 1).toString(),
                     tipe: question.type,
                     option: tempOption,
+                    id_form_field: question.id_form_field ? question.id_form_field : null,
                 }
                 tempBagian.pertanyaan.push(tempPertanyaan);
             });
@@ -255,7 +304,8 @@ const NewSurveyContextProvider = (props) => {
                 })
         } else {
             payload.id_form = editedFormID;
-            console.log(payload);
+            payload.deletedField = deletedField;
+            payload.deletedSection = deletedSection;
             await APICall.post('editform', payload)
                 .then(() => {
                     history.push('/admin');
@@ -271,6 +321,10 @@ const NewSurveyContextProvider = (props) => {
 
     }
 
+    const adddeletedField = (id) => {
+        setDeletedField([...deletedField, id]);
+    }
+
     const value = {
         isNewSurvey,
         fileImage,
@@ -284,13 +338,16 @@ const NewSurveyContextProvider = (props) => {
         deleteFileImage,
         updateFormTitle,
         addSection,
+        addLastSection,
         deleteSection,
         updateSection,
         updateActiveQuestion,
         addQuestion,
+        addLastQuestion,
         deleteQuestion,
         updateQuestion,
-        submitForm
+        submitForm,
+        adddeletedField
     }
 
     return (

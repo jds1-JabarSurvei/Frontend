@@ -3,20 +3,11 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle, faFile } from '@fortawesome/free-solid-svg-icons';
 import { useNewSurvey } from 'contexts/NewSurveyContext';
-import {
-    Overlay
-} from 'react-bootstrap'
 import useWindowSize from 'hooks/useWindowSize';
 
 const ToolBar = () => {
     const { addQuestion, addSection } = useNewSurvey();
-    const [showQuestion, setShowQuestion] = useState(false);
-    const [showSection, setShowSection] = useState(false);
-    const questionRef = useRef(null);
-    const sectionRef = useRef(null);
     const size = useWindowSize();
 
     return (
@@ -36,7 +27,7 @@ const ToolBar = () => {
                     <InsertDriveFileIcon />
                 </IconButton>
             </Tooltip>
-            
+
             {/* <Overlay target={questionRef.current} show={showQuestion} placement="right">
                 {(props) => (
                     // <Tooltip {...props}>
