@@ -52,9 +52,9 @@ const AuthContextProvider = (props) => {
         })
             .then(res => {
                 /* If successful */
-                console.log(jwt(cookies.get('jds')));
                 if (res.data.login === "Success") {
-                    updateCurrentUser(jwt(cookies.get('jds')));
+                    cookies.set('jds', res.data.token)
+                    updateCurrentUser(jwt(res.data.token));
                     history.push('/admin');
                     // Agar terbaca footer regex
                     window.location.reload();
