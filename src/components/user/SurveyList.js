@@ -1,13 +1,12 @@
 import { Component } from 'react';
 import { Modal } from 'react-bootstrap';
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
 import SurveyCard from 'components/user/SurveyCard';
 import SurveyCardAdd from 'components/user/SurveyCardAdd';
 import SurveyTableAdd from 'components/user/SurveyTableAdd';
 import SurveyTable from 'components/user/SurveyTable';
 import SurveyMenu from 'components/user/SurveyMenu';
 import APICall from '../../utils/axios';
-import Loading from '../common/Loading';
 
 class SurveyList extends Component {
     state = {
@@ -18,6 +17,7 @@ class SurveyList extends Component {
 
         // Delete Survey
         idToDelete: 0,
+        titleToDelete: "",
 
         // Loading
         loading: true,
@@ -39,18 +39,18 @@ class SurveyList extends Component {
     }
 
     handleView = (event, nextView) => {
-        if (nextView !== null){
-            this.setState({view : nextView});
+        if (nextView !== null) {
+            this.setState({ view: nextView });
         }
     }
 
     handleSort = (event) => {
-        this.setState({sortBy : event.target.value});
+        this.setState({ sortBy: event.target.value });
     }
 
-    handleModal = (id) => {
+    handleModal = (id, title) => {
         const { showModal } = this.state;
-        this.setState({ showModal: !showModal, idToDelete: id });
+        this.setState({ showModal: !showModal, idToDelete: id, titleToDelete: title });
     }
 
     handleDelete = () => {
@@ -184,16 +184,16 @@ class SurveyList extends Component {
         const { isAdmin } = this.props;
 
         // Sort Data
-        let data = (sortBy == "alphabetAscending") ? 
+        let data = (sortBy == "alphabetAscending") ?
             listSurvey.sort(ascending)
             :
             (sortBy == "alphabetDescending") ?
-            listSurvey.sort(descending)
-            :
-            (sortBy == "timestampAscending") ?
-            listSurvey.sort((a, b) => a.time - b.time)
-            :
-            listSurvey.sort((a, b) => b.time - a.time)
+                listSurvey.sort(descending)
+                :
+                (sortBy == "timestampAscending") ?
+                    listSurvey.sort((a, b) => a.time - b.time)
+                    :
+                    listSurvey.sort((a, b) => b.time - a.time)
         return (
             <>
                 <SurveyMenu style={style} view={view} handleView={handleView} handleSearch={handleSearch} handleSort={handleSort} searchText={searchText} isAdmin={isAdmin} />
@@ -214,6 +214,7 @@ class SurveyList extends Component {
                                             return (
                                                 <SurveyCard
                                                     id={survey.id}
+                                                    key={survey.id}
                                                     title={survey.title}
                                                     owner={survey.owner}
                                                     time={survey.time}
@@ -246,6 +247,7 @@ class SurveyList extends Component {
                                                     return (
                                                         <SurveyTable
                                                             id={survey.id}
+                                                            key={survey.id}
                                                             title={survey.title}
                                                             owner={survey.owner}
                                                             time={survey.time}
@@ -273,7 +275,8 @@ class SurveyList extends Component {
                 >
                     <Modal.Body className="modal-body">
                         <i className="fas fa-exclamation-circle text-danger"></i>
-                        <h4>Hapus Survei?</h4>
+                        <h5>Anda yakin untuk menghapus</h5>
+                        <h4>"{this.state.titleToDelete}" ?</h4>
                         <button type="button" className="btn btn-secondary" onClick={() => handleModal(0)}>Kembali</button>
                         <button type="button" className="btn btn-danger" onClick={handleDelete}>Hapus</button>
                     </Modal.Body>

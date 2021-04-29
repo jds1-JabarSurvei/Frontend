@@ -1,4 +1,4 @@
 # Assets
-Assets folder is used to store static file that is used. Please group similar file with each other.
+Assets folder is used to store static file that is used.
 
-Example: images, fonts, etc.
+Example: images, icons, fonts, etc.

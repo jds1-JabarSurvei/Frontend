@@ -4,22 +4,21 @@ import Footer from 'components/common/Footer';
 import ScrollToTop from 'components/common/ScrollToTop';
 // Pages
 import Login from 'pages/Login';
+import NotFound from 'pages/NotFound';
 import Register from 'pages/Register';
 import UserIndex from 'pages/user/Index';
 import AdminIndex from 'pages/admin/Index';
 import NewSurvey from 'pages/admin/NewSurvey';
-import SurveyResponse from 'pages/admin/SurveyResponse';
-import NotFound from 'pages/NotFound';
 import SurveyPage from 'pages/user/SurveyPage';
-import SurveyDetailPage from 'pages/admin/SurveyDetailPage';
+import SurveyEditPage from 'pages/admin/SurveyEditPage';
+import SurveyResponsePage from 'pages/admin/SurveyResponsePage';
 import EditCarouselPage from 'pages/admin/carousel/EditCarouselPage';
 
 // Others
 import './App.css';
-import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
-import AuthContextProvider, { useAuth } from 'contexts/AuthContext';
-import NewSurveyContextProvider from 'contexts/NewSurveyContext';
 import Loading from 'components/common/Loading';
+import AuthContextProvider, { useAuth } from 'contexts/AuthContext';
+import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 
 function App() {
   return (
@@ -34,9 +33,9 @@ function App() {
                 <PrivateRoute exact path="/admin" component={AdminIndex} />
                 <PrivateRoute exact path="/admin/register" component={Register} />
                 <PrivateRoute exact path="/admin/survey/new" component={NewSurvey} />
-                <PrivateRoute exact path="/admin/survey/:id" component={SurveyDetailPage} />
                 <PrivateRoute exact path="/admin/carousel" component={EditCarouselPage} />
-                {/* <PrivateRoute exact path="/admin/survey/response/:id" component={SurveyResponse} /> */}
+                <PrivateRoute exact path="/admin/survey/response/:id" component={SurveyResponsePage} />
+                <PrivateRoute exact path="/admin/survey/edit/:id" component={SurveyEditPage} />
                 <PrivateRoute exact path="/" component={UserIndex} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/survey/:id" component={SurveyPage} />

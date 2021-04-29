@@ -1,11 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import Question from './Question';
 import ToolBar from './ToolBar';
 import { useNewSurvey } from 'contexts/NewSurveyContext';
-import { text } from '@fortawesome/fontawesome-svg-core';
 
 const Section = ({ section, idx, length }) => {
-    const { activeSection, activeQuestion, updateActiveQuestion, deleteSection, updateSection } = useNewSurvey();
+    const { activeSection, activeQuestion, updateActiveQuestion, deleteSection, updateSection, isNewSurvey } = useNewSurvey();
     const textareaRef = useRef();
 
     const onRemove = () => {
@@ -35,7 +34,7 @@ const Section = ({ section, idx, length }) => {
 
     return (
         <div className="section-container-new">
-            {activeSection === idx ? <button className="remove-section-new" onClick={onRemove}>HAPUS BAGIAN</button> : null}
+            {activeSection === idx && isNewSurvey ? <button className="remove-section-new" onClick={onRemove}>HAPUS BAGIAN</button> : null}
             <div className="section-header-new" onClick={toggleActive}>
                 <div className="section-count-new">BAGIAN {idx + 1} DARI {length}</div>
                 <div className={isActive() ?
@@ -43,7 +42,9 @@ const Section = ({ section, idx, length }) => {
                 }>
                     {isActive() ?
                         <>
-                            <ToolBar />
+                            {isNewSurvey ?
+                                <ToolBar />
+                                : null}
                             <div className="edit-section-new">
                                 <div className="input-text-box input-section">
                                     <input className="input-text-new" type="text" defaultValue={section.title} onChange={(e) => updateSectionInfo('title', e.target.value)} />
