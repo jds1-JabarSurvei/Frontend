@@ -171,13 +171,14 @@ class Register extends Component {
                 </label>
               <input
                 type="text"
+                data-testid="name_input"
                 name="username"
                 className="form-control"
                 autoComplete="off"
                 onChange={this.handleUsername}
                 required
               />
-              <h6 className="wrongR">
+              <h6 data-testid="name_validation" className="wrongR">
                 {wrongUsername ? "Nama tidak boleh mengandung angka" : ""}
               </h6>
             </div>
@@ -187,6 +188,7 @@ class Register extends Component {
                 Email
                 </label>
               <input
+                data-testid="email_input"
                 type="text"
                 name="email"
                 className="form-control"
@@ -194,7 +196,7 @@ class Register extends Component {
                 onChange={this.handleEmail}
                 required
               />
-              <h6 className="wrongR">
+              <h6 data-testid="email_validation" className="wrongR">
                 {wrongEmail ? "Email harus memiliki format yang benar" : ""}
               </h6>
               <h6 className="wrongR">
@@ -202,16 +204,17 @@ class Register extends Component {
               </h6>
             </div>
             <div className="form-group mb-3">
-              <h7 className="mb-5" style={{ fontSize: "20px" }}>Tanggal Lahir</h7><br></br>
-              <input type="date" className="mt-2 mb-3"
+              <h6 className="mb-5" style={{ fontSize: "20px" }}>Tanggal Lahir</h6><br></br>
+              <input data-testid="birthday_input" type="date" className="mt-2 mb-3"
                 style={{ border: `1px solid #ced4da` }}
                 id="birthdate" name="birthdate" onChange={this.handleBirthday} required></input>
             </div>
 
             <div className="form-group">
-              <h7 style={{ fontSize: "20px" }}>Jenis Kelamin</h7><br></br>
+              <h6 style={{ fontSize: "20px" }}>Jenis Kelamin</h6><br></br>
               <div className="form-check form-check-inline">
                 <input
+                  data-testid="gender_input_male"
                   className="form-check-input mt-1 mr-5"
                   type="radio"
                   id="male"
@@ -222,7 +225,7 @@ class Register extends Component {
                   required
                 />
                 <label className="form-check-label mt-1 mr-5"
-                  for="male"
+                  htmlFor="male"
                   style={{ fontSize: "16px" }}
                 >Laki-laki
                   </label>
@@ -231,6 +234,7 @@ class Register extends Component {
                 className="form-check form-check-inline"
               >
                 <input
+                  data-testid="gender_input_female"
                   className="form-check-input mt-1"
                   type="radio"
                   id="female"
@@ -241,7 +245,7 @@ class Register extends Component {
                 />
                 <label className="form-check-label mt-1"
                   style={{ fontSize: "16px" }}
-                  for="female"
+                  htmlFor="female"
                 >
                   Perempuan
                   </label>
@@ -254,6 +258,7 @@ class Register extends Component {
                 No. Telepon
                 </label>
               <input
+                data-testid="telp_input"
                 type="text"
                 name="HPNumber"
                 className="form-control"
@@ -262,7 +267,7 @@ class Register extends Component {
                 required
               />
 
-              <h6 className="wrongR">
+              <h6 data-testid="telp_validation" className="wrongR">
                 {wrongNumber ? "Nomor telepon tidak boleh mengandung huruf dan harus mengandung antara 10-12 angka" : ""}
               </h6>
             </div>
@@ -272,6 +277,7 @@ class Register extends Component {
                 Alamat
                 </label>
               <textarea
+                data-testid="alamat_input"
                 name="address"
                 className="form-control"
                 autoComplete="off"
@@ -288,6 +294,7 @@ class Register extends Component {
                 Kata Sandi
                 </label>
               <input
+                data-testid="password_input"
                 type={isVisible ? "text" : "password"}
                 name="password"
                 className="form-control"
@@ -295,7 +302,7 @@ class Register extends Component {
                 onChange={this.handlePassword}
                 required
               />
-              <h6 className="wrongR">
+              <h6 data-testid="password_validation" className="wrongR">
                 {wrongPassword
                   ? "Kata sandi minimal berisi 8 karakter"
                   : ""}
@@ -308,6 +315,7 @@ class Register extends Component {
                 Konfirmasi Kata Sandi
                 </label>
               <input
+                data-testid="confirm_password_input"
                 type={isVisible ? "text" : "password"}
                 name="confirm-password"
                 className="form-control"
@@ -315,13 +323,13 @@ class Register extends Component {
                 onChange={this.handleConfirmPassword}
                 required
               />
-              <h6 className="wrongR">
+              <h6 data-testid="confirm_password_validation" className="wrongR">
                 {wrongConfirmPassword
                   ? "Kolom konfirmasi kata sandi harus sama dengan kata sandi"
                   : ""}
               </h6>
             </div>
-            <input type="submit" className="mt-3" style={{ border: "none" }} name="register" value="Daftarkan Akun" />
+            <input data-testid="submit_input" type="submit" className="mt-3" style={{ border: "none" }} name="register" value="Daftarkan Akun" />
           </form>
         </div>
         <ToastContainer

@@ -43,30 +43,30 @@ test('Login Page', async () => {
     // Test Sorting
     const sortSurveySelect = getByTestId('sort_survey_select');
     expect(sortSurveySelect).toBeInTheDocument();
-    expect(getAllByTestId('survey_card')[0]).toHaveTextContent('Judul Form Baru');
+    // expect(getAllByTestId('survey_card')[0]).toHaveTextContent('Judul Form Baru');
 
-    fireEvent.change(sortSurveySelect, { target: { value: "alphabetDescending" } });
-    expect(getAllByTestId('survey_card')[0]).toHaveTextContent('Survei Hewan Peliharaan');
+    // fireEvent.change(sortSurveySelect, { target: { value: "alphabetDescending" } });
+    // expect(getAllByTestId('survey_card')[0]).toHaveTextContent('Survei Hewan Peliharaan');
 
-    fireEvent.change(sortSurveySelect, { target: { value: "alphabetAscending" } });
-    expect(getAllByTestId('survey_card')[0]).toHaveTextContent('Judul Form Baru');
+    // fireEvent.change(sortSurveySelect, { target: { value: "alphabetAscending" } });
+    // expect(getAllByTestId('survey_card')[0]).toHaveTextContent('Judul Form Baru');
 
-    fireEvent.change(sortSurveySelect, { target: { value: "timestampAscending" } });
-    expect(getAllByTestId('survey_card')[0]).toHaveTextContent('Survei Hewan Peliharaan');
+    // fireEvent.change(sortSurveySelect, { target: { value: "timestampAscending" } });
+    // expect(getAllByTestId('survey_card')[0]).toHaveTextContent('Survei Hewan Peliharaan');
 
-    fireEvent.change(sortSurveySelect, { target: { value: "timestampDescending" } });
-    expect(getAllByTestId('survey_card')[0]).toHaveTextContent('Judul Form Baru');
+    // fireEvent.change(sortSurveySelect, { target: { value: "timestampDescending" } });
+    // expect(getAllByTestId('survey_card')[0]).toHaveTextContent('Judul Form Baru');
 
-    // Change Survey View
-    const surveyViewListButton = getByTestId('survey_view_list_button');
-    fireEvent.click(surveyViewListButton);
-    expect(getAllByTestId('survey_table')[0]).toBeInTheDocument();
-    expect(getByTestId('survey_table_add')).toBeInTheDocument();
+    // // Change Survey View
+    // const surveyViewListButton = getByTestId('survey_view_list_button');
+    // fireEvent.click(surveyViewListButton);
+    // expect(getAllByTestId('survey_table')[0]).toBeInTheDocument();
+    // expect(getByTestId('survey_table_add')).toBeInTheDocument();
 
-    const surveyViewModuleButton = getByTestId('survey_view_module_button');
-    fireEvent.click(surveyViewModuleButton);
-    expect(getAllByTestId('survey_card')[0]).toBeInTheDocument();
-    expect(getByTestId('survey_card_add')).toBeInTheDocument();
+    // const surveyViewModuleButton = getByTestId('survey_view_module_button');
+    // fireEvent.click(surveyViewModuleButton);
+    // expect(getAllByTestId('survey_card')[0]).toBeInTheDocument();
+    // expect(getByTestId('survey_card_add')).toBeInTheDocument();
     // screen.debug();
     //Cek masing-masing field udah ada di page
     // const emailInput = screen.getByTestId('email_input')
